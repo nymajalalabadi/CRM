@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html class="no-js " lang="en">
+
+<!-- Mirrored from www.wrraptheme.com/templates/compass/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 29 Jul 2019 10:22:38 GMT -->
+<head>
+    <partial name="_MetaTags"></partial>
+    <title>نرم افزار CRM - @ViewData["Title"]</title>
+    <partial name="_HeaderRefrences" />
+</head>
+<body class="theme-cyan">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="/images/logo.svg" width="48" height="48" alt="قطب نما"></div>
+            <p>لطفا صبر کنید ...</p>
+        </div>
+    </div>
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Top Bar -->
+    <partial name="_TopBar" />
+
+    <!-- Left Sidebar -->
+    <partial name="_LeftSideBar" />
+
+    <!-- Right Sidebar -->
+    <partial name="_RightSideBar" />
+
+    <!-- Chat-launcher -->
+    <partial name="_ChatLauncher" />
+
+    <!-- Main Content -->
+    @RenderBody()
+    <!-- Jquery Core Js -->
+    <partial name="_FooterRefrences" />
+</body>
+
+<!-- Mirrored from www.wrraptheme.com/templates/compass/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 29 Jul 2019 10:22:48 GMT -->
+</html>
