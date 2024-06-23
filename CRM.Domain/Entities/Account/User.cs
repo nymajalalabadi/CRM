@@ -30,19 +30,19 @@ namespace CRM.Domain.Entities.Account
 
 		[Display(Name = "ایمیل")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		[Display(Name = "نام تصویر")]
 		[MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string ImageName { get; set; }
+		public string? ImageName { get; set; }
 
 		[Display(Name = "شماره موبایل")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string MobilePhone { get; set; }
+		public string? MobilePhone { get; set; }
 
 		[Display(Name = "نام معرف")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string IntroduceName { get; set; }
+		public string? IntroduceName { get; set; }
 
 		public Gender Gender { get; set; }
 
@@ -52,9 +52,11 @@ namespace CRM.Domain.Entities.Account
 
 		#region Relations
 
-
+		public Marketer Marketer { get; set; }
+		public Customer Customer { get; set; }
 
 		#endregion
+
 	}
 
 	public enum Gender

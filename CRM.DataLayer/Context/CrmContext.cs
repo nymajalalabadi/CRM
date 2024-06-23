@@ -16,5 +16,9 @@ namespace CRM.DataLayer.Context
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Marketer> Marketers { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
     }
 }
