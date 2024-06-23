@@ -14,19 +14,19 @@ namespace CRM.Domain.Entities.Account
 
 		[Display(Name = "نام کاربری")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string UserName { get; set; }
+		public string? UserName { get; set; }
 
 		[Display(Name = "کلمه عبور")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string Password { get; set; }
+		public string? Password { get; set; }
 
 		[Display(Name = "نام")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string FirstName { get; set; }
+		public string? FirstName { get; set; }
 
 		[Display(Name = "نام خانوادگی")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		public string LastName { get; set; }
+		public string? LastName { get; set; }
 
 		[Display(Name = "ایمیل")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
@@ -46,7 +46,7 @@ namespace CRM.Domain.Entities.Account
 
 		public Gender Gender { get; set; }
 
-		public DateTime CreateDate { get; set; }
+		public DateTime CreateDate { get; set; } = DateTime.Now;
 
 		public bool IsDelete { get; set; }
 
