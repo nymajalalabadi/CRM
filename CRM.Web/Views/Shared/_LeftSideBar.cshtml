@@ -1,163 +1,391 @@
-﻿<aside id="leftsidebar" class="sidebar">
-    <div class="menu">
-        <ul class="list">
-            <li>
-                <div class="user-info">
-                    <div class="image"><a href="profile.html"><img src="/images/profile_av.jpg" alt="کاربر"></a></div>
-                    <div class="detail">
-                        <h4>حمید مجیدی</h4>
-                        <small> طراح UI UX </small>
-                    </div>
-                    <a href="events.html" title="رویدادها"><i class="zmdi zmdi-calendar"></i></a>
-                    <a href="mail-inbox.html" title="صندوق ورودی"><i class="zmdi zmdi-email"></i></a>
-                    <a href="contact.html" title="لیست مخاطبین"><i class="zmdi zmdi-account-box-phone"></i></a>
-                    <a href="chat.html" title="برنامه چت"><i class="zmdi zmdi-comments"></i></a>
-                    <a href="sign-in.html" title="خروج از سیستم"><i class="zmdi zmdi-power"></i></a>
+﻿<aside id="rightsidebar" class="right-sidebar">
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat"><i class="zmdi zmdi-comments"></i></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#activity">فعالیت</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active slideRight" id="setting">
+            <div class="slim_scroll">
+                <div class="card">
+                    <h6>پوسته</h6>
+                    <ul class="choose-skin list-unstyled">
+                        <li data-theme="purple">
+                            <div class="purple"></div>
+                        </li>
+                        <li data-theme="blue">
+                            <div class="blue"></div>
+                        </li>
+                        <li data-theme="cyan" class="active">
+                            <div class="cyan"></div>
+                        </li>
+                        <li data-theme="green">
+                            <div class="green"></div>
+                        </li>
+                        <li data-theme="orange">
+                            <div class="orange"></div>
+                        </li>
+                        <li data-theme="blush">
+                            <div class="blush"></div>
+                        </li>
+                    </ul>
                 </div>
-            </li>
-            <li class="header">اصلی</li>
-            <li class="active open">
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>داشبورد</span></a>
-                <ul class="ml-menu">
-                    <li class="active"><a href="index.html">اصلی</a> </li>
-                    <li><a href="dashboard-rtl.html"> راست به چپ </a></li>
-                    <li><a href="index2.html"> افقی </a></li>
-                    <li><a href="ec-dashboard.html"> تجارت الکترونیک </a></li>
-                    <li><a href="blog-dashboard.html">وبلاگ</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>برنامه</span> </a>
-                <ul class="ml-menu">
-                    <li><a href="mail-inbox.html"> صندوق ورودی </a></li>
-                    <li><a href="chat.html">چت</a></li>
-                    <li><a href="events.html">تقویم</a></li>
-                    <li><a href="file-dashboard.html">مدیر فایل</a></li>
-                    <li><a href="contact.html">لیست مخاطبین</a></li>
-                    <li><a href="blog-dashboard.html">وبلاگ</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-swap-alt"></i><span>رابط کاربری (UI )</span> </a>
-                <ul class="ml-menu">
-                    <li> <a href="ui_kit.html">کیت رابط کاربری (UI KIT)</a> </li>
-                    <li> <a href="alerts.html">هشدارها (Alerts)</a> </li>
-                    <li> <a href="collapse.html">کلپس (Collapse)</a> </li>
-                    <li> <a href="colors.html">رنگها (Colors)</a> </li>
-                    <li> <a href="dialogs.html">دیالوگ ها (Dialogs)</a> </li>
-                    <li> <a href="icons.html">آیکون ها (Icons)</a> </li>
-                    <li> <a href="list-group.html">گروه لیست (List Group)</a> </li>
-                    <li> <a href="media-object.html">شی رسانه ای (Media Object)</a> </li>
-                    <li> <a href="modals.html">مدالها (Modals)</a> </li>
-                    <li> <a href="notifications.html">اعلان ها (Notifications)</a></li>
-                    <li> <a href="progressbars.html">نوارهای پیشرفت (Progress Bars)</a></li>
-                    <li> <a href="range-sliders.html">محدوده های کشویی (Range Sliders)</a></li>
-                    <li> <a href="sortable-nestable.html">قابل مرتب سازی و قابل جابجایی (Sortable & Nestable)</a></li>
-                    <li> <a href="tabs.html">برگه ها (Tabs)</a></li>
-                    <li> <a href="waves.html">امواج (Waves)</a></li>
-                </ul>
-            </li>
-            <li class="header">فرم ها ، نمودارها ، جداول</li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>فرم ها</span> </a>
-                <ul class="ml-menu">
-                    <li><a href="basic-form-elements.html"> عناصر فرم اصلی </a> </li>
-                    <li><a href="advanced-form-elements.html"> عناصر فرم پیشرفته </a> </li>
-                    <li><a href="form-examples.html">نمونه فرم</a> </li>
-                    <li><a href="form-validation.html">اعتبار سنجی فرم </a> </li>
-                    <li><a href="form-wizard.html">فرم ویزارد</a> </li>
-                    <li><a href="form-editors.html">ویرایشگر ها</a> </li>
-                    <li><a href="form-upload.html"> بارگذاری پرونده  </a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-grid"></i><span> جداول </span> </a>
-                <ul class="ml-menu">
-                    <li> <a href="normal-tables.html"> جداول عادی </a> </li>
-                    <li> <a href="jquery-datatable.html">جداول داده Jquery </a> </li>
-                    <li> <a href="editable-table.html">جداول قابل ویرایش</a> </li>
-                    <li> <a href="footable.html">جداول Foo</a> </li>
-                    <li> <a href="table-color.html"> جداول رنگ</a> </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-chart"></i><span> نمودارها </span> </a>
-                <ul class="ml-menu">
-                    <li> <a href="morris.html">Morris</a> </li>
-                    <li> <a href="flot.html">نمودار Flot</a> </li>
-                    <li> <a href="chartjs.html">نمودار جاوااسکریپت</a> </li>
-                    <li> <a href="sparkline.html">Sparkline</a> </li>
-                    <li> <a href="jquery-knob.html">Jquery Knob</a> </li>
-                </ul>
-            </li>
-            <li class="header">اجزای اضافی</li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span> تجارت الکترونیک </span> </a>
-                <ul class="ml-menu">
-                    <li> <a href="ec-dashboard.html">داشبورد</a></li>
-                    <li> <a href="ec-product.html">محصول</a></li>
-                    <li> <a href="ec-product-List.html"> لیست محصولات </a></li>
-                    <li> <a href="ec-product-detail.html"> جزئیات محصول </a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-delicious"></i><span>ابزارک ها</span> </a>
-                <ul class="ml-menu">
-                    <li><a href="widgets-app.html"> ابزارک برنامه </a></li>
-                    <li><a href="widgets-data.html"> ابزارک داده </a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span> احراز هویت </span> </a>
-                <ul class="ml-menu">
-                    <li><a href="sign-in.html">ورود</a> </li>
-                    <li><a href="sign-up.html">ثبت نام</a> </li>
-                    <li><a href="forgot-password.html">فراموشی رمز عبور</a> </li>
-                    <li><a href="404.html">صفحه 404</a> </li>
-                    <li><a href="500.html">صفحه 500</a> </li>
-                    <li><a href="page-offline.html">صفحه آفلاین</a> </li>
-                    <li><a href="locked.html">صفحه قفل شده</a> </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-copy"></i><span>صفحات نمونه</span> </a>
-                <ul class="ml-menu">
-                    <li><a href="blank.html">صفحه خالی</a> </li>
-                    <li> <a href="image-gallery.html">گالری تصاویر</a> </li>
-                    <li><a href="profile.html">پروفایل</a></li>
-                    <li><a href="timeline.html">جدول زمانی</a></li>
-                    <li><a href="pricing.html">قیمت گذاری</a></li>
-                    <li><a href="invoices.html">فاکتورها</a></li>
-                    <li><a href="search-results.html">نتایج جستجو</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-map"></i><span> نقشه ها </span> </a>
-                <ul class="ml-menu">
-                    <li> <a href="google.html">نقشه Google </a> </li>
-                    <li> <a href="yandex.html">نقشه Yandex</a> </li>
-                    <li> <a href="jvectormap.html">نقشه jVector</a> </li>
-                </ul>
-            </li>
-            <li class="header">بیشتر</li>
-            <li>
-                <div class="progress-container progress-primary m-t-10">
-                    <span class="progress-badge">ترافیک این ماه</span>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
-                            <span class="progress-value">67%</span>
+                <div class="card">
+                    <h6> منوی سمت چپ </h6>
+                    <ul class="list-unstyled theme-light-dark">
+                        <li>
+                            <div class="t-light btn btn-default btn-simple btn-round">روشن</div>
+                        </li>
+                        <li>
+                            <div class="t-dark btn btn-default btn-round">تاریک</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h6>تنظیمات عمومی</h6>
+                    <ul class="setting-list list-unstyled">
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox1" type="checkbox">
+                                <label for="checkbox1">گزارش استفاده از پانل</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox2" type="checkbox" checked="">
+                                <label for="checkbox2">تغییر مسیر ایمیل</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox3" type="checkbox" checked="">
+                                <label for="checkbox3">اعلان ها</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox4" type="checkbox" checked="">
+                                <label for="checkbox4">به روز رسانی خودکار</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h6>تنظیمات حساب</h6>
+                    <ul class="setting-list list-unstyled">
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox5" type="checkbox" checked="">
+                                <label for="checkbox5">آفلاین</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="checkbox">
+                                <input id="checkbox6" type="checkbox" checked="">
+                                <label for="checkbox6">مجوز موقعیت مکانی</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane right_chat pullUp" id="chat">
+            <div class="slim_scroll">
+                <div class="card">
+                    <div class="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="جستجو...">
+                            <span class="input-group-addon">
+                                <i class="zmdi zmdi-search"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="progress-container progress-info">
-                    <span class="progress-badge">بار سرور</span>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
-                            <span class="progress-value">86%</span>
+                <div class="card">
+                    <h6>اخیر</h6>
+                    <ul class="list-unstyled">
+                        <li class="online">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar4.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="name">س ناصر</span>
+                                        <span class="message">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</span>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="online">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar5.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="name">س غلامی</span>
+                                        <span class="message">در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد</span>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar2.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="name">ا احمدی</span>
+                                        <span class="message">با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.</span>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="me">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar1.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="name">ث قاسمی</span>
+                                        <span class="message">کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد</span>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="online">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar3.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="name">ف رحمتی</span>
+                                        <span class="message">ریچارد مک کلینتوک ، استاد لاتین</span>
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h6> مخاطبین </h6>
+                    <ul class="list-unstyled">
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar10.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar6.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar7.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar8.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar9.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="online inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar5.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar4.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar3.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="online inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar2.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="offline inlineblock">
+                            <a href="javascript:void(0);">
+                                <div class="media">
+                                    <img class="media-object " src="/images/xs/avatar1.jpg" alt="">
+                                    <div class="media-body">
+                                        <span class="badge badge-outline status"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane slideRight" id="activity">
+            <div class="slim_scroll">
+                <div class="card">
+                    <h6> فعالیتهای  اخیر </h6>
+                    <ul class="list-unstyled activity">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-cake bg-blue"></i>
+                                <div class="info">
+                                    <h4> تولد مدیر </h4>
+                                    <small>21 آبان خواهد بود </small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-file-text bg-red"></i>
+                                <div class="info">
+                                    <h4> تغییر کد </h4>
+                                    <small>22 آبان خواهد بود </small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-account-box-phone bg-green"></i>
+                                <div class="info">
+                                    <h4> مخاطب جدید اضافه کنید </h4>
+                                    <small>23 آذر خواهد بود </small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-email bg-amber"></i>
+                                <div class="info">
+                                    <h4>ایمیل جدید</h4>
+                                    <small>28 دی خواهد بود </small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h6> وضعیت پروژه </h6>
+                    <div class="progress-container progress-primary">
+                        <span class="progress-badge">وب سایت تجارت الکترونیک</span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%;">
+                                <span class="progress-value">86%</span>
+                            </div>
                         </div>
+                        <ul class="list-unstyled team-info">
+                            <li class="m-l-15"><small>تیم</small></li>
+                            <li>
+                                <img src="/images/xs/avatar2.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar3.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar4.jpg" alt="آواتار">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="progress-container">
+                        <span class="progress-badge">توسعه بازی ios </span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                                <span class="progress-value">45%</span>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled team-info">
+                            <li class="m-l-15"><small>تیم</small></li>
+                            <li>
+                                <img src="/images/xs/avatar10.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar9.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar8.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar7.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar6.jpg" alt="آواتار">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="progress-container progress-warning">
+                        <span class="progress-badge">توسعه خانگی</span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100" style="width: 29%;">
+                                <span class="progress-value">29%</span>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled team-info">
+                            <li class="m-l-15"><small>تیم</small></li>
+                            <li>
+                                <img src="/images/xs/avatar5.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar2.jpg" alt="آواتار">
+                            </li>
+                            <li>
+                                <img src="/images/xs/avatar7.jpg" alt="آواتار">
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </aside>
