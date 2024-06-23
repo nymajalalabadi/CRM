@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CRM.Domain.Entities.Account;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace CRM.DataLayer.Context
                 
         }
 
-
+        public DbSet<User> Users { get; set; }
     }
 }
