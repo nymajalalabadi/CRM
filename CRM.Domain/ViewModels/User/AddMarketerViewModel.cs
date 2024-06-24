@@ -1,11 +1,6 @@
 ﻿using CRM.Domain.Entities.Account;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRM.Domain.ViewModels.User
 {
@@ -14,12 +9,12 @@ namespace CRM.Domain.ViewModels.User
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string? UserName { get; set; }
+        public string UserName { get; set; }
 
         [Display(Name = "کلمه عبور")]
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         [Display(Name = "نام")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]

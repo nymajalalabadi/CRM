@@ -34,7 +34,13 @@
 
     <section class="content home">
 
-        @RenderBody()
+        @RenderSection("Block_Header", false)
+
+        <div class="container-fluid">
+
+            @RenderBody()
+
+        </div>
 
     </section>
 

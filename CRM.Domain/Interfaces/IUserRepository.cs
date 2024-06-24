@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CRM.Domain.Entities.Account;
+using CRM.Domain.ViewModels.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,19 @@ namespace CRM.Domain.Interfaces
     {
         #region Methods
 
+        Task<IQueryable<User>> GetAllUsers();
+        
+        Task AddUser(User user);
 
+        void UpdateUser(User user);
+
+        Task<User?> GetUserById(long userId);
+
+        Task AddMarketer(Marketer marketer);
+
+        void UpdateMarketer(Marketer marketer);
+
+        Task SaveChangeAsync();
 
         #endregion
     }
