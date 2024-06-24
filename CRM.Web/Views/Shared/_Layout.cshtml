@@ -5,6 +5,7 @@
     <partial name="_MetaTags"></partial>
     <title>نرم افزار CRM - @ViewData["Title"]</title>
     <partial name="_HeaderRefrences" />
+    @RenderSection("Styles", false)
 </head>
 <body class="theme-cyan">
     <!-- Page Loader -->
@@ -39,6 +40,7 @@
 
     <!-- Jquery Core Js -->
     <partial name="_FooterRefrences" />
+    @RenderSection("Scripts", false)
 </body>
 
 </html>
