@@ -1,4 +1,5 @@
 using CRM.DataLayer.Context;
+using CRM.IoC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -13,6 +14,12 @@ builder.Services.AddDbContext<CrmContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyCrmDbConnection"));
 });
+
+#endregion
+
+#region LoC
+
+DependencyContainer.RejosterService(builder.Services);
 
 #endregion
 

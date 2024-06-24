@@ -8,5 +8,10 @@ namespace CRM.Application.Services.Interface
 {
     public interface IUserService
     {
+        #region Methods
+
+
+
+        #endregion
     }
 }

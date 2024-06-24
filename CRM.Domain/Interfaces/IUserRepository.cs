@@ -8,5 +8,10 @@ namespace CRM.Domain.Interfaces
 {
     public interface IUserRepository
     {
+        #region Methods
+
+
+
+        #endregion
     }
 }
