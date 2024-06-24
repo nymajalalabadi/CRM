@@ -49,6 +49,8 @@ namespace CRM.Domain.ViewModels.User
 
         public Education Education { get; set; }
 
+        public Gender Gender { get; set; }
+
         public IFormFile? ImageFile { get; set; }
     }
 

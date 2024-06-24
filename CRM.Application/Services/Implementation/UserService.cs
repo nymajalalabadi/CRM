@@ -72,6 +72,7 @@ namespace CRM.Application.Services.Implementation
                 Email = marketer.Email,
                 MobilePhone = marketer.MobilePhone,
                 IntroduceName = marketer.IntroduceName,
+                Gender = marketer.Gender,
             };
 
             await _userRepository.AddUser(user);

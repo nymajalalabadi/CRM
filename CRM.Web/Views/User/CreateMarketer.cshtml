@@ -117,10 +117,19 @@
                     <div class="row clearfix">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>سطح تحصیلات</label>
-                                <select asp-for="Education" asp-items="@Html.GetEnumSelectList<Education>()"></select>
+                                <label>سطح تحصیلات :</label>
+                                <select asp-for="Education" class="form-control" asp-items="@Html.GetEnumSelectList<Education>()"></select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>جنسیت :</label>
+                                <select asp-for="Gender" class="form-control" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                                <span class="text-danger" asp-validation-for="Gender"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>عکس</label>
