@@ -1,4 +1,5 @@
-﻿using CRM.Application.Services.Interface;
+﻿using CRM.Application.Security;
+using CRM.Application.Services.Interface;
 using CRM.Domain.Entities.Account;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.User;
@@ -65,7 +66,7 @@ namespace CRM.Application.Services.Implementation
             var user = new User()
             {
                 FirstName = marketer.FirstName,
-                Password = marketer.Password,
+                Password = PasswordHelper.EncodePasswordMd5(marketer.Password),
                 LastName = marketer.LastName,
                 UserName = marketer.UserName,
                 Email = marketer.Email,

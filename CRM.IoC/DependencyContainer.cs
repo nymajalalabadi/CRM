@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CRM.Application.Services.Implementation;
+using CRM.Application.Services.Interface;
+using CRM.DataLayer.Repository;
+using CRM.Domain.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +17,13 @@ namespace CRM.IoC
         {
             #region service
 
-
+            services.AddScoped<IUserService, UserService>();
 
             #endregion
 
             #region repository
 
-
+            services.AddScoped<IUserRepository, UserRepository>();
 
             #endregion
         }
