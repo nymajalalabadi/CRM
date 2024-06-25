@@ -3,7 +3,6 @@
 
 
 <ul class="pagination pagination-primary m-t-20">
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">قبلی</a></li>
 
     @for (int i = Model.StartPage ; i <= Model.EndPage ; i++)
     {
@@ -16,5 +15,4 @@
             <li class="page-item"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
         }
     }
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">بعدی</a></li>
 </ul>
