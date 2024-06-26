@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Web.Controllers
 {
-	public class UserController : Controller
-	{
+	public class UserController : BaseController
+    {
         #region Constructor
 
         private readonly IUserService _userService;
@@ -65,8 +65,11 @@ namespace CRM.Web.Controllers
             switch (result)
             {
                 case AddMarketerResult.Success:
+                    TempData[SuccessMessage] = "بازاریاب مورد نظر با موفقیت ثبت شد";
                     return RedirectToAction("Index");
+
                 case AddMarketerResult.Fail:
+                    TempData[ErrorMessage] = "مشکلی در ثبت اطلاعات میباشد";
                     ModelState.AddModelError("UserName", "مشکلی در ثبت اطلاعات میباشد");
                     break;
             }
