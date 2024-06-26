@@ -24,7 +24,8 @@ namespace CRM.Web.Controllers
 
         public async Task<IActionResult> Index(FilterUserViewModel filter)
         {
-            filter.TakeEntity = 1;
+            filter.TakeEntity = 5;
+
             var result = await _userService.FilterUser(filter);
 
             return View(result);

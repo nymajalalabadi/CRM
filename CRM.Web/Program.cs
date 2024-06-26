@@ -2,6 +2,8 @@ using CRM.DataLayer.Context;
 using CRM.IoC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,13 @@ builder.Services.AddDbContext<CrmContext>(options =>
 #region LoC
 
 DependencyContainer.RejosterService(builder.Services);
+
+#endregion
+
+#region Encoder 
+
+builder.Services.AddSingleton<HtmlEncoder>(
+    HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All })); //translate For Notifications
 
 #endregion
 
