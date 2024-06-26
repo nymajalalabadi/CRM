@@ -129,13 +129,18 @@
                     </div>
                     <div class="row clearfix">
                         <div class="col-md-6">
-                            <label>
-                                <button type="button" class="btn btn-info">انتخاب عکس</button>
-                            </label>
                             <div class="form-group">
-                                <label>عکس</label>
-                                <input type="file" class="form-control" asp-for="ImageFile">
+                                <label>عکس :</label>
+                                <label for="ImageFile">
+                                    <span type="button" class="btn btn-info">انتخاب عکس</span>
+                                </label>
+                                <input type="file" class="d-none" asp-for="ImageFile" id="ImageFile">
                                 <span class="text-danger" asp-validation-for="ImageFile"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <img src="" id="imgPreview" class="border mx-auto" width="150px" height="150px">
                             </div>
                         </div>
                     </div>
@@ -150,6 +155,23 @@
 @section Scripts
 {
     <partial name="_JqueryValidators" />
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#ImageFile").change(function () {
+            readURL(this);
+        });
+    </script>
 }
 
 

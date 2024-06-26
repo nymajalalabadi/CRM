@@ -1,5 +1,7 @@
-﻿using CRM.Application.Security;
+﻿using CRM.Application.Extensions;
+using CRM.Application.Security;
 using CRM.Application.Services.Interface;
+using CRM.Application.StaticTools;
 using CRM.Domain.Entities.Account;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.User;
@@ -63,6 +65,43 @@ namespace CRM.Application.Services.Implementation
 
         public async Task<AddMarketerResult> AddMarketer(AddMarketerViewModel marketer)
         {
+            if (marketer.ImageFile != null)
+            {
+                var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(marketer.ImageFile.FileName);
+
+                marketer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280);
+
+                var userAvatar = new User()
+                {
+                    FirstName = marketer.FirstName,
+                    Password = PasswordHelper.EncodePasswordMd5(marketer.Password),
+                    LastName = marketer.LastName,
+                    UserName = marketer.UserName,
+                    Email = marketer.Email,
+                    MobilePhone = marketer.MobilePhone,
+                    IntroduceName = marketer.IntroduceName,
+                    Gender = marketer.Gender,
+                    ImageName = imageProfileName
+                };
+
+                await _userRepository.AddUser(userAvatar);
+                await _userRepository.SaveChangeAsync();
+
+                var marketerAvatar = new Marketer()
+                {
+                    UserId = userAvatar.UserId,
+                    FieldStudy = marketer.FieldStudy,
+                    Age = marketer.Age,
+                    IrCode = marketer.IrCode,
+                    Education = marketer.Education
+                };
+
+                await _userRepository.AddMarketer(marketerAvatar);
+                await _userRepository.SaveChangeAsync();
+
+                return AddMarketerResult.Success;
+            }
+
             var user = new User()
             {
                 FirstName = marketer.FirstName,
@@ -74,6 +113,7 @@ namespace CRM.Application.Services.Implementation
                 IntroduceName = marketer.IntroduceName,
                 Gender = marketer.Gender,
             };
+
 
             await _userRepository.AddUser(user);
             await _userRepository.SaveChangeAsync();

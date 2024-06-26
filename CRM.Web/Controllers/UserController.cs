@@ -22,6 +22,7 @@ namespace CRM.Web.Controllers
 
         #region User List
 
+        [HttpGet]
         public async Task<IActionResult> Index(FilterUserViewModel filter)
         {
             filter.TakeEntity = 5;
