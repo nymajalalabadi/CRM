@@ -133,6 +133,113 @@ namespace CRM.Application.Services.Implementation
             return AddMarketerResult.Success;
         }
 
-        #endregion
-    }
+		public async Task<EditMarketerViewModel> GetMarketerForEdit(long marketerId)
+        {
+            var user = await _userRepository.GetUserDetailById(marketerId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var marketer = new EditMarketerViewModel()
+            {
+				UserId = user.UserId,
+				Age = user.Marketer.Age,
+				Education = user.Marketer.Education,
+				Email = user.Email,
+				FieldStudy = user.Marketer.FieldStudy,
+				FirstName = user.FirstName,
+				IntroduceName = user.IntroduceName,
+				IrCode = user.Marketer.IrCode,
+				LastName = user.LastName,
+				MobilePhone = user.MobilePhone,
+				UserName = user.UserName!,
+				ImageName = user.ImageName
+			};
+
+            return marketer;
+        }
+
+		public async Task<EditMarketerResult> EditMarketer(EditMarketerViewModel marketer)
+        {
+            if (marketer.ImageFile != null)
+            {
+				var userAvatar = await _userRepository.GetUserById(marketer.UserId);
+
+				if (userAvatar == null)
+				{
+					return EditMarketerResult.Fail;
+				}
+
+				var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(marketer.ImageFile.FileName);
+				marketer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280, 
+                    null, marketer.ImageName!);
+
+				userAvatar.Email = marketer.Email;
+				userAvatar.FirstName = marketer.FirstName;
+				userAvatar.IntroduceName = marketer.IntroduceName;
+				userAvatar.LastName = marketer.LastName;
+				userAvatar.MobilePhone = marketer.MobilePhone;
+				userAvatar.UserName = marketer.UserName;
+				userAvatar.ImageName = imageProfileName;
+
+			    _userRepository.UpdateUser(userAvatar);
+
+				var marketerAvatar = await _userRepository.GetMarketerById(marketer.UserId);
+
+				if (marketerAvatar == null)
+				{
+					return EditMarketerResult.Fail;
+				}
+
+				marketerAvatar!.Age = marketer.Age;
+				marketerAvatar.Education = marketer.Education;
+				marketerAvatar.FieldStudy = marketer.FieldStudy;
+				marketerAvatar.IrCode = marketer.IrCode;
+
+				_userRepository.UpdateMarketer(marketerAvatar);
+
+				await _userRepository.SaveChangeAsync();
+
+				return EditMarketerResult.Success;
+			}
+
+			var user = await _userRepository.GetUserById(marketer.UserId);
+
+			if (user == null)
+			{
+				return EditMarketerResult.Fail;
+			}
+
+			user.Email = marketer.Email;
+			user.FirstName = marketer.FirstName;
+			user.IntroduceName = marketer.IntroduceName;
+			user.LastName = marketer.LastName;
+			user.MobilePhone = marketer.MobilePhone;
+			user.UserName = marketer.UserName;
+
+			_userRepository.UpdateUser(user);
+
+			var Currentmarketer = await _userRepository.GetMarketerById(marketer.UserId);
+
+			if (marketer == null)
+			{
+				return EditMarketerResult.Fail;
+			}
+
+			Currentmarketer!.Age = marketer.Age;
+			Currentmarketer.Education = marketer.Education;
+			Currentmarketer.FieldStudy = marketer.FieldStudy;
+			Currentmarketer.IrCode = marketer.IrCode;
+
+			_userRepository.UpdateMarketer(Currentmarketer);
+
+			await _userRepository.SaveChangeAsync();
+
+			return EditMarketerResult.Success;
+		}
+
+		#endregion
+	}
 }

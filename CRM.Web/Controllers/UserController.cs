@@ -81,11 +81,26 @@ namespace CRM.Web.Controllers
 
 
 
-        #endregion
+		#endregion
 
 
-        #endregion
+		#endregion
 
-        #endregion
-    }
+		#region Edit User
+
+		#region Edit Marketer
+
+		[HttpGet]
+		public async Task<IActionResult> EditMarketer(long id)
+		{
+			return View();
+		}
+
+
+		#endregion
+
+		#endregion
+
+		#endregion
+	}
 }

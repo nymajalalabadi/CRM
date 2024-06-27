@@ -20,7 +20,11 @@ namespace CRM.Domain.Interfaces
 
         Task<User?> GetUserById(long userId);
 
-        Task AddMarketer(Marketer marketer);
+        Task<User?> GetUserDetailById(long userId);
+
+		Task<Marketer?> GetMarketerById(long marketerId);
+
+		Task AddMarketer(Marketer marketer);
 
         void UpdateMarketer(Marketer marketer);
 

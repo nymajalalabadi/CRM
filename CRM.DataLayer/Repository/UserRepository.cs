@@ -41,7 +41,21 @@ namespace CRM.DataLayer.Repository
             return await _context.Users.Where(u => !u.IsDelete).FirstOrDefaultAsync(u => u.UserId.Equals(userId));
         }
 
-        public void UpdateUser(User user)
+		public async Task<User?> GetUserDetailById(long userId)
+        {
+            return await _context.Users
+                .Include(u => u.Marketer)
+                .Include(u => u.Customer)
+                .Where(u => !u.IsDelete)
+                .FirstOrDefaultAsync(u => u.UserId.Equals(userId));
+        }
+
+		public async Task<Marketer?> GetMarketerById(long marketerId)
+        {
+            return await _context.Marketers.FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
+        }
+
+		public void UpdateUser(User user)
         {
             _context.Users.Update(user);
         }

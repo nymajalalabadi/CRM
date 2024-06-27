@@ -1,4 +1,5 @@
 ﻿using CRM.Domain.ViewModels.User;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace CRM.Application.Services.Interface
 
         Task<AddMarketerResult> AddMarketer(AddMarketerViewModel marketer);
 
-        #endregion
-    }
+		Task<EditMarketerViewModel> GetMarketerForEdit(long marketerId);
+
+		Task<EditMarketerResult> EditMarketer(EditMarketerViewModel marketer);
+
+		#endregion
+	}
 }
