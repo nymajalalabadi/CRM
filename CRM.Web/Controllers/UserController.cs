@@ -93,10 +93,39 @@ namespace CRM.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> EditMarketer(long id)
 		{
-			return View();
+            var marketer = await _userService.GetMarketerForEdit(id);
+
+            if (marketer == null)
+            {
+                return NotFound();
+            }
+
+			return View(marketer);
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> EditMarketer(EditMarketerViewModel editMarketer)
+		{
+            if (!ModelState.IsValid)
+            {
+                return View(editMarketer);
+            }
 
+			var result = await _userService.EditMarketer(editMarketer);
+
+			switch (result)
+			{
+				case EditMarketerResult.Success:
+					TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+					return RedirectToAction("Index");
+
+				case EditMarketerResult.Fail:
+					TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+					break;
+			}
+
+			return View(editMarketer);
+		}
 		#endregion
 
 		#endregion
