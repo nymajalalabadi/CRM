@@ -18,11 +18,6 @@ namespace CRM.Domain.ViewModels.User
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
 		public string UserName { get; set; }
 
-		//[Display(Name = "کلمه عبور")]
-		//[Required(ErrorMessage = "این فیلد اجباری است")]
-		//[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-		//public string Password { get; set; }
-
 		[Display(Name = "نام")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
 		public string? FirstName { get; set; }

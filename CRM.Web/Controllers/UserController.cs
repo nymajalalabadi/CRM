@@ -108,6 +108,7 @@ namespace CRM.Web.Controllers
 		{
             if (!ModelState.IsValid)
             {
+                TempData[WarningMessage] = "اطلاعات وارد شده کامل نمی باشد";
                 return View(editMarketer);
             }
 
