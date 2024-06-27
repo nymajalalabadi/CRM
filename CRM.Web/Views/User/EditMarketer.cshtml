@@ -1,7 +1,179 @@
-﻿
+﻿@using CRM.Application.StaticTools
+@using CRM.Domain.Entities.Account
+@using CRM.Domain.ViewModels.User
+@model EditMarketerViewModel
+
 @{
-    ViewData["Title"] = "EditMarketer";
+    ViewData["Title"] = "ویرایش بازاریاب";
 }
 
-<h1>EditMarketer</h1>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+                <h2>افزودن <strong>بازاریاب</strong></h2>
+                <ul class="header-dropdown">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="javascript:void(0);">افزودن سر نخ</a></li>
+                            <li><a asp-area="" asp-controller="User" asp-action="Index">لیست کابران</a></li>
+                            <li><a asp-area="" asp-controller="User" asp-action="CreateCustomer">افزودن مشتری</a></li>
+                        </ul>
+                    </li>
+                    <li class="remove">
+                        <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <form asp-action="EditMarketer" asp-controller="user" asp-area="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="ImageName" />
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="FirstName"></label>
+                                <input type="text" class="form-control" asp-for="FirstName">
+                                <span class="text-danger" asp-validation-for="FirstName"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="LastName"></label>
+                                <input type="text" class="form-control" asp-for="LastName">
+                                <span class="text-danger" asp-validation-for="LastName"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input type="text" class="form-control" asp-for="UserName">
+                                <span class="text-danger" asp-validation-for="UserName"></span>
+                            </div>
+                        </div>
+                        @* <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input type="password" class="form-control" asp-for="Password">
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+                        </div> *@
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input type="text" class="form-control" asp-for="Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MobilePhone"></label>
+                                <input type="text" class="form-control" asp-for="MobilePhone">
+                                <span class="text-danger" asp-validation-for="MobilePhone"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="IntroduceName"></label>
+                                <input type="text" class="form-control" asp-for="IntroduceName">
+                                <span class="text-danger" asp-validation-for="IntroduceName"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="FieldStudy"></label>
+                                <input type="text" class="form-control" asp-for="FieldStudy">
+                                <span class="text-danger" asp-validation-for="FieldStudy"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Age"></label>
+                                <input class="form-control" value="0" asp-for="Age">
+                                <span class="text-danger" asp-validation-for="Age"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="IrCode"></label>
+                                <input type="text" class="form-control" asp-for="IrCode">
+                                <span class="text-danger" asp-validation-for="IrCode"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>سطح تحصیلات :</label>
+                                <select asp-for="Education" class="form-control" asp-items="@Html.GetEnumSelectList<Education>()"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>جنسیت :</label>
+                                <select asp-for="Gender" class="form-control" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                                <span class="text-danger" asp-validation-for="Gender"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>عکس :</label>
+                                <label for="ImageFile">
+                                    <span type="button" class="btn btn-info">انتخاب عکس</span>
+                                </label>
+                                <input type="file" class="d-none" asp-for="ImageFile" id="ImageFile">
+                                <span class="text-danger" asp-validation-for="ImageFile"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <img src="@(FilePath.UploadImageProfile + Model.ImageName)" id="imgPreview" class="border mx-auto" width="150px" height="150px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-raised btn-primary btn-round waves-effect btn-lg">ویرایش</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_JqueryValidators" />
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#ImageFile").change(function () {
+            readURL(this);
+        });
+    </script>
+}
 

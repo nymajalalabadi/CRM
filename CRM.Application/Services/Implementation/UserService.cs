@@ -74,7 +74,7 @@ namespace CRM.Application.Services.Implementation
                 var userAvatar = new User()
                 {
                     FirstName = marketer.FirstName,
-                    Password = PasswordHelper.EncodePasswordMd5(marketer.Password),
+                    Password = PasswordHelper.EncodePasswordMd5(marketer.Password.SanitizeText()),
                     LastName = marketer.LastName,
                     UserName = marketer.UserName,
                     Email = marketer.Email,
@@ -155,6 +155,7 @@ namespace CRM.Application.Services.Implementation
 				LastName = user.LastName,
 				MobilePhone = user.MobilePhone,
 				UserName = user.UserName!,
+                Gender = user.Gender,
 				ImageName = user.ImageName
 			};
 
@@ -173,8 +174,7 @@ namespace CRM.Application.Services.Implementation
 				}
 
 				var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(marketer.ImageFile.FileName);
-				marketer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280, 
-                    null, marketer.ImageName!);
+				marketer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280, null, marketer.ImageName!);
 
 				userAvatar.Email = marketer.Email;
 				userAvatar.FirstName = marketer.FirstName;
@@ -182,7 +182,9 @@ namespace CRM.Application.Services.Implementation
 				userAvatar.LastName = marketer.LastName;
 				userAvatar.MobilePhone = marketer.MobilePhone;
 				userAvatar.UserName = marketer.UserName;
-				userAvatar.ImageName = imageProfileName;
+                userAvatar.Gender = marketer.Gender;
+
+                userAvatar.ImageName = imageProfileName;
 
 			    _userRepository.UpdateUser(userAvatar);
 
@@ -218,8 +220,9 @@ namespace CRM.Application.Services.Implementation
 			user.LastName = marketer.LastName;
 			user.MobilePhone = marketer.MobilePhone;
 			user.UserName = marketer.UserName;
+            user.Gender = marketer.Gender;
 
-			_userRepository.UpdateUser(user);
+            _userRepository.UpdateUser(user);
 
 			var Currentmarketer = await _userRepository.GetMarketerById(marketer.UserId);
 
