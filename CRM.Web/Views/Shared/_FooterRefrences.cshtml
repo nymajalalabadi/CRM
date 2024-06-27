@@ -1,12 +1,45 @@
-﻿<script src="/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
-<script src="/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+﻿<script src="/SiteStatic/vendor/global/global.min.js"></script>
+<script src="/SiteStatic/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/SiteStatic/vendor/chart.js/Chart.bundle.min.js"></script>
+<script src="/SiteStatic/js/custom.min.js"></script>
+<!-- Apex Chart -->
+<script src="/SiteStatic/vendor/apexchart/apexchart.js"></script>
 
-<script src="/bundles/morrisscripts.bundle.js"></script><!-- Morris Plugin Js -->
-<script src="/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
-<script src="/bundles/knob.bundle.js"></script> <!-- Jquery Knob Plugin Js -->
-<script src="/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+<!-- Vectormap -->
+<!-- Chart piety plugin files -->
+<script src="/SiteStatic/vendor/peity/jquery.peity.min.js"></script>
 
-<script src="/bundles/mainscripts.bundle.js"></script>
-<script src="/js/pages/index.js"></script>
-<script src="/js/notifications.js"></script>
-<script src="/js/custom.js"></script>
+<!-- Chartist -->
+<script src="/SiteStatic/vendor/chartist/js/chartist.min.js"></script>
+
+<!-- Dashboard 1 -->
+<script src="/SiteStatic/js/dashboard/dashboard-1.js"></script>
+<!-- Svganimation scripts -->
+<script src="/SiteStatic/vendor/svganimation/vivus.min.js"></script>
+<script src="/SiteStatic/vendor/svganimation/svg.animation.js"></script>
+<script src="/custom/notifications.js"></script>
+<script src="/custom/custom.js"></script>
+
+<script>
+    (function ($) {
+        "use strict"
+
+        var direction = getUrlParams('dir');
+        if (direction != 'rtl') { direction = 'ltr'; }
+
+        new dezSettings({
+            typography: "roboto",
+            version: "light",
+            layout: "vertical",
+            headerBg: "color_1",
+            navheaderBg: "color_3",
+            sidebarBg: "color_1",
+            sidebarStyle: "full",
+            sidebarPosition: "fixed",
+            headerPosition: "fixed",
+            containerLayout: "wide",
+            direction: direction
+        });
+
+    })(jQuery);
+</script>

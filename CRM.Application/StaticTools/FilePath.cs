@@ -2,6 +2,7 @@
 {
     public static class FilePath
     {
+        public static readonly string UserProfileDefault = "/images/user/default/avatar.png";
         public static readonly string UploadImageProfile = "/images/user/profile/";
         public static readonly string UploadImageProfileServer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/user/profile/");
     }

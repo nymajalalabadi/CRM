@@ -1,98 +1,150 @@
-﻿@using CRM.Domain.ViewModels.User
-@model FilterUserViewModel
-
+﻿@using CRM.Application.Convertors
+@using CRM.Application.StaticTools
+@model CRM.Domain.ViewModels.User.FilterUserViewModel
 @{
-    ViewData["Title"] = "لیست کابران";
+    ViewData["Title"] = "کاربران";
 }
 
- <div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+<div class="row">
+    <div class="col-md-12">
         <div class="card">
-            <div class="header">
-                <h2>فیلتر <strong>کاربر</strong></h2>
+            <div class="card-header">
+                <h4 class="card-title">فیلتر</h4>
             </div>
-            <div class="body">
-                <form method="get" id="filter-search" enctype="multipart/form-data">
-                    <input type="hidden" id="CurrentPage" asp-for="CurrentPage" />
-                    <div class="row clearfix">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="email_address">نام</label>
-                                <input type="text" class="form-control" asp-for="FilterFirstName">
-                                <span class="text-danger" asp-validation-for="FilterFirstName"></span>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-area="" asp-controller="User" asp-action="Index" method="get" id="filter-search">
+                        <input type="hidden" id="pageId" asp-for="CurrentPage" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>نام </label>
+                                <input asp-for="FilterFirstName" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>نام خانوادگی</label>
+                                <input asp-for="FilterLastName" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>موبایل</label>
+                                <input asp-for="FilterMobile" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                            <label>ایمیل</label>
+                                <input type="text" asp-for="FilterEmail" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="email_address">نام خانوادگی</label>
-                                <input type="text" class="form-control" asp-for="FilterLastName">
-                                <span class="text-danger" asp-validation-for="FilterLastName"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="email_address">موبایل</label>
-                                <input type="text" class="form-control" asp-for="FilterMobile">
-                                <span class="text-danger" asp-validation-for="FilterMobile"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    @if (Context.Request.QueryString.HasValue)
-                    {
-                        <a asp-controller="User" asp-action="Index" class="btn btn-raised btn-primary btn-round waves-effect">حذف فیلتر</a>
-                    }
-
-                    <button type="submit" class="btn btn-raised btn-info btn-round waves-effect">فیلتر</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">فیلتر</button>
+                        @if (Context.Request.QueryString.HasValue)
+                        {
+                            <a class="btn btn-danger" asp-controller="User" asp-action="Index">حذف فیلتر</a>
+                        }
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
 
-<!-- Striped Rows -->
- <div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card">
-            <div class="header">
-                <ul class="header-dropdown">
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="javascript:void(0);">افزودن سر نخ</a></li>
-                            <li><a asp-area="" asp-controller="User" asp-action="CreateMarketer">افزودن بازاریاب</a></li>
-                            <li><a asp-area="" asp-controller="User" asp-action="CreateCustomer">افزودن مشتری</a></li>
-                        </ul>
-                    </li>
-                    <li class="remove">
-                        <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="body table-responsive">
-                <table class="table table-striped">
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">لیست کاربران</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example3_wrapper" class="table table-responsive-md tc">
+                <table id="example3" class="table table-responsive-md tc">
                     <thead>
-                        <tr>
+                        <tr role="row">
+
+                            <th></th>
                             <th>نام</th>
-                            <th>نام  خانوادگی</th>
-                            <th>موبایل</th>
+                            <th>نام خانوادگی</th>
                             <th>ایمیل</th>
+                            <th>موبایل</th>
+                            <th>وضعیت</th>
+                            <th>تاریخ عضو</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model.Entities != null)
                         {
-                            foreach (var user in Model.Entities)
+                            @foreach (var user in Model.Entities)
                             {
-                                <tr>
-                                    <th>@user.FirstName</th>
-                                    <td>@user.LastName</td>
-                                    <td>@user.MobilePhone</td>
-                                    <td>@user.Email</td>
+                                <tr role="row" class="odd">
+                                    <td class="">
+                                        @if (string.IsNullOrEmpty(user.ImageName))
+                                        {
+                                            <img class="rounded-circle" width="35" src="@FilePath.UserProfileDefault" alt="">
+                                        }
+                                        else
+                                        {
+                                            <img class="rounded-circle" width="35" src="@(FilePath.UploadImageProfile + user.ImageName)" alt="">
+                                        }
+                                    </td>
                                     <td>
-                                        <a asp-area="" asp-controller="User" asp-action="EditMarketer" asp-route-id="@user.UserId" class="btn btn-primary btn-xs btn-sm"><i class="zmdi zmdi-edit "></i></a>
+                                        @if (string.IsNullOrEmpty(user.FirstName))
+                                        {
+                                            <span class="badge light badge-warning">ثبت نشده</span>
+                                        }
+                                        else
+                                        {
+                                            @user.FirstName
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(user.LastName))
+                                        {
+                                            <span class="badge light badge-warning">ثبت نشده</span>
+                                        }
+                                        else
+                                        {
+                                            @user.LastName
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(user.Email))
+                                        {
+                                            <span class="badge light badge-warning">ثبت نشده</span>
+                                        }
+                                        else
+                                        {
+                                            @user.Email
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(user.MobilePhone))
+                                        {
+                                            <span class="badge light badge-warning">ثبت نشده</span>
+                                        }
+                                        else
+                                        {
+                                            @user.MobilePhone
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (user.Marketer != null)
+                                        {
+                                            <span class="badge light badge-info">بازاریاب</span>
+                                        }
+                                        @if (user.Customer != null)
+                                        {
+                                            <span class="badge light badge-primary">مشتری</span>
+                                        }
+                                    </td>
+                                    <td>@user.CreateDate.ToShamsiDate()</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            @if (user.Marketer != null)
+                                            {
+                                                <a asp-area="" asp-controller="User" asp-action="EditMarketer" asp-route-id="@user.UserId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-area="" asp-controller="User" asp-action="EditCustomer" asp-route-id="@user.UserId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                            }
+                                            <a asp-area="" asp-controller="User" asp-action="DeleteUser" asp-route-userId="@user.UserId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -100,10 +152,7 @@
                     </tbody>
                 </table>
             </div>
+            <partial name="_PagingPartial" model="@Model.GetPaging()" />
         </div>
-
-        <partial name="_PagingPartial" model="@Model.GetPaging()" />
     </div>
-</div> 
-
-
+</div>

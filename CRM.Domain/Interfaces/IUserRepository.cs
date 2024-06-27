@@ -32,7 +32,7 @@ namespace CRM.Domain.Interfaces
 
         Task<Customer?> GetCustomerById(long customerId);
 
-        Task UpdateCustomer(Customer customer);
+        void UpdateCustomer(Customer customer);
 
         Task SaveChangeAsync();
 

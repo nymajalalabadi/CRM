@@ -15,6 +15,8 @@ namespace CRM.Domain.ViewModels.User
         public string? FilterFirstName { get; set; }
 
         public string? FilterLastName { get; set; }
+
+        public string? FilterEmail { get; set; }
     }
 
 }

@@ -28,7 +28,10 @@ namespace CRM.DataLayer.Repository
 
         public async Task<IQueryable<User>> GetAllUsers()
         {
-            return _context.Users.Where(u => !u.IsDelete).Include(u => u.Marketer).AsQueryable();
+            return _context.Users.Where(u => !u.IsDelete)
+                .Include(u => u.Marketer)
+                .Include(u => u.Customer)
+                .AsQueryable();
         }
 
         public async Task AddUser(User user)

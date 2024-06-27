@@ -50,6 +50,11 @@ namespace CRM.Application.Services.Implementation
                 query = query.Where(s => EF.Functions.Like(s.FirstName, $"%{filter.FilterFirstName}%"));
             }
 
+            if (!string.IsNullOrEmpty(filter.FilterEmail))
+            {
+                query = query.Where(s => EF.Functions.Like(s.Email, $"%{filter.FilterEmail}%"));
+            }
+
             #endregion
 
             query = query.OrderByDescending(u => u.CreateDate);

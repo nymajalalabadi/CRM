@@ -1,26 +1,34 @@
 ﻿@using CRM.Domain.ViewModels.Common
 @model PagingViewModel
 
-<ul class="pagination pagination-primary m-t-20">
-    @if (Model.CurrentPage > 1)
-    {
-        <li class="page-item"><a class="page-link" onclick="fillPageId(@(Model.CurrentPage - 1))" >قبلی</a></li>
-    }
-    
-    @for (int i = Model.StartPage ; i <= Model.EndPage ; i++)
-    {
-        if (i == Model.CurrentPage)
-        {
-            <li class="page-item active"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
-        }
-        else
-        {
-            <li class="page-item"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
-        }
-    }
+<div class="row mt-4">
+    <div class="col-12 pl-3">
+        <nav>
+            <ul class="pagination pagination-gutter pagination-primary pagination-sm no-bg">
 
-    @if (Model.CurrentPage < Model.EndPage)
-    {
-        <li class="page-item"><a class="page-link" onclick="fillPageId(@(Model.CurrentPage + 1))">بعدی</a></li>
-    }
-</ul>
+                @if (Model.StartPage < Model.CurrentPage)
+                {
+                    <li class="page-item page-indicator"><a class="page-link" onclick="fillPageId(@Model.CurrentPage - 1)"><i class="la la-angle-right"></i></a></li>
+                }
+
+                @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                {
+                    if (i == Model.CurrentPage)
+                    {
+                        <li class="page-item active"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" onclick="fillPageId(@i)">@i</a></li>
+                    }
+
+                }
+
+                @if (Model.EndPage > Model.CurrentPage)
+                {
+                    <li class="page-item page-indicator"><a class="page-link" onclick="fillPageId(@Model.CurrentPage + 1)"><i class="la la-angle-left"></i></a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
