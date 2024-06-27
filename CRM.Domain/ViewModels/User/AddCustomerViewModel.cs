@@ -1,10 +1,14 @@
 ﻿using CRM.Domain.Entities.Account;
-using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CRM.Domain.ViewModels.User
 {
-    public class AddMarketerViewModel
+    public class AddCustomerViewModel
     {
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "این فیلد اجباری است")]
@@ -28,6 +32,10 @@ namespace CRM.Domain.ViewModels.User
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? Email { get; set; }
 
+        [Display(Name = "نام تصویر")]
+        [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        public string? ImageName { get; set; }
+
         [Display(Name = "شماره موبایل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? MobilePhone { get; set; }
@@ -36,30 +44,21 @@ namespace CRM.Domain.ViewModels.User
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? IntroduceName { get; set; }
 
-        [Display(Name = "رشته تحصیلی")]
+        [Display(Name = "شغل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string? FieldStudy { get; set; }
+        public string? Job { get; set; }
 
-        [Display(Name = "سن")]
-        public int? Age { get; set; }
-
-        [Display(Name = "کد ملی")]
+        [Display(Name = "نام شرکت")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string? IrCode { get; set; }
-
-        [Display(Name = "تحصیلات")]
-        public Education Education { get; set; }
+        public string CompanyName { get; set; }
 
         [Display(Name = "جنسیت")]
         public Gender Gender { get; set; }
-
-        public IFormFile? ImageFile { get; set; }
     }
 
-    public enum AddMarketerResult
+    public enum AddCustomerResult
     {
         Success,
         Fail
     }
-
 }

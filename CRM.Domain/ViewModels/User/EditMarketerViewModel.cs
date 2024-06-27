@@ -48,9 +48,11 @@ namespace CRM.Domain.ViewModels.User
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
 		public string? IrCode { get; set; }
 
-		public Education Education { get; set; }
+        [Display(Name = "تحصیلات")]
+        public Education Education { get; set; }
 
-		public Gender Gender { get; set; }
+        [Display(Name = "جنسیت")]
+        public Gender Gender { get; set; }
 
 		public IFormFile? ImageFile { get; set; }
 
