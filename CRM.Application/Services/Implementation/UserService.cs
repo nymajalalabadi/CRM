@@ -243,6 +243,71 @@ namespace CRM.Application.Services.Implementation
 			return EditMarketerResult.Success;
 		}
 
-		#endregion
-	}
+        public async Task<AddCustomerResult> AddCustomer(AddCustomerViewModel customer)
+        {
+            if (customer.ImageFile != null)
+            {
+                var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(customer.ImageFile.FileName);
+
+                customer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280);
+
+                var userAvatar = new User()
+                {
+                    FirstName = customer.FirstName,
+                    Password = PasswordHelper.EncodePasswordMd5(customer.Password.SanitizeText()),
+                    LastName = customer.LastName,
+                    UserName = customer.UserName,
+                    Email = customer.Email,
+                    MobilePhone = customer.MobilePhone,
+                    IntroduceName = customer.IntroduceName,
+                    Gender = customer.Gender,
+                    ImageName = imageProfileName
+                };
+
+                await _userRepository.AddUser(userAvatar);
+                await _userRepository.SaveChangeAsync();
+
+                var customerAvatar = new Customer()
+                {
+                    UserId = userAvatar.UserId,
+                    CompanyName = customer.CompanyName,
+                    Job = customer.Job
+                };
+
+                await _userRepository.AddCustomer(customerAvatar);
+                await _userRepository.SaveChangeAsync();
+
+                return AddCustomerResult.Success;
+            }
+
+            var user = new User()
+            {
+                FirstName = customer.FirstName,
+                Password = PasswordHelper.EncodePasswordMd5(customer.Password.SanitizeText()),
+                LastName = customer.LastName,
+                UserName = customer.UserName,
+                Email = customer.Email,
+                MobilePhone = customer.MobilePhone,
+                IntroduceName = customer.IntroduceName,
+                Gender = customer.Gender,
+            };
+
+            await _userRepository.AddUser(user);
+            await _userRepository.SaveChangeAsync();
+
+            var newCustomer = new Customer()
+            {
+                UserId = user.UserId,
+                CompanyName = customer.CompanyName,
+                Job = customer.Job
+            };
+
+            await _userRepository.AddCustomer(newCustomer);
+            await _userRepository.SaveChangeAsync();
+
+            return AddCustomerResult.Success;
+        }
+
+        #endregion
+    }
 }

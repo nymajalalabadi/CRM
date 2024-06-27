@@ -1,4 +1,5 @@
 ﻿using CRM.Domain.Entities.Account;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,6 +55,8 @@ namespace CRM.Domain.ViewModels.User
 
         [Display(Name = "جنسیت")]
         public Gender Gender { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
     }
 
     public enum AddCustomerResult

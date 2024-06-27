@@ -20,6 +20,8 @@ namespace CRM.Application.Services.Interface
 
 		Task<EditMarketerResult> EditMarketer(EditMarketerViewModel marketer);
 
-		#endregion
-	}
+        Task<AddCustomerResult> AddCustomer(AddCustomerViewModel customer);
+
+        #endregion
+    }
 }

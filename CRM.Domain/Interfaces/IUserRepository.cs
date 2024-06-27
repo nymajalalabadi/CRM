@@ -28,6 +28,12 @@ namespace CRM.Domain.Interfaces
 
         void UpdateMarketer(Marketer marketer);
 
+        Task AddCustomer(Customer customer);
+
+        Task<Customer?> GetCustomerById(long customerId);
+
+        Task UpdateCustomer(Customer customer);
+
         Task SaveChangeAsync();
 
         #endregion

@@ -36,6 +36,11 @@ namespace CRM.DataLayer.Repository
             await _context.Users.AddAsync(user);
         }
 
+        public void UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+        }
+
         public async Task<User?> GetUserById(long userId)
         {
             return await _context.Users.Where(u => !u.IsDelete).FirstOrDefaultAsync(u => u.UserId.Equals(userId));
@@ -55,11 +60,6 @@ namespace CRM.DataLayer.Repository
             return await _context.Marketers.FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
         }
 
-		public void UpdateUser(User user)
-        {
-            _context.Users.Update(user);
-        }
-
         public async Task AddMarketer(Marketer marketer)
         {
             await _context.Marketers.AddAsync(marketer);
@@ -68,6 +68,21 @@ namespace CRM.DataLayer.Repository
         public void UpdateMarketer(Marketer marketer)
         {
             _context.Marketers.Update(marketer);
+        }
+
+        public async Task AddCustomer(Customer customer)
+        {
+            await _context.Customers.AddAsync(customer);
+        }
+
+        public async Task<Customer?> GetCustomerById(long customerId)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(c => c.UserId.Equals(customerId));  
+        }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            _context?.Customers.Update(customer);   
         }
 
         public async Task SaveChangeAsync()

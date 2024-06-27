@@ -54,10 +54,11 @@ namespace CRM.Domain.ViewModels.User
         [Display(Name = "جنسیت")]
         public Gender Gender { get; set; }
 
-		public IFormFile? ImageFile { get; set; }
+        [Display(Name = "نام تصویر")]
+        public string? ImageName { get; set; }
 
-		public string? ImageName { get; set; }
-	}
+        public IFormFile? ImageFile { get; set; }
+    }
 
 	public enum EditMarketerResult
 	{
