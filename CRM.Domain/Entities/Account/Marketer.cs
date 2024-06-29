@@ -27,9 +27,11 @@ namespace CRM.Domain.Entities.Account
 
 		public Education Education { get; set; }
 
-		#region Relations
+        public bool IsDelete { get; set; }
 
-		public User User { get; set; }
+        #region Relations
+
+        public User User { get; set; }
 
 		#endregion
 	}

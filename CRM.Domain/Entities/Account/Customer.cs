@@ -21,9 +21,11 @@ namespace CRM.Domain.Entities.Account
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
 		public string? CompanyName { get; set; }
 
-		#region Relations
+        public bool IsDelete { get; set; }
 
-		public User User { get; set; }
+        #region Relations
+
+        public User User { get; set; }
 
 		#endregion
 	}

@@ -184,10 +184,30 @@ namespace CRM.Web.Controllers
 
 			return View(editMarketer);
 		}
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#endregion
-	}
+        #region Delete User
+
+        public async Task<IActionResult> DeleteUser(long userId)
+        {
+            var result = await _userService.DeleteUser(userId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                return RedirectToAction("Index");
+            }
+        }
+
+        #endregion
+
+        #endregion
+    }
 }

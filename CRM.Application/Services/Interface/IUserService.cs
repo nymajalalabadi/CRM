@@ -26,6 +26,8 @@ namespace CRM.Application.Services.Interface
 
         Task<EditCustomerResult> EditCustomer(EditCustomerViewModel customer);
 
+        Task<bool> DeleteUser(long userId);
+
         #endregion
     }
 }

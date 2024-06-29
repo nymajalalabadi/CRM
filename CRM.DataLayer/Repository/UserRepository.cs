@@ -60,7 +60,7 @@ namespace CRM.DataLayer.Repository
 
 		public async Task<Marketer?> GetMarketerById(long marketerId)
         {
-            return await _context.Marketers.FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
+            return await _context.Marketers.Where(u => !u.IsDelete).FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
         }
 
         public async Task AddMarketer(Marketer marketer)
@@ -80,7 +80,7 @@ namespace CRM.DataLayer.Repository
 
         public async Task<Customer?> GetCustomerById(long customerId)
         {
-            return await _context.Customers.FirstOrDefaultAsync(c => c.UserId.Equals(customerId));  
+            return await _context.Customers.Where(u => !u.IsDelete).FirstOrDefaultAsync(c => c.UserId.Equals(customerId));  
         }
 
         public void UpdateCustomer(Customer customer)
