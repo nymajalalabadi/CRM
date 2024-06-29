@@ -313,6 +313,109 @@ namespace CRM.Application.Services.Implementation
             return AddCustomerResult.Success;
         }
 
+        public async Task<EditCustomerViewModel> GetCustomerForEdit(long customerId)
+        {
+            var user = await _userRepository.GetUserDetailById(customerId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new EditCustomerViewModel()
+            {
+                UserId = user.UserId,
+                UserName = user.UserName!,
+                Email = user.Email,
+                MobilePhone = user.MobilePhone,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                IntroduceName = user.IntroduceName,
+                ImageName = user.ImageName,
+                Job = user.Customer.Job,
+                CompanyName = user.Customer.CompanyName!
+            };
+        }
+
+        public async Task<EditCustomerResult> EditCustomer(EditCustomerViewModel customer)
+        {
+            if (customer.ImageFile != null)
+            {
+                var userAvatar = await _userRepository.GetUserById(customer.UserId);
+
+                if (userAvatar == null)
+                {
+                    return EditCustomerResult.Fail;
+                }
+
+                var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(customer.ImageFile.FileName);
+                customer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280, null, customer.ImageName!);
+
+                userAvatar.Email = customer.Email;
+                userAvatar.FirstName = customer.FirstName;
+                userAvatar.IntroduceName = customer.IntroduceName;
+                userAvatar.LastName = customer.LastName;
+                userAvatar.MobilePhone = customer.MobilePhone;
+                userAvatar.UserName = customer.UserName;
+                userAvatar.Gender = customer.Gender;
+
+                userAvatar.ImageName = imageProfileName;
+
+                _userRepository.UpdateUser(userAvatar);
+
+                var customerAvatar = await _userRepository.GetCustomerById(customer.UserId);
+
+                if (customerAvatar == null)
+                {
+                    return EditCustomerResult.Fail;
+                }
+
+                customerAvatar!.CompanyName = customer.CompanyName;
+                customerAvatar.Job = customer.Job;
+
+                _userRepository.UpdateCustomer(customerAvatar);
+
+                await _userRepository.SaveChangeAsync();
+
+                return EditCustomerResult.Success;
+            }
+
+            var user = await _userRepository.GetUserById(customer.UserId);
+
+            if (user == null)
+            {
+                return EditCustomerResult.Fail;
+            }
+
+            user.Email = customer.Email;
+            user.FirstName = customer.FirstName;
+            user.IntroduceName = customer.IntroduceName;
+            user.LastName = customer.LastName;
+            user.MobilePhone = customer.MobilePhone;
+            user.UserName = customer.UserName;
+            user.Gender = customer.Gender;
+
+
+            _userRepository.UpdateUser(user);
+
+            var currentCustomer = await _userRepository.GetCustomerById(customer.UserId);
+
+            if (currentCustomer == null)
+            {
+                return EditCustomerResult.Fail;
+            }
+
+            currentCustomer!.CompanyName = customer.CompanyName;
+            currentCustomer.Job = customer.Job;
+
+            _userRepository.UpdateCustomer(currentCustomer);
+
+            await _userRepository.SaveChangeAsync();
+
+            return EditCustomerResult.Success;
+        }
+
         #endregion
     }
 }

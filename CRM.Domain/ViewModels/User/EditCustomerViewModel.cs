@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace CRM.Domain.ViewModels.User
 {
-    public class AddCustomerViewModel
+    public class EditCustomerViewModel
     {
+        public long UserId { get; set; }
+
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "این فیلد اجباری است")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
@@ -32,6 +34,10 @@ namespace CRM.Domain.ViewModels.User
         [Display(Name = "ایمیل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? Email { get; set; }
+
+        [Display(Name = "نام تصویر")]
+        [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        public string? ImageName { get; set; }
 
         [Display(Name = "شماره موبایل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
@@ -55,7 +61,7 @@ namespace CRM.Domain.ViewModels.User
         public IFormFile? ImageFile { get; set; }
     }
 
-    public enum AddCustomerResult
+    public enum EditCustomerResult
     {
         Success,
         Fail

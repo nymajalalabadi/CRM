@@ -22,6 +22,10 @@ namespace CRM.Application.Services.Interface
 
         Task<AddCustomerResult> AddCustomer(AddCustomerViewModel customer);
 
+        Task<EditCustomerViewModel> GetCustomerForEdit(long customerId);
+
+        Task<EditCustomerResult> EditCustomer(EditCustomerViewModel customer);
+
         #endregion
     }
 }
