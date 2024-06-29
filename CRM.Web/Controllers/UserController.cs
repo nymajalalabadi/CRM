@@ -47,9 +47,27 @@ namespace CRM.Web.Controllers
         #region Create Marketer
 
         [HttpGet]
-        public async Task<IActionResult> CreateMarketer()
+        public async Task<IActionResult> CreateMarketer(AddCustomerViewModel addCustomer)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(addCustomer);
+            }
+
+            var result = await _userService.AddCustomer(addCustomer);
+
+            switch (result)
+            {
+                case AddCustomerResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("Index");
+
+                case AddCustomerResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
+
+            return View(addCustomer);
         }
 
         [HttpPost]

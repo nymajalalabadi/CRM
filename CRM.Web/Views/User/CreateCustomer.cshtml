@@ -1,7 +1,109 @@
-﻿
+﻿@using CRM.Domain.Entities.Account
+@using CRM.Domain.ViewModels.User
+@model AddCustomerViewModel
+
 @{
-    ViewData["Title"] = "CreateCustomer";
+    ViewData["Title"] = "افزودن مشتری";
 }
 
-<h1>CreateCustomer</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">@ViewData["Title"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-action="CreateCustomer" asp-controller="user" asp-area="" method="post" id="filter-search" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="UserName"> </label>
+                                <input asp-for="UserName" class="form-control">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="MobilePhone"></label>
+                                <input asp-for="MobilePhone" class="form-control">
+                                <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="IntroduceName"></label>
+                                <input asp-for="IntroduceName" class="form-control">
+                                <span asp-validation-for="IntroduceName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Job"></label>
+                                <input asp-for="Job" class="form-control">
+                                <span asp-validation-for="Job" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>نام شرکت</label>
+                                <input asp-for="CompanyName" class="form-control">
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Gender"></label>
+                                <select asp-for="Gender" class="form-control" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                                <span class="text-danger" asp-validation-for="Gender"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <label>عکس :</label>
+                                    <label for="ImageFile">
+                                        <span type="button" class="btn btn-info">انتخاب عکس</span>
+                                    </label>
+                                    <input type="file" class="d-none" asp-for="ImageFile" id="ImageFile">
+                                    <span class="text-danger" asp-validation-for="ImageFile"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <img src="" id="imgPreview" class="border mx-auto" width="150px" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">افزودن</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Vertical Layout -->
+@section Scripts
+{
+    <partial name="_JqueryValidators" />
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#ImageFile").change(function () {
+            readURL(this);
+        });
+    </script>
+}
 
