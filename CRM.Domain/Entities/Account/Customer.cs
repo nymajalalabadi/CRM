@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CRM.Domain.Entities.Orders;
 
 namespace CRM.Domain.Entities.Account
 {
@@ -27,7 +28,9 @@ namespace CRM.Domain.Entities.Account
 
         public User User { get; set; }
 
-		#endregion
-	}
+        public ICollection<Order> OrderCollection { get; set; }
+
+        #endregion
+    }
 
 }

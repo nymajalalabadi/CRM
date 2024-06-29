@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRM.Domain.Entities.Orders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -53,11 +54,14 @@ namespace CRM.Domain.Entities.Account
 		#region Relations
 
 		public Marketer Marketer { get; set; }
+
 		public Customer Customer { get; set; }
 
-		#endregion
+        public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
 
-	}
+        #endregion
+
+    }
 
 	public enum Gender
 	{
