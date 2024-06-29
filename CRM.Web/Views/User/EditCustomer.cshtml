@@ -1,23 +1,29 @@
 ﻿@using CRM.Application.StaticTools
 @using CRM.Domain.Entities.Account
 @using CRM.Domain.ViewModels.User
-@model EditMarketerViewModel
+@model EditCustomerViewModel
 
 @{
-    ViewData["Title"] = "ویرایش بازاریاب";
+    ViewData["Title"] = "ویرایش مشتری";
 }
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">فیلتر</h4>
+                <h4 class="card-title">@ViewData["Title"]</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form asp-action="EditMarketer" asp-controller="user" asp-area="" method="post" id="filter-search" enctype="multipart/form-data">
+                    <form asp-action="EditCustomer" asp-controller="user" asp-area="" method="post" id="filter-search" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="ImageName" />
                         <div class="form-row">
-                            <input type="hidden" asp-for="UserId" />
-                            <input type="hidden" asp-for="ImageName" />
+                            <div class="form-group col-md-12">
+                                <label asp-for="UserName"> </label>
+                                <input asp-for="UserName" class="form-control">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="FirstName"></label>
                                 <input asp-for="FirstName" class="form-control">
@@ -27,11 +33,6 @@
                                 <label asp-for="LastName"></label>
                                 <input asp-for="LastName" class="form-control">
                                 <span asp-validation-for="LastName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label asp-for="UserName"> </label>
-                                <input asp-for="UserName" class="form-control">
-                                <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="Email"></label>
@@ -49,32 +50,20 @@
                                 <span asp-validation-for="IntroduceName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="FieldStudy"></label>
-                                <input asp-for="FieldStudy" class="form-control">
-                                <span asp-validation-for="FieldStudy" class="text-danger"></span>
+                                <label asp-for="Job"></label>
+                                <input asp-for="Job" class="form-control">
+                                <span asp-validation-for="Job" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>سن</label>
-                                <input asp-for="Age" class="form-control">
-                                <span asp-validation-for="Age" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label asp-for="IrCode"></label>
-                                <input asp-for="IrCode" class="form-control">
-                                <span asp-validation-for="IrCode" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="Education"></label>
-                                <select class="form-control" asp-for="Education" asp-items="@Html.GetEnumSelectList<Education>()"></select>
-                                <span asp-validation-for="Education" class="text-danger"></span>
+                                <label>نام شرکت</label>
+                                <input asp-for="CompanyName" class="form-control">
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="Gender"></label>
                                 <select asp-for="Gender" class="form-control" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
                                 <span class="text-danger" asp-validation-for="Gender"></span>
                             </div>
-
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label>عکس :</label>
@@ -97,14 +86,15 @@
                                     }
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg">ویرایش</button>
                         </div>
+                        <button type="submit" class="btn btn-primary">ویرایش</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts
 {
@@ -127,4 +117,5 @@
         });
     </script>
 }
+
 

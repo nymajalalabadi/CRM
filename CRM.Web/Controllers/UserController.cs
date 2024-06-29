@@ -97,16 +97,53 @@ namespace CRM.Web.Controllers
 
 
 
-		#endregion
+        #endregion
 
 
-		#endregion
+        #endregion
 
-		#region Edit User
+        #region Edit User
 
-		#region Edit Marketer
+        #region Edit Customer
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> EditCustomer(long id)
+        {
+            var result = await _userService.GetCustomerForEdit(id);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCustomer(EditCustomerViewModel customerViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[ErrorMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                return View(customerViewModel);
+            }
+
+            var result = await _userService.EditCustomer(customerViewModel);
+
+            switch (result)
+            {
+                case EditCustomerResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("Index");
+                case EditCustomerResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
+
+            return View(customerViewModel);
+        }
+
+
+        #endregion
+
+        #region Edit Marketer
+
+        [HttpGet]
 		public async Task<IActionResult> EditMarketer(long id)
 		{
             var marketer = await _userService.GetMarketerForEdit(id);
