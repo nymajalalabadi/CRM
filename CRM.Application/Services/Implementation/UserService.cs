@@ -431,11 +431,9 @@ namespace CRM.Application.Services.Implementation
 
             if (user.Marketer != null)
             {
-                var marketer = await _userRepository.GetMarketerById(userId);
+                user.Marketer!.IsDelete = true;
 
-                marketer!.IsDelete = true;
-
-                 _userRepository.UpdateMarketer(marketer);
+                 _userRepository.UpdateMarketer(user.Marketer);
                 await _userRepository.SaveChangeAsync();
 
                 return true;
@@ -443,11 +441,9 @@ namespace CRM.Application.Services.Implementation
 
             if (user.Customer != null)
             {
-                var customer = await _userRepository.GetCustomerById(userId);
+                user.Customer!.IsDelete = true;
 
-                customer!.IsDelete = true;
-
-                _userRepository.UpdateCustomer(customer);
+                _userRepository.UpdateCustomer(user.Customer);
                 await _userRepository.SaveChangeAsync();
 
                 return true;
