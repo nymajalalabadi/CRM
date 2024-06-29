@@ -42,12 +42,8 @@ namespace CRM.Web.Controllers
             return View();
         }
 
-        #endregion
-
-        #region Create Marketer
-
-        [HttpGet]
-        public async Task<IActionResult> CreateMarketer(AddCustomerViewModel addCustomer)
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(AddCustomerViewModel addCustomer)
         {
             if (!ModelState.IsValid)
             {
@@ -59,43 +55,51 @@ namespace CRM.Web.Controllers
             switch (result)
             {
                 case AddCustomerResult.Success:
-                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    TempData[SuccessMessage] = " مشتری مورد نظر با موفقیت ثبت شد";
                     return RedirectToAction("Index");
 
                 case AddCustomerResult.Fail:
-                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    TempData[ErrorMessage] = "مشکلی در ثبت اطلاعات میباشد";
+                    ModelState.AddModelError("UserName", "مشکلی در ثبت اطلاعات میباشد");
                     break;
             }
 
             return View(addCustomer);
         }
 
+        #endregion
+
+        #region Create Marketer
+
+        [HttpGet]
+        public async Task<IActionResult> CreateMarketer()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateMarketer(AddMarketerViewModel marketer)
+        public async Task<IActionResult> CreateMarketer(AddMarketerViewModel addMarketer)
         {
             if (!ModelState.IsValid)
             {
-                return View(marketer);
+                return View(addMarketer);
             }
 
-            var result = await _userService.AddMarketer(marketer);
+            var result = await _userService.AddMarketer(addMarketer);
 
             switch (result)
             {
                 case AddMarketerResult.Success:
-                    TempData[SuccessMessage] = "بازاریاب مورد نظر با موفقیت ثبت شد";
+                    TempData[SuccessMessage] = "بازاریاب با موفقیت انجام شد";
                     return RedirectToAction("Index");
 
                 case AddMarketerResult.Fail:
-                    TempData[ErrorMessage] = "مشکلی در ثبت اطلاعات میباشد";
-                    ModelState.AddModelError("UserName", "مشکلی در ثبت اطلاعات میباشد");
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
             }
 
-            return View(marketer);
+            return View(addMarketer);
         }
-
-
 
         #endregion
 

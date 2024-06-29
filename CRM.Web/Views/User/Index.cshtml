@@ -125,11 +125,11 @@
                                     <td>
                                         @if (user.Marketer != null)
                                         {
-                                            <span class="badge light badge-info">بازاریاب</span>
+                                            <span class="badge light badge-success">بازاریاب</span>
                                         }
                                         @if (user.Customer != null)
                                         {
-                                            <span class="badge light badge-primary">مشتری</span>
+                                            <span class="badge light badge-warning">مشتری</span>
                                         }
                                     </td>
                                     <td>@user.CreateDate.ToShamsiDate()</td>
