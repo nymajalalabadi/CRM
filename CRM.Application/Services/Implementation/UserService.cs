@@ -451,6 +451,10 @@ namespace CRM.Application.Services.Implementation
 
             return false;
         }
+        public async Task<Customer?> GetCustomerById(long customerId)
+        {
+            return await _userRepository.GetCustomerById(customerId);
+        }
 
         #endregion
     }

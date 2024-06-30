@@ -1,4 +1,5 @@
-﻿using CRM.Domain.ViewModels.User;
+﻿using CRM.Domain.Entities.Account;
+using CRM.Domain.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace CRM.Application.Services.Interface
         Task<EditCustomerResult> EditCustomer(EditCustomerViewModel customer);
 
         Task<bool> DeleteUser(long userId);
+
+        Task<Customer?> GetCustomerById(long customerId);
 
         #endregion
     }

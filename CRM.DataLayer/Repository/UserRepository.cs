@@ -80,7 +80,10 @@ namespace CRM.DataLayer.Repository
 
         public async Task<Customer?> GetCustomerById(long customerId)
         {
-            return await _context.Customers.Where(u => !u.IsDelete).FirstOrDefaultAsync(c => c.UserId.Equals(customerId));  
+            return await _context.Customers
+                .Where(u => !u.IsDelete)
+                .Include(u => u.User)
+                .FirstOrDefaultAsync(c => c.UserId.Equals(customerId));  
         }
 
         public void UpdateCustomer(Customer customer)

@@ -71,10 +71,10 @@ namespace CRM.Application.Services.Implementation
 
                 var orderAvatar = new Order()
                 {
+                    CustomerId = createOrder.CustomerId,
                     Description = createOrder.Description,
                     OrderType = createOrder.OrderType,
                     Title = createOrder.Title,
-                    CustomerId = createOrder.CustomerId,
                     ImageName = orderImage
                 };
 
@@ -87,10 +87,10 @@ namespace CRM.Application.Services.Implementation
 
             var order = new Order()
             {
+                CustomerId = createOrder.CustomerId,
                 Description = createOrder.Description,
                 OrderType = createOrder.OrderType,
                 Title = createOrder.Title,
-                CustomerId = createOrder.CustomerId
             };
 
 

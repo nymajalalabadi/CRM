@@ -1,0 +1,98 @@
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
+@using CRM.Domain.Entities.Account
+@using CRM.Domain.Entities.Orders
+@using CRM.Domain.ViewModels.Orders
+@model CreateOrderViewModel
+
+@{
+    ViewData["Title"] = "ساخت سفارش";
+    var customer = ViewBag.customer as Customer;
+}
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card text-white bg-primary">
+            <div class="card-header">
+                <h5 class="card-title text-white">اطلاعات مشتری</h5>
+            </div>
+            <div class="card-body mb-0">
+                <p class="card-text">نام مشتری : @customer!.User.GetUserShowName()</p>
+                <p class="card-text">شغل مشتری : @customer.Job</p>
+                <p class="card-text">شرکت مشتری : @customer.CompanyName</p>
+                <p class="card-text">ایمیل : @customer.User.Email</p>
+                <p class="card-text">موبایل : @customer.User.MobilePhone</p>
+                <p class="card-text">تاریخ ثبت : @customer.User.CreateDate.ToShamsiDate()</p>
+            </div>
+            @*<div class="card-footer bg-transparent border-0 text-white">آخرین آپدیت 4 دقیقه پیش
+            </div>*@
+        </div>
+    </div>
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">ویرایش مشتری</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-area="" asp-controller="Order" asp-action="CreateOrder" method="post" id="filter-search" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="CustomerId" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Description"> </label>
+                                <input asp-for="Description" class="form-control">
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Title"> </label>
+                                <input asp-for="Title" class="form-control">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="OrderType"></label>
+                                <select asp-for="OrderType" class="form-control" asp-items="@Html.GetEnumSelectList<OrderType>()"></select>
+                                <span class="text-danger" asp-validation-for="OrderType"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>عکس :</label>
+                                <label for="ImageFile">
+                                    <span type="button" class="btn btn-info">انتخاب عکس</span>
+                                </label>
+                                <input type="file" class="d-none" asp-for="ImageFile" id="ImageFile">
+                                <span class="text-danger" asp-validation-for="ImageFile"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="form-group">
+                                    <img src="" id="imgPreview" class="border mx-auto" width="150px" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_JqueryValidators" />
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#ImageFile").change(function () {
+            readURL(this);
+        });
+    </script>
+}
