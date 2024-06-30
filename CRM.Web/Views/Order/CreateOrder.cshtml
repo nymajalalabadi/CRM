@@ -31,14 +31,14 @@
     <div class="col-xl-8">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">ویرایش مشتری</h4>
+                <h4 class="card-title">افزودن سفارش</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
                     <form asp-area="" asp-controller="Order" asp-action="CreateOrder" method="post" id="filter-search" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="CustomerId" />
+                        <input type="hidden" asp-for="CustomerId" value="@customer.UserId" />
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label asp-for="Description"> </label>
                                 <input asp-for="Description" class="form-control">
                                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">ثبت</button>
+                        <button type="submit" class="btn btn-success d-block">ثبت</button>
                     </form>
                 </div>
             </div>
