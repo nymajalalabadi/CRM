@@ -1,0 +1,112 @@
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
+@using CRM.Application.StaticTools
+@model CRM.Domain.ViewModels.Orders.FilterOrderViewModel
+@{
+    ViewData["Title"] = "لیست سفارشات";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">فیلتر</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-area="" asp-controller="Order" asp-action="FilterOrders" method="get" id="filter-search">
+                        <input type="hidden" id="pageId" asp-for="CurrentPage" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>نام مشتری </label>
+                                <input asp-for="FilterCustomerName" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>عنوان سفارش</label>
+                                <input asp-for="FilterOrderName" class="form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">فیلتر</button>
+                        @if (Context.Request.QueryString.HasValue)
+                        {
+                            <a class="btn btn-danger" asp-controller="Order" asp-action="FilterOrders">حذف فیلتر</a>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">لیست کاربران</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example3_wrapper" class="table table-responsive-md tc">
+                <table id="example3" class="table table-responsive-md tc">
+                    <thead>
+                        <tr role="row">
+                            <th>نام مشتری</th>
+                            <th>عنوان</th>
+                            <th>تاریخ</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Entities != null)
+                        {
+                            @foreach (var order in Model.Entities)
+                            {
+                                <tr role="row" class="odd">
+                                    <td>
+                                        <p>@order.Customer.User.GetUserShowName()</p>
+                                    </td>
+                                    <td>
+                                        @order.Title
+                                    </td>
+                                    <td>
+                                        <p>@order.CreateDate.ToShamsiDate()</p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            @if (order.IsFinish)
+                                            {
+                                                <span class="badge light badge-success">به اتمام رسیده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge light badge-warning">تمام نشده</span>
+                                            }
+                                            @if (order.IsSale)
+                                            {
+                                                <span class="badge light badge-warning">به فروش رسیده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge light badge-warning">به فروش نرسیده</span>
+                                            }
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <partial name="_PagingPartial" model="@Model.GetPaging()" />
+        </div>
+    </div>
+</div>
+
+
+
+
