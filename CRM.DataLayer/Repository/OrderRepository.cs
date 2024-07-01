@@ -42,7 +42,7 @@ namespace CRM.DataLayer.Repository
 
         public async Task<IQueryable<Order>> GetOrders()
         {
-            return _context.Orders
+            return _context.Orders.Where(o => !o.IsDelete)
                 .Include(a => a.Customer)
                 .ThenInclude(a => a.User)
                 .AsQueryable();
