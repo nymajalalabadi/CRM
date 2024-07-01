@@ -24,8 +24,6 @@
                 <p class="card-text">موبایل : @customer.User.MobilePhone</p>
                 <p class="card-text">تاریخ ثبت : @customer.User.CreateDate.ToShamsiDate()</p>
             </div>
-            @*<div class="card-footer bg-transparent border-0 text-white">آخرین آپدیت 4 دقیقه پیش
-            </div>*@
         </div>
     </div>
     <div class="col-xl-8">
@@ -40,7 +38,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label asp-for="Description"> </label>
-                                <input asp-for="Description" class="form-control">
+                                <textarea asp-for="Description" class="form-control"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -55,15 +53,15 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>عکس :</label>
-                                <label for="ImageFile">
-                                    <span type="button" class="btn btn-info">انتخاب عکس</span>
+                                <label for="ImageFile" class="btn btn-info d-block">
+                                    <span>انتخاب عکس</span>
                                 </label>
                                 <input type="file" class="d-none" asp-for="ImageFile" id="ImageFile">
                                 <span class="text-danger" asp-validation-for="ImageFile"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="form-group">
-                                    <img src="" id="imgPreview" class="border mx-auto" width="150px" height="150px">
+                                    <img src="" id="imgPreview" class="border mx-auto d-block" width="150px" height="150px">
                                 </div>
                             </div>
                         </div>

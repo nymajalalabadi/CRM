@@ -51,7 +51,8 @@
                             <th>نام مشتری</th>
                             <th>عنوان</th>
                             <th>تاریخ</th>
-                            <th>وضعیت</th>
+                            <th>وضعیت پروژه</th>
+                            <th>وضعیت فروش</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -80,9 +81,13 @@
                                             {
                                                 <span class="badge light badge-warning">تمام نشده</span>
                                             }
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
                                             @if (order.IsSale)
                                             {
-                                                <span class="badge light badge-warning">به فروش رسیده</span>
+                                                <span class="badge light badge-success">به فروش رسیده</span>
                                             }
                                             else
                                             {
