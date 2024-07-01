@@ -31,7 +31,6 @@ namespace CRM.Web.Controllers
 
         #endregion
 
-
         #region Create Order
 
         [HttpGet]
@@ -76,5 +75,47 @@ namespace CRM.Web.Controllers
         }
 
         #endregion
+
+        #region Edit order
+
+        public async Task<IActionResult> EditOrder(long orderId)
+        {
+            var result = await _orderService.FillEditOrderViewModel(orderId);
+
+            ViewBag.customer = await _userService.GetCustomerById(result.CustomerId);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditOrder(EditOrderViewModel orderViewModel)
+        {
+            ViewBag.customer = await _userService.GetCustomerById(orderViewModel.CustomerId);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.customer = await _userService.GetCustomerById(orderViewModel.CustomerId);
+                TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                return View(orderViewModel);
+            }
+
+            var result = await _orderService.EditOrder(orderViewModel);
+
+            switch (result)
+            {
+                case EditOrderResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("FilterOrders");
+
+                case EditOrderResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
+
+            return View(orderViewModel);
+        }
+
+        #endregion
+
     }
 }
