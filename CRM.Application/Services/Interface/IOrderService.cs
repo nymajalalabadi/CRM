@@ -16,6 +16,10 @@ namespace CRM.Application.Services.Interface
 
         Task<CreateOrderResult> CreateOrder(CreateOrderViewModel createOrder);
 
+        Task<EditOrderViewModel> FillEditOrderViewModel(long orderId);
+
+        Task<EditOrderResult> EditOrder(EditOrderViewModel editOrder);
+
         #endregion
     }
 }

@@ -357,7 +357,7 @@ namespace CRM.Application.Services.Implementation
                 userAvatar.IntroduceName = customer.IntroduceName;
                 userAvatar.LastName = customer.LastName;
                 userAvatar.MobilePhone = customer.MobilePhone;
-                userAvatar.UserName = customer.UserName;
+                userAvatar.UserName = customer.UserName!;
                 userAvatar.Gender = customer.Gender;
 
                 userAvatar.ImageName = imageProfileName;
