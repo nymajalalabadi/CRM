@@ -97,7 +97,9 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                            <a asp-area="" asp-controller="Order" asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+
+                                            <a asp-area="" asp-controller="User" asp-action="DeleteUser" asp-route-orderId="@order.OrderId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>

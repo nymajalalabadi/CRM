@@ -88,18 +88,18 @@ namespace CRM.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditOrder(EditOrderViewModel orderViewModel)
+        public async Task<IActionResult> EditOrder(EditOrderViewModel editOrder)
         {
-            ViewBag.customer = await _userService.GetCustomerById(orderViewModel.CustomerId);
+            ViewBag.customer = await _userService.GetCustomerById(editOrder.CustomerId);
 
             if (!ModelState.IsValid)
             {
-                ViewBag.customer = await _userService.GetCustomerById(orderViewModel.CustomerId);
+                ViewBag.customer = await _userService.GetCustomerById(editOrder.CustomerId);
                 TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
-                return View(orderViewModel);
+                return View(editOrder);
             }
 
-            var result = await _orderService.EditOrder(orderViewModel);
+            var result = await _orderService.EditOrder(editOrder);
 
             switch (result)
             {
@@ -112,7 +112,7 @@ namespace CRM.Web.Controllers
                     break;
             }
 
-            return View(orderViewModel);
+            return View(editOrder);
         }
 
         #endregion
