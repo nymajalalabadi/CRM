@@ -20,6 +20,8 @@ namespace CRM.Application.Services.Interface
 
         Task<EditOrderResult> EditOrder(EditOrderViewModel editOrder);
 
+        Task<bool> DeleteOrder(long orderId);
+
         #endregion
     }
 }

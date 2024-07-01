@@ -158,6 +158,24 @@ namespace CRM.Application.Services.Implementation
             return EditOrderResult.Success;
         }
 
+        public async Task<bool> DeleteOrder(long orderId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.IsDelete = true;
+
+            _orderRepository.UpdateOrder(order);
+
+            await _orderRepository.SaveChange();
+
+            return true;
+        }
+
         #endregion
     }
 }

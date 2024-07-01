@@ -117,5 +117,24 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Delete Order
+
+        public async Task<IActionResult> DeleteOrder(long orderId)
+        {
+            var result = await _orderService.DeleteOrder(orderId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                return RedirectToAction("FilterOrders");
+            }
+
+            TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+            return RedirectToAction("FilterOrders");
+        }
+
+        #endregion
+
+
     }
 }
