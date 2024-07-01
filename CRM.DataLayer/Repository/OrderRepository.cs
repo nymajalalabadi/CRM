@@ -27,7 +27,7 @@ namespace CRM.DataLayer.Repository
 
         public async Task<Order?> GetOrderById(long orderId)
         {
-            return await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            return await _context.Orders.Where(o => !o.IsDelete).FirstOrDefaultAsync(o => o.OrderId == orderId);
         }
 
         public async Task AddOrder(Order order)
