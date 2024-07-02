@@ -1,4 +1,5 @@
 ﻿using CRM.Domain.Entities.Account;
+using CRM.Domain.ViewModels.Account;
 using CRM.Domain.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -32,6 +33,14 @@ namespace CRM.Application.Services.Interface
         Task<Customer?> GetCustomerById(long customerId);
 
         Task<List<Marketer>> GetMarketerList();
+
+        #region Login
+
+        Task<LoginUserResult> LoginUser(LoginUserViewModel loginUserViewModel);
+
+        Task<User> GetUserByUserName(string userName);
+
+        #endregion
 
         #endregion
     }

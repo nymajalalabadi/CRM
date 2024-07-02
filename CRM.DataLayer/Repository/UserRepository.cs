@@ -58,7 +58,17 @@ namespace CRM.DataLayer.Repository
                 .FirstOrDefaultAsync(u => u.UserId.Equals(userId));
         }
 
-		public async Task<Marketer?> GetMarketerById(long marketerId)
+        public async Task<User?> GetUserByUserName(string userName)
+        {
+            return await _context.Users.Where(c => !c.IsDelete).FirstOrDefaultAsync(u => u.UserName == userName);
+        }
+
+        public async Task<bool> IsExistMarketerByUserName(string userName)
+        {
+            return await _context.Marketers.Include(m => m.User).AnyAsync(m => m.User.UserName.Equals(userName));
+        }
+
+        public async Task<Marketer?> GetMarketerById(long marketerId)
         {
             return await _context.Marketers.Where(u => !u.IsDelete).FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
         }
@@ -76,6 +86,11 @@ namespace CRM.DataLayer.Repository
         public async Task<IQueryable<Marketer>> GetMarketerQueryable()
         {
              return _context.Marketers.Include(a => a.User).Where(m => !m.IsDelete).AsQueryable();
+        }
+
+        public async Task<bool> IsExistCustomerByUserName(string userName)
+        {
+            return await _context.Customers.Include(m => m.User).AnyAsync(m => m.User.UserName.Equals(userName));
         }
 
         public async Task AddCustomer(Customer customer)

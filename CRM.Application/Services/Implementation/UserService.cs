@@ -4,6 +4,7 @@ using CRM.Application.Services.Interface;
 using CRM.Application.StaticTools;
 using CRM.Domain.Entities.Account;
 using CRM.Domain.Interfaces;
+using CRM.Domain.ViewModels.Account;
 using CRM.Domain.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,6 +73,12 @@ namespace CRM.Application.Services.Implementation
         {
             if (marketer.ImageFile != null)
             {
+
+                if (await _userRepository.IsExistMarketerByUserName(marketer.UserName))
+                {
+                    return AddMarketerResult.Fail;
+                }
+
                 var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(marketer.ImageFile.FileName);
 
                 marketer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280);
@@ -105,6 +112,11 @@ namespace CRM.Application.Services.Implementation
                 await _userRepository.SaveChangeAsync();
 
                 return AddMarketerResult.Success;
+            }
+
+            if (await _userRepository.IsExistMarketerByUserName(marketer.UserName))
+            {
+                return AddMarketerResult.Fail;
             }
 
             var user = new User()
@@ -252,6 +264,12 @@ namespace CRM.Application.Services.Implementation
         {
             if (customer.ImageFile != null)
             {
+
+                if (await _userRepository.IsExistCustomerByUserName(customer.UserName))
+                {
+                    return AddCustomerResult.Fail;
+                }
+
                 var imageProfileName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(customer.ImageFile.FileName);
 
                 customer.ImageFile.AddImageToServer(imageProfileName, FilePath.UploadImageProfileServer, 280, 280);
@@ -283,6 +301,11 @@ namespace CRM.Application.Services.Implementation
                 await _userRepository.SaveChangeAsync();
 
                 return AddCustomerResult.Success;
+            }
+
+            if (await _userRepository.IsExistCustomerByUserName(customer.UserName))
+            {
+                return AddCustomerResult.Fail;
             }
 
             var user = new User()
@@ -462,6 +485,40 @@ namespace CRM.Application.Services.Implementation
 
             return marketers.ToList();
         }
+
+        #region Login
+
+        public async Task<LoginUserResult> LoginUser(LoginUserViewModel loginUserViewModel)
+        {
+            var user = await _userRepository.GetUserByUserName(loginUserViewModel.UserName);
+
+            if (user == null)
+            {
+                return LoginUserResult.NotFound;
+            }
+
+            if (user.Password != PasswordHelper.EncodePasswordMd5(loginUserViewModel.Password))
+            {
+                return LoginUserResult.PasswordNotCorrect;
+            }
+
+            return LoginUserResult.Success;
+        }
+
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            var user = await _userRepository.GetUserByUserName(userName);
+
+            if (user == null) 
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+
+        #endregion
 
         #endregion
     }

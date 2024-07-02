@@ -22,13 +22,19 @@ namespace CRM.Domain.Interfaces
 
         Task<User?> GetUserDetailById(long userId);
 
-		Task<Marketer?> GetMarketerById(long marketerId);
+        Task<User?> GetUserByUserName(string userName);
+
+        Task<bool> IsExistMarketerByUserName(string userName);
+
+        Task<Marketer?> GetMarketerById(long marketerId);
 
 		Task AddMarketer(Marketer marketer);
 
         void UpdateMarketer(Marketer marketer);
 
         Task<IQueryable<Marketer>> GetMarketerQueryable();
+
+        Task<bool> IsExistCustomerByUserName(string userName);
 
         Task AddCustomer(Customer customer);
 
