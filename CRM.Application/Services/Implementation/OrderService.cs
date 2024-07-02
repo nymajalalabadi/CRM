@@ -176,6 +176,11 @@ namespace CRM.Application.Services.Implementation
             return true;
         }
 
+        public Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

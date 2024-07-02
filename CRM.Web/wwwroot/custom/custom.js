@@ -30,3 +30,40 @@ function readURL(input) {
 $("#ImageFile").change(function () {
     readURL(this);
 });
+
+///show modals
+
+function OpenSelectMarketerModal(orderId) {
+    $.ajax({
+        url: "/Order/SelectMarketerModal",
+        type: "Get",
+        data: {
+            orderId: orderId
+        },
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            $("#content").html(response);
+            $("#basicModal").modal("show");
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function SelectOrderMarketerDone(response) {
+    if (response.status === "success") {
+        ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
+        $("#basicModal").modal("hide");
+    }
+    else if (response.status === "Exist") {
+        ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
+        $("#basicModal").modal("hide");
+    } else {
+        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "errror");
+    }
+}
+
+///show modals

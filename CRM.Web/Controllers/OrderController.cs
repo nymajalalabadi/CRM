@@ -135,6 +135,45 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Select Marketer For Order
+
+        public async Task<IActionResult> SelectMarketerModal(long orderId)
+        {
+            var model = new OrderSelectMarketerViewModel()
+            {
+                OrderId = orderId
+            };
+
+            ViewBag.Marketers = await _userService.GetMarketerList();
+
+            return PartialView("_SelectMarketerPartial", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectMarketerModal(OrderSelectMarketerViewModel orderSelectMarketerViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { status = "NotValid" });
+            }
+
+            var result = await _orderService.AddOrderSelectMarketer(orderSelectMarketerViewModel, User.GetUserId());
+
+            switch (result)
+            {
+                case AddOrderSelectMarketerResult.Success:
+                    return new JsonResult(new { status = "Success" });
+
+                case AddOrderSelectMarketerResult.Fail:
+                    return new JsonResult(new { status = "Error" });
+
+                case AddOrderSelectMarketerResult.SelectedMarketerExist:
+                    return new JsonResult(new { status = "Exist" });
+            }
+            return new JsonResult(new { status = "Error" });
+        }
+
+        #endregion
 
     }
 }

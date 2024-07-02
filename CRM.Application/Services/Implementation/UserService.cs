@@ -456,6 +456,13 @@ namespace CRM.Application.Services.Implementation
             return await _userRepository.GetCustomerById(customerId);
         }
 
+        public async Task<List<Marketer>> GetMarketerList()
+        {
+            var marketers = await _userRepository.GetMarketerQueryable();
+
+            return marketers.ToList();
+        }
+
         #endregion
     }
 }

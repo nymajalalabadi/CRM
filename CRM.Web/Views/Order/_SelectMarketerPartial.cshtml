@@ -1,0 +1,30 @@
+﻿@using CRM.Application.Extensions
+@using CRM.Domain.Entities.Account
+@model CRM.Domain.ViewModels.Orders.OrderSelectMarketerViewModel
+
+@{
+    var marketerList = ViewBag.Marketers as List<Marketer>;
+}
+
+
+<form asp-controller="Order" asp-action="SelectMarketerModal" method="post" data-ajax="true"
+      data-ajax-method="post" data-ajax-success="SelectOrderMarketerDone">
+    <input type="hidden" asp-for="OrderId" />
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label asp-for="Description"> </label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label>انتخاب بازاریاب</label>
+            <select class="form-control" asp-for="MarketerId">
+                @foreach (var marketer in marketerList!)
+                {
+                    <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
+                }
+            </select>
+            <span asp-validation-for="MarketerId" class="text-danger"></span>
+        </div>
+    </div>
+</form>

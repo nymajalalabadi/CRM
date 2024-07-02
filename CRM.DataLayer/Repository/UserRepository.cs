@@ -73,6 +73,11 @@ namespace CRM.DataLayer.Repository
             _context.Marketers.Update(marketer);
         }
 
+        public async Task<IQueryable<Marketer>> GetMarketerQueryable()
+        {
+             return _context.Marketers.Include(a => a.User).Where(m => !m.IsDelete).AsQueryable();
+        }
+
         public async Task AddCustomer(Customer customer)
         {
             await _context.Customers.AddAsync(customer);

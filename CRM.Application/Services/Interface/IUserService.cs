@@ -31,6 +31,8 @@ namespace CRM.Application.Services.Interface
 
         Task<Customer?> GetCustomerById(long customerId);
 
+        Task<List<Marketer>> GetMarketerList();
+
         #endregion
     }
 }

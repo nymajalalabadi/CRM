@@ -100,6 +100,7 @@
                                             <a asp-area="" asp-controller="Order" asp-action="EditOrder" asp-route-orderId="@order.OrderId" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
 
                                             <a asp-area="" asp-controller="Order" asp-action="DeleteOrder" asp-route-orderId="@order.OrderId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            <a onclick="OpenSelectMarketerModal('@order.OrderId')" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-search text-white"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -113,7 +114,5 @@
         </div>
     </div>
 </div>
-
-
 
 

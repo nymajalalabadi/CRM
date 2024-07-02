@@ -28,6 +28,8 @@ namespace CRM.Domain.Interfaces
 
         void UpdateMarketer(Marketer marketer);
 
+        Task<IQueryable<Marketer>> GetMarketerQueryable();
+
         Task AddCustomer(Customer customer);
 
         Task<Customer?> GetCustomerById(long customerId);
