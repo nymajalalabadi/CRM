@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace CRM.Web.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : Controller
     {
         #region Ctor
 
@@ -60,16 +60,16 @@ namespace CRM.Web.Controllers
 
                     await HttpContext.SignInAsync(principal, properties);
 
-                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    TempData["SuccessMessage"] = "عملیات با موفقیت انجام شد";
 
                     return RedirectToAction("Index", "Home");
 
                 case LoginUserResult.NotFound:
-                    TempData[ErrorMessage] = "اکانت شما با این مشخصات یافت نشد";
+                    TempData["SuccessMessage"] = "اکانت شما با این مشخصات یافت نشد";
                     break;
 
                 case LoginUserResult.PasswordNotCorrect:
-                    TempData[WarningMessage] = "رمز عبور شما درست نمی باشد";
+                    TempData["SuccessMessage"] = "رمز عبور شما درست نمی باشد";
                     break;
             }
 
@@ -84,7 +84,7 @@ namespace CRM.Web.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            TempData[SuccessMessage] = "خروج با موفقیت انجام شد";
+            TempData["SuccessMessage"] = "خروج با موفقیت انجام شد";
             return RedirectToAction("Login");
         }
 
