@@ -22,7 +22,7 @@ namespace CRM.Application.Services.Interface
 
         Task<bool> DeleteOrder(long orderId);
 
-        Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId);
+        Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel order, long userId);
 
         #endregion
     }

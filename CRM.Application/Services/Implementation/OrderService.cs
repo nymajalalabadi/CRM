@@ -176,9 +176,35 @@ namespace CRM.Application.Services.Implementation
             return true;
         }
 
-        public Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel marketerViewModel, long userId)
+        public async Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel order, long userId)
         {
-            throw new NotImplementedException();
+            var currentOrder = await _orderRepository.GetOrderById(order.OrderId);
+
+            if (currentOrder == null) 
+            { 
+                return AddOrderSelectMarketerResult.Fail;
+            }
+
+            var selectedMarketerQueryable = await _orderRepository.GetOrderSelectMarketers();
+
+            if (selectedMarketerQueryable.Any(a => a.OrderId == order.OrderId && !a.IsDelete))
+            {
+                return AddOrderSelectMarketerResult.SelectedMarketerExist;
+            }
+
+            var selectedMarketer = new OrderSelectedMarketer()
+            {
+                OrderId = order.OrderId,
+                MarketerId = order.MarketerId,
+                ModifyUserId = userId,
+                Description = order.Description
+            };
+
+            await _orderRepository.AddOrderSelectedMarketer(selectedMarketer);
+
+            await _orderRepository.SaveChange();
+
+            return AddOrderSelectMarketerResult.Success;
         }
 
         #endregion

@@ -48,6 +48,16 @@ namespace CRM.DataLayer.Repository
                 .AsQueryable();
         }
 
+        public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketers()
+        {
+            return _context.orderSelectedMarketers.AsQueryable();
+        }
+
+        public async Task AddOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+            await _context.orderSelectedMarketers.AddAsync(orderSelectedMarketer);
+        }
+
         public async Task SaveChange()
         {
             await _context.SaveChangesAsync();
