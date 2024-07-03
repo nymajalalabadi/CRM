@@ -53,8 +53,40 @@ function OpenSelectMarketerModal(orderId) {
     });
 }
 
+function SubmitForm() {
+    var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    },
+        {});
+
+
+    var form_data = new FormData();
+
+    for (var key in sendData) {
+        form_data.append(key, sendData[key]);
+    }
+
+    $.ajax({
+        url: "/Order/SelectMarketerModal",
+        type: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            SelectOrderMarketerDone(response);
+        },
+        error: function () {
+
+        }
+    });
+}
+
 function SelectOrderMarketerDone(response) {
-    if (response.status === "success") {
+    if (response.status === "Success") {
         ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
         $("#basicModal").modal("hide");
     }
@@ -62,7 +94,7 @@ function SelectOrderMarketerDone(response) {
         ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
         $("#basicModal").modal("hide");
     } else {
-        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "errror");
+        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
     }
 }
 

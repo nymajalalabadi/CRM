@@ -27,8 +27,4 @@
     <ProjectReference Include="..\CRM.IoC\CRM.IoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>

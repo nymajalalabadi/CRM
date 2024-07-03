@@ -164,10 +164,8 @@ namespace CRM.Web.Controllers
             {
                 case AddOrderSelectMarketerResult.Success:
                     return new JsonResult(new { status = "Success" });
-
                 case AddOrderSelectMarketerResult.Fail:
                     return new JsonResult(new { status = "Error" });
-
                 case AddOrderSelectMarketerResult.SelectedMarketerExist:
                     return new JsonResult(new { status = "Exist" });
             }
