@@ -69,6 +69,21 @@ namespace CRM.DataLayer.Repository
             await _context.orderSelectedMarketers.AddAsync(orderSelectedMarketer);
         }
 
+        public async Task<OrderSelectedMarketer?> GetOrderSelectedMarketerById(long orderId)
+        {
+            return await _context.orderSelectedMarketers.Where(o => !o.IsDelete).FirstOrDefaultAsync(s => s.OrderId.Equals(orderId));
+        }
+
+        public void UpdateOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+            _context.orderSelectedMarketers.Update(orderSelectedMarketer);
+        }
+
+        public void DeleteOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)
+        {
+             _context.orderSelectedMarketers.Remove(orderSelectedMarketer);
+        }
+
         public async Task SaveChange()
         {
             await _context.SaveChangesAsync();

@@ -244,6 +244,23 @@ namespace CRM.Application.Services.Implementation
             return filter;
         }
 
+        public async Task<bool> DeleteOrderSelectedMarketer(long orderId)
+        {
+            var orderSelectedMarketer = await _orderRepository.GetOrderSelectedMarketerById(orderId);
+
+            if (orderSelectedMarketer == null)
+            {
+                return false;
+            }
+
+            orderSelectedMarketer.IsDelete = true;
+
+            _orderRepository.DeleteOrderSelectedMarketer(orderSelectedMarketer);
+            await _orderRepository.SaveChange();
+
+            return true;
+        }
+
         #endregion
     }
 }

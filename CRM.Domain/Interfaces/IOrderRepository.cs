@@ -25,6 +25,12 @@ namespace CRM.Domain.Interfaces
 
         Task AddOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
 
+        Task<OrderSelectedMarketer?> GetOrderSelectedMarketerById(long orderId);
+
+        void UpdateOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
+
+        void DeleteOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
+
         Task SaveChange();
 
         #endregion

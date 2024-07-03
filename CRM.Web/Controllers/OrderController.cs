@@ -185,5 +185,24 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Delete Order Selected Marketer
+
+        public async Task<IActionResult> DeleteOrderSelectedMarketer(long orderId)
+        {
+            var result = await _orderService.DeleteOrderSelectedMarketer(orderId);
+
+            if (!result)
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+
+                return RedirectToAction("FilterOrdersSelectedMarketer");
+            }
+
+            TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+
+            return RedirectToAction("FilterOrdersSelectedMarketer");
+        }
+
+        #endregion
     }
 }

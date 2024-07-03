@@ -26,6 +26,8 @@ namespace CRM.Application.Services.Interface
 
         Task<FilterOrderSelectedMarketer> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter);
 
+        Task<bool> DeleteOrderSelectedMarketer(long orderId);
+
         #endregion
     }
 }
