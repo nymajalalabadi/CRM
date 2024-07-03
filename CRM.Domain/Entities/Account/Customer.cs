@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CRM.Domain.Entities.Orders;
+using CRM.Domain.Entities.Companies;
 
 namespace CRM.Domain.Entities.Account
 {
@@ -14,7 +15,9 @@ namespace CRM.Domain.Entities.Account
 		[Key, ForeignKey("User")]
 		public long UserId { get; set; }
 
-		[Display(Name = "شغل")]
+        public long? CompanyId { get; set; }
+
+        [Display(Name = "شغل")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
 		public string? Job { get; set; }
 
@@ -29,6 +32,8 @@ namespace CRM.Domain.Entities.Account
         public User User { get; set; }
 
         public ICollection<Order> OrderCollection { get; set; }
+
+        public Company Company { get; set; }
 
         #endregion
     }
