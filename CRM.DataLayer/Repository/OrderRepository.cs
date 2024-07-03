@@ -48,6 +48,17 @@ namespace CRM.DataLayer.Repository
                 .AsQueryable();
         }
 
+        public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarketers()
+        {
+            return _context.orderSelectedMarketers.Where(o => !o.IsDelete)
+                .Include(a => a.Order)
+                .ThenInclude(a => a.Customer)
+                .ThenInclude(a => a.User)
+                .Include(a => a.Marketer)
+                .ThenInclude(a => a.User)
+                .AsQueryable();
+        }
+
         public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketers()
         {
             return _context.orderSelectedMarketers.AsQueryable();

@@ -19,6 +19,8 @@ namespace CRM.Domain.Interfaces
 
         Task<IQueryable<Order>> GetOrders();
 
+        Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarketers();
+
         Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketers();
 
         Task AddOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);

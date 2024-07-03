@@ -1,0 +1,116 @@
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
+@using CRM.Domain.ViewModels.Orders
+@model FilterOrderSelectedMarketer
+
+@{
+    ViewData["Title"] = "لیست سفارشات متصل به بازاریابان";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">فیلتر</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-controller="Order" asp-action="FilterOrdersSelectedMarketer" method="get" id="filter-search">
+                        <input type="hidden" id="pageId" asp-for="CurrentPage" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>نام مشتری </label>
+                                <input asp-for="FilterCustomerName" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>نام بازاریاب</label>
+                                <input asp-for="FilterMarketerName" class="form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">فیلتر</button>
+                        @if (Context.Request.QueryString.HasValue)
+                        {
+                            <a class="btn btn-danger" asp-controller="Order" asp-action="FilterOrdersSelectedMarketer">حذف فیلتر</a>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">لیست سفارشات</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example3_wrapper" class="table table-responsive-md tc">
+
+
+                <table id="example3" class="table table-responsive-md tc">
+                    <thead>
+                        <tr role="row">
+                            <th>نام مشتری</th>
+                            <th>نام بازاریاب</th>
+                            <th>تاریخ</th>
+                            <th>وضعیت پروژه</th>
+                            <th>وضعیت فروش</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Entities != null)
+                        {
+                            @foreach (var order in Model.Entities)
+                            {
+                                <tr role="row" class="odd">
+                                    <td>
+                                        <p>@order.Order.Customer.User.GetUserShowName()</p>
+                                    </td>
+                                    <td>
+                                        @order.Marketer.User.GetUserShowName()
+                                    </td>
+                                    <td>
+                                        <p>@order.CreateDate.ToShamsiDate()</p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            @if (order.Order.IsFinish)
+                                            {
+                                                <span class="badge light badge-success">به اتمام رسیده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge light badge-warning">تمام نشده</span>
+                                            }
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            @if (order.Order.IsSale)
+                                            {
+                                                <span class="badge light badge-success">به فروش رسیده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge light badge-warning">به فروش نرسیده</span>
+                                            }
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a asp-controller="Order" asp-action="DeleteOrder" asp-route-orderId="@order.OrderId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <partial name="_PagingPartial" model="@Model.GetPaging()" />
+        </div>
+    </div>
+</div>
+

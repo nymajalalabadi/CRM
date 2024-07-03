@@ -207,6 +207,43 @@ namespace CRM.Application.Services.Implementation
             return AddOrderSelectMarketerResult.Success;
         }
 
+        public async Task<FilterOrderSelectedMarketer> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter)
+        {
+            var query = await _orderRepository.GetOrderSelectedMarketers();
+
+            #region Filter
+
+            if (!string.IsNullOrEmpty(filter.FilterCustomerName))
+            {
+                query = query.Where(a =>
+                    EF.Functions.Like(a.Order.Customer.User.FirstName, $"%{filter.FilterCustomerName}%") ||
+                    EF.Functions.Like(a.Order.Customer.User.LastName, $"%{filter.FilterCustomerName}%") ||
+                    EF.Functions.Like(a.Order.Customer.User.FirstName + " " + a.Order.Customer.User.LastName, 
+                    $"%{filter.FilterCustomerName}%"));
+            }
+
+            if (!string.IsNullOrEmpty(filter.FilterMarketerName))
+            {
+                query = query.Where(a => 
+                EF.Functions.Like(a.Marketer.User.FirstName, $"%{filter.FilterMarketerName}%") ||
+                EF.Functions.Like(a.Marketer.User.LastName, $"%{filter.FilterMarketerName}%") ||
+                EF.Functions.Like(a.Marketer.User.FirstName + " " + a.Marketer.User.LastName, 
+                    $"%{filter.FilterMarketerName}%"));
+            }
+
+            #endregion
+
+            query = query.OrderByDescending(a => a.CreateDate);
+
+            #region Paging
+
+            await filter.SetPaging(query);
+
+            #endregion
+
+            return filter;
+        }
+
         #endregion
     }
 }

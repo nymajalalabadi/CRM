@@ -174,5 +174,16 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Selected Marketer List
+
+        public async Task<IActionResult> FilterOrdersSelectedMarketer(FilterOrderSelectedMarketer filter)
+        {
+            var result = await _orderService.FilterOrderSelectedMarketer(filter);
+
+            return View(result);
+        }
+
+        #endregion
+
     }
 }

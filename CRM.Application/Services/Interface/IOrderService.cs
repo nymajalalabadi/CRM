@@ -24,6 +24,8 @@ namespace CRM.Application.Services.Interface
 
         Task<AddOrderSelectMarketerResult> AddOrderSelectMarketer(OrderSelectMarketerViewModel order, long userId);
 
+        Task<FilterOrderSelectedMarketer> FilterOrderSelectedMarketer(FilterOrderSelectedMarketer filter);
+
         #endregion
     }
 }
