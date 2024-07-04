@@ -63,5 +63,47 @@ namespace CRM.Web.Controllers
         }
 
         #endregion
+
+        #region Edit Company
+
+        public async Task<IActionResult> EditCompany(long companyId)
+        {
+            var result = await _companyService.GetCompanyByEdit(companyId);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCompany(EditCompanyViewModel companyViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                return View(companyViewModel);
+            }
+
+            var result = await _companyService.EditCompany(companyViewModel);
+
+            switch (result)
+            {
+                case EditCompanyResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("FilterCompanies");
+
+                case EditCompanyResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
+
+            return View(companyViewModel);
+        }
+
+        #endregion
+
     }
 }

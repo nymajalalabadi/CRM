@@ -1,9 +1,4 @@
 ﻿using CRM.Domain.ViewModels.Company;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRM.Application.Services.Interface
 {
@@ -14,6 +9,12 @@ namespace CRM.Application.Services.Interface
         Task<FilterCompanyViewModel> filterCompanyViewModel(FilterCompanyViewModel filter);
 
         Task<CreateCompanyResult> CreateCompany(CreateCompanyViewModel companyViewModel);
+
+        Task<EditCompanyViewModel> GetCompanyByEdit(long companyId);
+
+        Task<EditCompanyResult> EditCompany(EditCompanyViewModel edit);
+
+        Task<bool> DeleteCompany(long companyId);
 
         #endregion
     }
