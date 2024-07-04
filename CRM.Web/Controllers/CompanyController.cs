@@ -105,5 +105,24 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Delete Company
+
+        public async Task<IActionResult> DeleteCompany(long companyId)
+        {
+            var result = await _companyService.DeleteCompany(companyId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                return RedirectToAction("FilterCompanies");
+            }
+
+            TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+
+            return RedirectToAction("FilterCompanies");
+        }
+
+        #endregion
+
     }
 }
