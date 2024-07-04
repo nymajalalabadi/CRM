@@ -27,7 +27,7 @@ namespace CRM.DataLayer.Repository
 
         public async Task<IQueryable<Company>> GetCompanies()
         {
-            return _context.Companies.AsQueryable();
+            return _context.Companies.Where(c => !c.IsDelete).AsQueryable();
         }
 
         public async Task AddCompany(Company company)

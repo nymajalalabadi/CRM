@@ -19,9 +19,11 @@ namespace CRM.Web.Controllers
 
         #region List Company
 
-        public async Task<IActionResult> FilterCompanies()
+        public async Task<IActionResult> FilterCompanies(FilterCompanyViewModel filter)
         {
-            return View();
+            var result = await _companyService.filterCompanyViewModel(filter);
+
+            return View(result);
         }
 
         #endregion

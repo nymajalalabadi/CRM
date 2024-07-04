@@ -25,6 +25,36 @@ namespace CRM.Application.Services.Implementation
 
         #region Methods
 
+        public async Task<FilterCompanyViewModel> filterCompanyViewModel(FilterCompanyViewModel filter)
+        {
+            var query = await _companyRepository.GetCompanies();
+
+            #region Filter
+
+            if (!string.IsNullOrEmpty(filter.FilterCompanyName))
+            {
+                query = query.Where(c => c.Name.Contains(filter.FilterCompanyName));
+            }
+
+            if (!string.IsNullOrEmpty(filter.FilterCompanyCode))
+            {
+                query = query.Where(c => c.Code.Contains(filter.FilterCompanyCode));
+            }
+
+            #endregion
+
+            query = query.OrderByDescending(c => c.CreateDate);
+
+            #region Paging
+
+            await filter.SetPaging(query);
+
+            #endregion
+
+            return filter;
+        }
+
+
         public async Task<CreateCompanyResult> CreateCompany(CreateCompanyViewModel companyViewModel)
         {
             if (await _companyRepository.IsExistCompanyByMobilePhone(companyViewModel.MobilePhone))
@@ -39,6 +69,7 @@ namespace CRM.Application.Services.Implementation
                 City = companyViewModel.City,
                 Description = companyViewModel.Description,
                 Name = companyViewModel.Name,
+                Code = companyViewModel.Code,
                 MobilePhone = companyViewModel.MobilePhone,
                 IntroduceName = companyViewModel.IntroduceName
             };

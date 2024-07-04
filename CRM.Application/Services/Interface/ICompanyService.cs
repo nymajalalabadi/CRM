@@ -11,6 +11,8 @@ namespace CRM.Application.Services.Interface
     {
         #region Methods
 
+        Task<FilterCompanyViewModel> filterCompanyViewModel(FilterCompanyViewModel filter);
+
         Task<CreateCompanyResult> CreateCompany(CreateCompanyViewModel companyViewModel);
 
         #endregion
