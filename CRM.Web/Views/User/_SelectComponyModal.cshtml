@@ -1,0 +1,29 @@
+﻿@using CRM.Domain.Entities.Companies
+@model CRM.Domain.ViewModels.Company.CustomerSelectCompanyViewModel
+
+@{
+    var companiesList = ViewBag.CompanyList as List<Company>;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>انتخاب شرکت برای مشتری</h4>
+    </div>
+    <div class="col-lg-12">
+        <form method="post" id="SelectedCompanyForm">
+            <input type="hidden" asp-for="CustomerId" />
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>انتخاب شرکت</label>
+                    <select class="form-control" asp-for="CompanyId">
+                        @foreach (var company in companiesList!)
+                        {
+                            <option value="@company.CompanyId">@company.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

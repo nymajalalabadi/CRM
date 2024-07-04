@@ -31,7 +31,7 @@ $("#ImageFile").change(function () {
     readURL(this);
 });
 
-///show modals
+///show modals selected marketer
 
 function OpenSelectMarketerModal(orderId) {
     $.ajax({
@@ -99,3 +99,67 @@ function SelectOrderMarketerDone(response) {
 }
 
 ///show modals
+
+function SelectCompanyModal(userId) {
+    $.ajax({
+        url: "/user/SelectComponyModal",
+        type: "Get",
+        data: {
+            userId: userId
+        },
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            $("#content").html(response);
+            $("#basicModal").modal("show");
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function SubmitForm() {
+    var sendData = $('#SelectedCompanyForm').serializeArray().reduce(function (obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    },
+        {});
+
+
+    var form_data = new FormData();
+
+    for (var key in sendData) {
+        form_data.append(key, sendData[key]);
+    }
+
+    $.ajax({
+        url: "/user/SelectComponyModal",
+        type: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            SelectCustomerCompanyDone(response);
+        },
+        error: function () {
+
+        }
+    });
+}
+function SelectCustomerCompanyDone(response) {
+    if (response.status === "Success") {
+        ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
+        $("#basicModal").modal("hide");
+    }
+    else if (response.status === "Exist") {
+        ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
+        $("#basicModal").modal("hide");
+    } else {
+        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
+    }
+}

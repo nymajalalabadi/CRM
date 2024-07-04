@@ -1,4 +1,5 @@
-﻿using CRM.Domain.ViewModels.Company;
+﻿using CRM.Domain.Entities.Companies;
+using CRM.Domain.ViewModels.Company;
 
 namespace CRM.Application.Services.Interface
 {
@@ -15,6 +16,10 @@ namespace CRM.Application.Services.Interface
         Task<EditCompanyResult> EditCompany(EditCompanyViewModel edit);
 
         Task<bool> DeleteCompany(long companyId);
+
+        Task<List<Company>> GetCompaniesList();
+
+        Task<AddCustomerSelectCompanyResult> SelectCompanyForCustomer(CustomerSelectCompanyViewModel customerSelectCompany);
 
         #endregion
     }

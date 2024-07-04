@@ -1,7 +1,10 @@
 ﻿using CRM.Application.Services.Interface;
+using CRM.DataLayer.Repository;
+using CRM.Domain.Entities.Account;
 using CRM.Domain.Entities.Companies;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Company;
+using System.ComponentModel.Design;
 
 namespace CRM.Application.Services.Implementation
 {
@@ -11,9 +14,12 @@ namespace CRM.Application.Services.Implementation
 
         private readonly ICompanyRepository _companyRepository;
 
-        public CompanyService(ICompanyRepository companyRepository)
+        private readonly IUserRepository _userRepository;
+
+        public CompanyService(ICompanyRepository companyRepository, IUserRepository userRepository)
         {
             _companyRepository = companyRepository;
+            _userRepository = userRepository;
         }
 
         #endregion
@@ -33,7 +39,7 @@ namespace CRM.Application.Services.Implementation
 
             if (!string.IsNullOrEmpty(filter.FilterCompanyCode))
             {
-                query = query.Where(c => c.Code.Contains(filter.FilterCompanyCode));
+                query = query.Where(c => c.Code!.Contains(filter.FilterCompanyCode));
             }
 
             #endregion
@@ -137,6 +143,37 @@ namespace CRM.Application.Services.Implementation
             await _companyRepository.SaveChanges();
 
             return true;
+        }
+
+        public async Task<List<Company>> GetCompaniesList()
+        {
+            var companies = await _companyRepository.GetCompanies();
+
+            return companies.ToList();
+        }
+
+        public async Task<AddCustomerSelectCompanyResult> SelectCompanyForCustomer(CustomerSelectCompanyViewModel customerSelectCompany)
+        {
+            var customer = await _userRepository.GetCustomerById(customerSelectCompany.CustomerId);
+            var company = await _companyRepository.GetCompanyById(customerSelectCompany.CompanyId);
+
+            if (customer == null || company == null)
+            {
+                return AddCustomerSelectCompanyResult.Fail;
+            }
+
+            if (customer.CompanyId == company.CompanyId)
+            {
+                return AddCustomerSelectCompanyResult.SelectedCustomerExist;
+            }
+
+            customer.CompanyId = customerSelectCompany.CompanyId;
+
+            _userRepository.UpdateCustomer(customer);
+
+            await _userRepository.SaveChangeAsync();
+
+            return AddCustomerSelectCompanyResult.Success;
         }
 
         #endregion

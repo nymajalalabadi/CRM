@@ -1,18 +1,24 @@
-﻿using CRM.Application.Services.Interface;
+﻿using CRM.Application.Services.Implementation;
+using CRM.Application.Services.Interface;
+using CRM.Domain.Entities.Account;
+using CRM.Domain.ViewModels.Company;
 using CRM.Domain.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Web.Controllers
 {
-	public class UserController : BaseController
+    public class UserController : BaseController
     {
         #region Constructor
 
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        private readonly ICompanyService _companyService;
+
+        public UserController(IUserService userService, ICompanyService companyService)
         {
             _userService = userService;
+            _companyService = companyService;
         }
 
         #endregion
@@ -148,8 +154,8 @@ namespace CRM.Web.Controllers
         #region Edit Marketer
 
         [HttpGet]
-		public async Task<IActionResult> EditMarketer(long id)
-		{
+        public async Task<IActionResult> EditMarketer(long id)
+        {
             var marketer = await _userService.GetMarketerForEdit(id);
 
             if (marketer == null)
@@ -157,33 +163,33 @@ namespace CRM.Web.Controllers
                 return NotFound();
             }
 
-			return View(marketer);
-		}
+            return View(marketer);
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> EditMarketer(EditMarketerViewModel editMarketer)
-		{
+        [HttpPost]
+        public async Task<IActionResult> EditMarketer(EditMarketerViewModel editMarketer)
+        {
             if (!ModelState.IsValid)
             {
                 TempData[WarningMessage] = "اطلاعات وارد شده کامل نمی باشد";
                 return View(editMarketer);
             }
 
-			var result = await _userService.EditMarketer(editMarketer);
+            var result = await _userService.EditMarketer(editMarketer);
 
-			switch (result)
-			{
-				case EditMarketerResult.Success:
-					TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
-					return RedirectToAction("Index");
+            switch (result)
+            {
+                case EditMarketerResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("Index");
 
-				case EditMarketerResult.Fail:
-					TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
-					break;
-			}
+                case EditMarketerResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
 
-			return View(editMarketer);
-		}
+            return View(editMarketer);
+        }
         #endregion
 
         #endregion
@@ -204,6 +210,48 @@ namespace CRM.Web.Controllers
                 TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                 return RedirectToAction("Index");
             }
+        }
+
+        #endregion
+
+        #region Select Company To Customer
+
+        [HttpGet]
+        public async Task<IActionResult> SelectComponyModal(long userId)
+        {
+            var model = new CustomerSelectCompanyViewModel()
+            {
+                CustomerId = userId,
+            };
+
+            ViewBag.CompanyList = await _companyService.GetCompaniesList();
+
+            return PartialView("_SelectComponyModal", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectComponyModal(CustomerSelectCompanyViewModel customerSelectCompany)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { status = "NotValid" });
+            }
+
+            var result = await _companyService.SelectCompanyForCustomer(customerSelectCompany);
+
+            switch (result)
+            {
+                case AddCustomerSelectCompanyResult.Success:
+                    return new JsonResult(new { status = "Success" });
+
+                case AddCustomerSelectCompanyResult.Fail:
+                    return new JsonResult(new { status = "Error" });
+
+                case AddCustomerSelectCompanyResult.SelectedCustomerExist:
+                    return new JsonResult(new { status = "Exist" });
+            }
+
+            return new JsonResult(new { status = "Error" });
         }
 
         #endregion
