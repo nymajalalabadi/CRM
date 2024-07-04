@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRM.Domain.ViewModels.Company;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace CRM.Application.Services.Interface
     {
         #region Methods
 
-
+        Task<CreateCompanyResult> CreateCompany(CreateCompanyViewModel companyViewModel);
 
         #endregion
     }
