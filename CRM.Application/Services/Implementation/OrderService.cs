@@ -131,7 +131,7 @@ namespace CRM.Application.Services.Implementation
                 orderAvatar.Title = editOrder.Title;
                 orderAvatar.Description = editOrder.Description;
                 orderAvatar.OrderType = editOrder.OrderType;
-                orderAvatar.ImageName = orderImage;   
+                orderAvatar.ImageName = orderImage;
 
                 _orderRepository.UpdateOrder(orderAvatar);
 
@@ -185,9 +185,7 @@ namespace CRM.Application.Services.Implementation
                 return AddOrderSelectMarketerResult.Fail;
             }
 
-            var selectedMarketerQueryable = await _orderRepository.GetOrderSelectMarketers();
-
-            if (selectedMarketerQueryable.Any(a => a.OrderId == order.OrderId && !a.IsDelete))
+            if (await _orderRepository.IsExistOrderSelectedMarketer(order.OrderId))
             {
                 return AddOrderSelectMarketerResult.SelectedMarketerExist;
             }

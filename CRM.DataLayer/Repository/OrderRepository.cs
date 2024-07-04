@@ -59,9 +59,9 @@ namespace CRM.DataLayer.Repository
                 .AsQueryable();
         }
 
-        public async Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketers()
+        public async Task<bool> IsExistOrderSelectedMarketer(long orderId)
         {
-            return _context.orderSelectedMarketers.AsQueryable();
+            return await _context.orderSelectedMarketers.AnyAsync(o => o.OrderId.Equals(orderId));
         }
 
         public async Task AddOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer)

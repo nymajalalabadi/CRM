@@ -21,7 +21,7 @@ namespace CRM.Domain.Interfaces
 
         Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectedMarketers();
 
-        Task<IQueryable<OrderSelectedMarketer>> GetOrderSelectMarketers();
+        Task<bool> IsExistOrderSelectedMarketer(long orderId);
 
         Task AddOrderSelectedMarketer(OrderSelectedMarketer orderSelectedMarketer);
 
