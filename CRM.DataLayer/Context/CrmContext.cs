@@ -1,5 +1,6 @@
 ﻿using CRM.Domain.Entities.Account;
 using CRM.Domain.Entities.Companies;
+using CRM.Domain.Entities.Events;
 using CRM.Domain.Entities.Orders;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,6 +31,8 @@ namespace CRM.DataLayer.Context
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Event> Events { get; set; }
 
         #endregion
 

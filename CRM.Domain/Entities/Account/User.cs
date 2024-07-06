@@ -1,4 +1,5 @@
-﻿using CRM.Domain.Entities.Orders;
+﻿using CRM.Domain.Entities.Events;
+using CRM.Domain.Entities.Orders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -61,6 +62,8 @@ namespace CRM.Domain.Entities.Account
 		public Customer Customer { get; set; }
 
         public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
+
+        public ICollection<Event> Events { get; set; }
 
         #endregion
 
