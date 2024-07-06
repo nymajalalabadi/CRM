@@ -16,6 +16,8 @@ namespace CRM.IoC
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICompanyService, CompanyService>();
 
+            services.AddScoped<IProgramSetting, ProgramSetting>();
+
             #endregion
 
             #region repository

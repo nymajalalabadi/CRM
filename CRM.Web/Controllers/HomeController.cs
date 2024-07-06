@@ -1,3 +1,5 @@
+using CRM.Application.Extensions;
+using CRM.Application.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -5,16 +7,22 @@ namespace CRM.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        #region MyRegion
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
+        private readonly IProgramSetting _programSetting;
+
+        public HomeController(IProgramSetting programSetting) 
+        { 
+            _programSetting = programSetting;
         }
 
-        public IActionResult Index()
+        #endregion
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await _programSetting.FillDashboardViewModel(User.GetUserId());
+
+            return View(result);
         }
 
     }
