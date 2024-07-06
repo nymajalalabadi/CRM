@@ -15,8 +15,8 @@ namespace CRM.IoC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICompanyService, CompanyService>();
-
             services.AddScoped<IProgramSetting, ProgramSetting>();
+            services.AddScoped<IEventService, EventService>();
 
             #endregion
 
@@ -25,6 +25,7 @@ namespace CRM.IoC
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             #endregion
         }
