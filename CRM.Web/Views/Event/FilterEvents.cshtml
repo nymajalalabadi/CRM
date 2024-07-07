@@ -82,7 +82,7 @@
                                         <span class="badge light badge-info">@myEvent.EventType.GetEnumDisplayName()</span>
                                     </td>
                                     <td>
-                                        @if (myEvent.EventDate > DateTime.Now)
+                                        @if (myEvent.EventDate <= DateTime.Now)
                                         {
                                             <span class="badge light badge-success">به اتمام رسیده</span>
                                         }
