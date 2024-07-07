@@ -17,17 +17,17 @@
                     <form asp-controller="Event" asp-action="FilterEvents" method="get" id="filter-search">
                         <input type="hidden" id="pageId" asp-for="CurrentPage" />
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>عنوان </label>
                                 <input asp-for="FilterTitle" class="form-control">
                             </div>
                             <div class="form-group col-md-6">
-                                <label>از تاریخ</label>
-                                <input asp-for="StartFromDate" autocomplete="off" class="form-control datePicker-custom">
+                                <label>از تاریخ :</label>
+                                <input asp-for="StartFromDate" autocomplete="off" class="input-style datePicker-custom">
                             </div>
                             <div class="form-group col-md-6">
-                                <label>تا تاریخ</label>
-                                <input asp-for="EndFromDate" autocomplete="off" class="form-control datePicker-custom">
+                                <label>تا تاریخ :</label>
+                                <input asp-for="EndFromDate" autocomplete="off" class="input-style datePicker-custom">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">فیلتر</button>
@@ -84,11 +84,11 @@
                                     <td>
                                         @if (myEvent.EventDate <= DateTime.Now)
                                         {
-                                            <span class="badge light badge-success">به اتمام رسیده</span>
+                                            <span class="badge light badge-warning">به اتمام رسیده</span>
                                         }
                                         else
                                         {
-                                            <span class="badge light badge-warning">منتظر شروع</span>
+                                            <span class="badge light badge-success">منتظر شروع</span>
                                         }
 
                                     </td>

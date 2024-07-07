@@ -40,12 +40,12 @@ namespace CRM.Application.Services.Implementation
 
             if (!string.IsNullOrEmpty(filter.StartFromDate))
             {
-                query = query.Where(e => e.EventDate > filter.StartFromDate.ToMiladiDate());
+                query = query.Where(e => e.EventDate >= filter.StartFromDate.ToMiladiDate());
             }
 
             if (!string.IsNullOrEmpty(filter.EndFromDate))
             {
-                query = query.Where(e => e.EventDate < filter.EndFromDate.ToMiladiDate());
+                query = query.Where(e => e.EventDate <= filter.EndFromDate.ToMiladiDate());
             }
 
             #endregion
