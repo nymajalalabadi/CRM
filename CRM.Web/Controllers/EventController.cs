@@ -105,8 +105,28 @@ namespace CRM.Web.Controllers
             return View(editEvent);
         }
 
+        #endregion
+
+        #region Delete
+
+        public async Task<IActionResult> DeleteEvent(long eventId)
+        {
+            var result = await _eventService.DeleteEvent(eventId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+            }
+
+            return RedirectToAction("FilterEvents");
+        }
 
         #endregion
+
 
         #endregion
     }

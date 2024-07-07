@@ -27,6 +27,59 @@ namespace CRM.Application.Services.Implementation
 
         #region Methods
 
+        public async Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter)
+        {
+            var query = await _eventRepository.GetEvents();
+
+            #region Filter
+
+            if (!string.IsNullOrEmpty(filter.FilterTitle))
+            {
+                query = query.Where(e => e.Title.Contains(filter.FilterTitle));
+            }
+
+            if (!string.IsNullOrEmpty(filter.StartFromDate))
+            {
+                query = query.Where(e => e.EventDate > filter.StartFromDate.ToMiladiDate());
+            }
+
+            if (!string.IsNullOrEmpty(filter.EndFromDate))
+            {
+                query = query.Where(e => e.EventDate < filter.EndFromDate.ToMiladiDate());
+            }
+
+            #endregion
+
+            query = query.OrderByDescending(c => c.CreateDate);
+
+            #region paging
+
+            await filter.SetPaging(query);
+
+            #endregion
+
+            return filter;
+        }
+
+        public async Task<EditEventViewModel> FillEditEventViewModel(long eventId)
+        {
+            var currentEvent = await _eventRepository.GetEventById(eventId);
+
+            if (currentEvent == null)
+            {
+                return null;
+            }
+
+            return new EditEventViewModel()
+            {
+                EventId = currentEvent.EventId,
+                EventType = currentEvent.EventType,
+                Title = currentEvent.Title,
+                Content = currentEvent.Content,
+                EventDate = currentEvent.EventDate.ToShamsiDate(),
+            };
+        }
+
         public async Task<AddEventResult> AddEvent(AddEventViewModel addEvent, long userId)
         {
             if (string.IsNullOrEmpty(addEvent.Title) || string.IsNullOrEmpty(addEvent.Content))
@@ -70,57 +123,21 @@ namespace CRM.Application.Services.Implementation
 
         }
 
-        public async Task<EditEventViewModel> FillEditEventViewModel(long eventId)
+        public async Task<bool> DeleteEvent(long eventId)
         {
-            var currentEvent = await _eventRepository.GetEventById(eventId);
+            var myEvent = await _eventRepository.GetEventById(eventId);
 
-            if (currentEvent == null) 
+            if (myEvent == null)
             {
-                return null;
+                return false;
             }
 
-            return new EditEventViewModel()
-            {
-                EventId = currentEvent.EventId,
-                EventType = currentEvent.EventType,
-                Title = currentEvent.Title,
-                Content = currentEvent.Content,
-                EventDate = currentEvent.EventDate.ToShamsiDate(),
-            };
-        }
+            myEvent.IsDelete = true;
 
-        public async Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter)
-        {
-            var query = await _eventRepository.GetEvents();
+            _eventRepository.UpdateEvent(myEvent);
+            await _eventRepository.SaveChanges();
 
-            #region Filter
-
-            if (!string.IsNullOrEmpty(filter.FilterTitle))
-            {
-                query = query.Where(e => e.Title.Contains(filter.FilterTitle));
-            }
-
-            if (!string.IsNullOrEmpty(filter.StartFromDate))
-            {
-                query = query.Where(e => e.EventDate > filter.StartFromDate.ToMiladiDate());
-            }
-
-            if (!string.IsNullOrEmpty(filter.EndFromDate))
-            {
-                query = query.Where(e => e.EventDate < filter.EndFromDate.ToMiladiDate());
-            }
-
-            #endregion
-
-            query = query.OrderByDescending(c => c.CreateDate);
-
-            #region paging
-
-            await filter.SetPaging(query);
-
-            #endregion
-
-            return filter;
+            return true;
         }
 
         #endregion

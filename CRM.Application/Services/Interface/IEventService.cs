@@ -11,13 +11,15 @@ namespace CRM.Application.Services.Interface
     {
         #region Methods
 
-        Task<AddEventResult> AddEvent(AddEventViewModel addEvent, long userId);
+        Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter);
 
-        Task<EditEventResult> EditEvent(EditEventViewModel editEvent);
+        Task<AddEventResult> AddEvent(AddEventViewModel addEvent, long userId);
 
         Task<EditEventViewModel> FillEditEventViewModel(long eventId);
 
-        Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter);
+        Task<EditEventResult> EditEvent(EditEventViewModel editEvent);
+
+        Task<bool> DeleteEvent(long eventId);
 
         #endregion
     }
