@@ -164,19 +164,3 @@ function SelectCustomerCompanyDone(response) {
     }
 }
 
-var datePickers = $('.datePicker-custom');
-
-if (datePickers.length) {
-    datePickers.each(function (index, value) {
-        var pickerId = $(value).attr("id");
-        kamaDatepicker(pickerId,
-            {
-                forceFarsiDigits: true,
-                markToday: true,
-                markHolidays: true,
-                highlightSelectedDay: true,
-                sync: true,
-                gotoToday: true,
-            });
-    });
-}
