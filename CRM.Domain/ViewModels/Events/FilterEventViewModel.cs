@@ -10,5 +10,10 @@ namespace CRM.Domain.ViewModels.Events
 {
     public class FilterEventViewModel : Paging<Event>
     {
+        public string? FilterTitle { get; set; }
+
+        public string? StartFromDate { get; set; }
+
+        public string? EndFromDate { get; set; }
     }
 }

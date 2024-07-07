@@ -16,7 +16,6 @@ namespace CRM.Domain.ViewModels.Events
         public string Content { get; set; }
 
         public string EventDate { get; set; }
-
     }
 
     public enum AddEventResult

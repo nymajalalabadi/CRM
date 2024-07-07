@@ -18,12 +18,9 @@ namespace CRM.Application.Services.Implementation
 
         private readonly IEventRepository _eventRepository;
 
-        private readonly IUserRepository _userRepository;
-
-        public EventService(IEventRepository eventRepository, IUserRepository userRepository)
+        public EventService(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
-            _userRepository = userRepository;
         }
 
         #endregion
@@ -95,6 +92,25 @@ namespace CRM.Application.Services.Implementation
         public async Task<FilterEventViewModel> FilterEvents(FilterEventViewModel filter)
         {
             var query = await _eventRepository.GetEvents();
+
+            #region Filter
+
+            if (!string.IsNullOrEmpty(filter.FilterTitle))
+            {
+                query = query.Where(e => e.Title.Contains(filter.FilterTitle));
+            }
+
+            if (!string.IsNullOrEmpty(filter.StartFromDate))
+            {
+                query = query.Where(e => e.EventDate > filter.StartFromDate.ToMiladiDate());
+            }
+
+            if (!string.IsNullOrEmpty(filter.EndFromDate))
+            {
+                query = query.Where(e => e.EventDate < filter.EndFromDate.ToMiladiDate());
+            }
+
+            #endregion
 
             query = query.OrderByDescending(c => c.CreateDate);
 

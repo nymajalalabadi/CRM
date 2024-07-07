@@ -1,0 +1,111 @@
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
+@using CRM.Application.StaticTools
+@model CRM.Domain.ViewModels.Events.FilterEventViewModel
+@{
+    ViewData["Title"] = "لیست رویداد ها";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">فیلتر</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-controller="Event" asp-action="FilterEvents" method="get" id="filter-search">
+                        <input type="hidden" id="pageId" asp-for="CurrentPage" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>عنوان </label>
+                                <input asp-for="FilterTitle" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>از تاریخ</label>
+                                <input asp-for="StartFromDate" autocomplete="off" class="form-control datePicker-custom">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>تا تاریخ</label>
+                                <input asp-for="EndFromDate" autocomplete="off" class="form-control datePicker-custom">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">فیلتر</button>
+                        @if (Context.Request.QueryString.HasValue)
+                        {
+                            <a class="btn btn-danger" asp-controller="Event" asp-action="FilterEvents">حذف فیلتر</a>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">لیست رویداد ها</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example3_wrapper" class="table table-responsive-md tc">
+
+
+                <table id="example3" class="table table-responsive-md tc">
+                    <thead>
+                        <tr role="row">
+
+                            <th>عنوان رویداد</th>
+                            <th>تاریخ رویداد</th>
+                            <th>تاریخ ثبت</th>
+                            <th>نوع رویداد</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Entities != null)
+                        {
+                            @foreach (var myEvent in Model.Entities)
+                            {
+                                <tr role="row" class="odd">
+                                    <td>
+                                        @myEvent.Title
+                                    </td>
+                                    <td>
+                                        @myEvent.EventDate.ToShamsiDate()
+                                    </td>
+                                    <td>
+                                        @myEvent.CreateDate.ToShamsiDate()
+                                    </td>
+                                    <td>
+                                        <span class="badge light badge-info">@myEvent.EventType.GetEnumDisplayName()</span>
+                                    </td>
+                                    <td>
+                                        @if (myEvent.EventDate > DateTime.Now)
+                                        {
+                                            <span class="badge light badge-success">به اتمام رسیده</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge light badge-warning">منتظر شروع</span>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a asp-controller="Event" asp-action="EditEvent" asp-route-eventId="@myEvent.EventId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
+                                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-eventId="@myEvent.EventId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <partial name="_PagingPartial" model="@Model.GetPaging()" />
+        </div>
+    </div>
+</div>

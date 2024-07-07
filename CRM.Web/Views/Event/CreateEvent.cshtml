@@ -1,0 +1,51 @@
+﻿@using CRM.Domain.Entities.Events
+@model CRM.Domain.ViewModels.Events.AddEventViewModel
+
+@{
+    ViewData["Title"] = "ساخت یک رویداد";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">ساخت رویداد</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-action="CreateEvent" asp-controller="Event" method="post" id="filter-search">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>عنوان </label>
+                                <input asp-for="Title" class="form-control">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>تاریخ رویداد</label>
+                                <input asp-for="EventDate" class="form-control datePicker-custom" autocomplete="off">
+                                <span asp-validation-for="EventDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>نوع رویداد</label>
+                                <select asp-for="EventType" asp-items="@Html.GetEnumSelectList<EventType>()" class="form-control"></select>
+                                <span asp-validation-for="EventType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>توضیحات</label>
+                                <textarea asp-for="Content" class="form-control"></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">افزودن</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_JqueryValidators" />
+}
