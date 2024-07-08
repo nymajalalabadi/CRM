@@ -95,7 +95,6 @@ namespace CRM.Application.Services.Implementation
                 CreatedById = user.UserId,
                 OwnerId = user.UserId,
                 Description = createLead.Description!,
-                Email = createLead.Email!,
                 LastName = createLead.LastName,
                 Topic = createLead.Topic,
                 Mobile = createLead.Mobile!,
