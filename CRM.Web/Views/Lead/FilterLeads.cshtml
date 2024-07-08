@@ -1,0 +1,198 @@
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
+@using CRM.Domain.Entities.Account
+@using CRM.Domain.ViewModels.Enums
+@using CRM.Domain.ViewModels.Leads
+@model CRM.Domain.ViewModels.Leads.FilterLeadViewModel
+
+@{
+    ViewData["Title"] = "لیست سرنخ ها";
+    var marketerList = ViewData["marketerList"] as List<Marketer>;
+}
+
+@section Scripts
+{
+    <script>
+        function SubmitForm() {
+            var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            },
+                {});
+
+
+            var form_data = new FormData();
+
+            for (var key in sendData) {
+                form_data.append(key, sendData[key]);
+            }
+
+            $.ajax({
+                url: "/Order/SelectMarketerModal",
+                type: "POST",
+                data: form_data,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    SelectOrderMarketerDone(response);
+                },
+                error: function () {
+
+                }
+            });
+        }
+
+        function onclickSelect(e) {
+            $("#MarketerId2").val(e.value);
+        }
+
+        function SelectOrderMarketerDone(response) {
+            if (response.status === "Success") {
+                ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
+                $("#basicModal").modal("hide");
+            }
+            else if (response.status === "Exist") {
+                ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
+                $("#basicModal").modal("hide");
+            } else {
+                ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
+            }
+        }
+
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">فیلتر</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-controller="Lead" asp-action="FilterLeads" method="get" id="filter-search">
+                        <input type="hidden" id="pageId" asp-for="CurrentPage" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>نام </label>
+                                <input asp-for="FilterLeadName" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>عنوان</label>
+                                <input asp-for="FilterLeadTopic" autocomplete="off" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>وضعیت</label>
+                                <select asp-for="FilterLeadState" asp-items="@Html.GetEnumSelectList<FilterLeadState>()" autocomplete="off" class="form-control"></select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">فیلتر</button>
+                        @if (Context.Request.QueryString.HasValue)
+                        {
+                            <a class="btn btn-danger" asp-controller="Lead" asp-action="FilterLeads">حذف فیلتر</a>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">لیست سرنخ ها</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="example3_wrapper" class="table table-responsive-md tc">
+
+
+                <table id="example3" class="table table-responsive-md tc">
+                    <thead>
+                        <tr role="row">
+
+                            <th>عنوان سرنخ</th>
+                            <th>نام</th>
+                            <th>نام بازاریاب</th>
+                            <th>تاریخ ثبت</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Entities != null)
+                        {
+                            @foreach (var lead in Model.Entities)
+                            {
+                                <tr role="row" class="odd">
+                                    <td>
+                                        @lead.Topic
+                                    </td>
+                                    <td>
+                                        @lead.FirstName @lead.LastName
+                                    </td>
+                                    <td>
+                                        @lead.Owner.GetUserShowName()
+                                    </td>
+                                    <td>
+                                        @lead.CreateDate.ToShamsiDate()
+                                    </td>
+                                    <td>
+                                        <span class="badge light badge-info">@lead.LeadStatus.GetEnumDisplayName()</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button type="button" data-toggle="modal" data-target="#setToMarketer-@lead.LeadId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-user text-white"></i></button>
+                                            <a asp-controller="Lead" asp-action="EditLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
+                                            <a asp-controller="Lead" asp-action="DeleteLead" asp-route-leadId="@lead.LeadId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <div class="modal fade" id="setToMarketer-@lead.LeadId">
+                                    <div class="modal-dialog" role="document">
+                                        <form asp-action="SetLeadToMarketer" method="post" id="SelectedMarketerForm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">انتخاب بازاریاب</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="content">
+                                                    <input type="hidden" name="LeadId" value="@lead.LeadId" />
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>انتخاب بازاریاب</label>
+
+                                                            <input type="hidden" name="MarketerId" id="MarketerId2" />
+
+                                                            <select class="form-control" onchange="onclickSelect(this)">
+                                                                @foreach (var marketer in marketerList!)
+                                                                {
+                                                                    <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success light">ثبت</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <partial name="_PagingPartial" model="@Model.GetPaging()" />
+        </div>
+    </div>
+</div>
+

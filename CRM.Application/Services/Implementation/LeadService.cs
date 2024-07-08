@@ -93,13 +93,14 @@ namespace CRM.Application.Services.Implementation
             {
                 Company = createLead.Company,
                 CreatedById = user.UserId,
+                OwnerId = user.UserId,
                 Description = createLead.Description!,
                 Email = createLead.Email!,
                 LastName = createLead.LastName,
-                OwnerId = user.UserId,
                 Topic = createLead.Topic,
                 Mobile = createLead.Mobile!,
                 FirstName = createLead.FirstName,
+                IsWin = createLead.IsWin,
             };
 
             await _leadRepository.AddLead(lead);
@@ -127,7 +128,8 @@ namespace CRM.Application.Services.Implementation
                 Topic = lead.Topic,
                 Mobile = lead.Mobile,
                 FirstName = lead.FirstName,
-                LeadStatus = lead.LeadStatus,
+                IsWin= lead.IsWin,
+                LeadStatus = lead.LeadStatus
             };
 
             return result;
@@ -149,6 +151,7 @@ namespace CRM.Application.Services.Implementation
             lead.Topic = editLead.Topic;
             lead.Mobile = editLead.Mobile!;
             lead.FirstName = editLead.FirstName;
+            lead.IsWin = editLead.IsWin;
             lead.LeadStatus = editLead.LeadStatus;  
 
             _leadRepository.UpdateLead(lead);

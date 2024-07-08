@@ -34,6 +34,8 @@ namespace CRM.Domain.ViewModels.Leads
 
         [Display(Name = "توضیحات")]
         public string? Description { get; set; }
+
+        public bool IsWin { get; set; }
     }
 
     public enum CreateLeadResult
