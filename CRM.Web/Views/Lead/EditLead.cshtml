@@ -1,6 +1,7 @@
-﻿@model CRM.Domain.ViewModels.Leads.CreateLeadViewModel
+﻿@using CRM.Domain.Entities.Leads
+@model CRM.Domain.ViewModels.Leads.EditLeadViewModel
 @{
-    ViewData["Title"] = "ساخت سرنخ";
+    ViewData["Title"] = "ویرایش سرنخ";
 }
 
 <div class="row">
@@ -8,14 +9,15 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">ساخت سرنخ</h4>
+                <h4 class="card-title">ویرایش سرنخ</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form asp-action="CreateLead" asp-controller="Lead" method="post" id="filter-search">
+                    <form asp-action="EditLead" asp-controller="Lead" method="post" id="filter-search">
+                        <input type="hidden" asp-for="LeadId" />
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label asp-for="Topic"></label>
+                                <label>عنوان </label>
                                 <input asp-for="Topic" class="form-control">
                                 <span asp-validation-for="Topic" class="text-danger"></span>
                             </div>
@@ -39,13 +41,23 @@
                                 <input asp-for="Mobile" class="form-control" autocomplete="off">
                                 <span asp-validation-for="Mobile" class="text-danger"></span>
                             </div>
+                            <div class="form-group col-md-6">
+                            <label>نوع رویداد</label>
+                                <select asp-for="LeadStatus" asp-items="@(Html.GetEnumSelectList<LeadStatus>())" class="form-control"></select>
+                                <span asp-validation-for="LeadStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>تمام شده</label>
+                                <input type="checkbox" asp-for="IsWin"class="form-control" />
+                                <span asp-validation-for="IsWin" class="text-danger"></span>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label>توضیحات</label>
                                 <textarea asp-for="Description" class="form-control"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">افزودن</button>
+                        <button type="submit" class="btn btn-primary">ویرایش</button>
                     </form>
                 </div>
             </div>

@@ -120,7 +120,7 @@ namespace CRM.Application.Services.Implementation
 
             var result = new EditLeadViewModel()
             {
-                LeadId = leadId,
+                LeadId = lead.LeadId,
                 Company = lead.Company,
                 Description = lead.Description,
                 Email = lead.Email,
