@@ -1,4 +1,5 @@
 ﻿using CRM.Domain.Entities.Events;
+using CRM.Domain.Entities.Leads;
 using CRM.Domain.Entities.Orders;
 using System;
 using System.Collections.Generic;
@@ -65,8 +66,11 @@ namespace CRM.Domain.Entities.Account
 
         public ICollection<Event> Events { get; set; }
 
-        #endregion
+        public ICollection<Lead> CollectionLeadOwner { get; set; }
 
+        public ICollection<Lead> CollectionLeadCreatedBy { get; set; }
+
+        #endregion
     }
 
 	public enum Gender

@@ -1,6 +1,7 @@
 ﻿using CRM.Domain.Entities.Account;
 using CRM.Domain.Entities.Companies;
 using CRM.Domain.Entities.Events;
+using CRM.Domain.Entities.Leads;
 using CRM.Domain.Entities.Orders;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -34,6 +35,8 @@ namespace CRM.DataLayer.Context
 
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<Lead> Leads { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +64,23 @@ namespace CRM.DataLayer.Context
                 .OnDelete(DeleteBehavior.Restrict);
 
             #endregion
+
+            #region Leads
+
+            modelBuilder.Entity<Lead>()
+                .HasOne(a => a.Owner)
+                .WithMany(a => a.CollectionLeadOwner)
+                .HasForeignKey(a => a.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Lead>()
+                .HasOne(a => a.CreatedBy)
+                .WithMany(a => a.CollectionLeadCreatedBy)
+                .HasForeignKey(a => a.CreatedById)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            #endregion
+
 
             #endregion
         }
