@@ -41,20 +41,20 @@
                                 <input asp-for="Mobile" class="form-control" autocomplete="off">
                                 <span asp-validation-for="Mobile" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                             <label>نوع رویداد</label>
                                 <select asp-for="LeadStatus" asp-items="@(Html.GetEnumSelectList<LeadStatus>())" class="form-control"></select>
                                 <span asp-validation-for="LeadStatus" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>تمام شده</label>
-                                <input type="checkbox" asp-for="IsWin"class="form-control" />
-                                <span asp-validation-for="IsWin" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>توضیحات</label>
                                 <textarea asp-for="Description" class="form-control"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>تمام شده :</label>
+                                <input type="checkbox" asp-for="IsWin" />
+                                <span asp-validation-for="IsWin" class="text-danger"></span>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">ویرایش</button>

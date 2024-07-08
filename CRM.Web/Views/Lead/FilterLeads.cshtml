@@ -84,7 +84,7 @@
                                 <label>عنوان</label>
                                 <input asp-for="FilterLeadTopic" autocomplete="off" class="form-control">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>وضعیت</label>
                                 <select asp-for="FilterLeadState" asp-items="@Html.GetEnumSelectList<FilterLeadState>()" autocomplete="off" class="form-control"></select>
                             </div>
@@ -108,8 +108,6 @@
     <div class="card-body">
         <div class="table-responsive">
             <div id="example3_wrapper" class="table table-responsive-md tc">
-
-
                 <table id="example3" class="table table-responsive-md tc">
                     <thead>
                         <tr role="row">

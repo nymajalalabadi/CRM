@@ -4,6 +4,7 @@ using CRM.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.DataLayer.Migrations
 {
     [DbContext(typeof(CrmContext))]
-    partial class CrmContextModelSnapshot : ModelSnapshot
+    [Migration("20240708084621_UpdateLeadTbl")]
+    partial class UpdateLeadTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Account.Marketer", b =>
@@ -73,7 +76,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Marketers", (string)null);
+                    b.ToTable("Marketers");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Account.User", b =>
@@ -130,7 +133,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Companies.Company", b =>
@@ -182,7 +185,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasKey("CompanyId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Events.Event", b =>
@@ -222,7 +225,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Leads.Lead", b =>
@@ -288,7 +291,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Leads", (string)null);
+                    b.ToTable("Leads");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Orders.Order", b =>
@@ -335,7 +338,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Orders.OrderSelectedMarketer", b =>
@@ -365,7 +368,7 @@ namespace CRM.DataLayer.Migrations
 
                     b.HasIndex("ModifyUserId");
 
-                    b.ToTable("orderSelectedMarketers", (string)null);
+                    b.ToTable("orderSelectedMarketers");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Account.Customer", b =>

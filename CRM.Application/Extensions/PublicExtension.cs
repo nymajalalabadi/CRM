@@ -24,5 +24,4 @@ namespace CRM.Application.Extensions
             return "";
         }
     }
-
 }

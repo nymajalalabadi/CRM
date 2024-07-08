@@ -37,7 +37,7 @@ namespace CRM.Domain.Entities.Leads
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public string Company { get; set; }
 
-        public LeadStatus LeadStatus { get; set; } = LeadStatus.New;
+        public LeadStatus LeadStatus { get; set; }
 
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
@@ -49,16 +49,16 @@ namespace CRM.Domain.Entities.Leads
 
         [Display(Name = "ایمیل")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
 
         [Display(Name = "تلفن")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
-        public string Mobile { get; set; }
+        public string? Mobile { get; set; }
 
 
         [Display(Name = "توضیحات")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         #endregion
 
@@ -74,8 +74,11 @@ namespace CRM.Domain.Entities.Leads
 
     public enum LeadStatus
     {
+        [Display(Name = "بسته شده")]
         Close,
+        [Display(Name = "جدید")]
         New,
+        [Display(Name = "فعال")]
         Active
     }
 }

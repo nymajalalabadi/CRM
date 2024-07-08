@@ -100,7 +100,7 @@ namespace CRM.Application.Services.Implementation
                 Topic = createLead.Topic,
                 Mobile = createLead.Mobile!,
                 FirstName = createLead.FirstName,
-                IsWin = createLead.IsWin,
+                LeadStatus = LeadStatus.New,
             };
 
             await _leadRepository.AddLead(lead);
