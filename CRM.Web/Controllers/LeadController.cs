@@ -2,6 +2,7 @@
 using CRM.Application.Services.Interface;
 using CRM.Domain.ViewModels.Leads;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace CRM.Web.Controllers
 {
@@ -28,8 +29,6 @@ namespace CRM.Web.Controllers
         public async Task<IActionResult> FilterLeads(FilterLeadViewModel filter)
         {
             var model = await _leadService.FilterLeads(filter);
-
-            ViewData["marketerList"] = await _userService.GetMarketerList();
 
             return View(model);
         }
@@ -112,6 +111,49 @@ namespace CRM.Web.Controllers
         }
 
         #endregion
+
+        #region Set Lead to marketer
+
+        [HttpGet]
+        public async Task<IActionResult> SetLeadToMarketer(long LeadId)
+        {
+            ViewBag.Marketers = await _userService.GetMarketerList();
+
+            var model = new LeadSelectMarketerViewModel() 
+            { 
+                LeadId = LeadId 
+            };
+
+            return PartialView("_SetLeadToMarketer",  model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetLeadToMarketer(LeadSelectMarketerViewModel leadSelectMarketer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { status = "NotValid" });
+            }
+
+            var result = await _leadService.SetLeadToMarketer(leadSelectMarketer);
+
+            switch (result)
+            {
+                case AddleadSelectMarketerResult.Success:
+                    return new JsonResult(new { status = "Success" });
+
+                case AddleadSelectMarketerResult.Fail:
+                    return new JsonResult(new { status = "Error" });
+
+                case AddleadSelectMarketerResult.SelectedMarketerExist:
+                    return new JsonResult(new { status = "Exist" });
+            }
+
+            return new JsonResult(new { status = "Error" });
+        }
+
+        #endregion
+
 
 
         #endregion

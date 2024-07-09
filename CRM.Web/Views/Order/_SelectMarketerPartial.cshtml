@@ -17,13 +17,13 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label>انتخاب بازاریاب</label>
-                <select class="form-control" asp-for="MarketerId">
-                    @foreach (var marketer in marketerList!)
-                    {
-                        <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
-                    }
-                </select>
-                <span asp-validation-for="MarketerId" class="text-danger"></span>
+                    <input type="hidden" name="MarketerId" id="MarketerId2" />
+                    <select class="form-control" onchange="onclickSelect(this)">
+                        @foreach (var marketer in marketerList!)
+                        {
+                            <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
+                        }
+                    </select>
             </div>
             <div class="form-group col-md-12">
                 <label asp-for="Description"> </label>

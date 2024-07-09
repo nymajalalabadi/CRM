@@ -21,6 +21,8 @@ namespace CRM.Application.Services.Interface
 
         Task<bool> DeleteLead(long leadId);
 
+        Task<AddleadSelectMarketerResult> SetLeadToMarketer(LeadSelectMarketerViewModel leadSelectMarketer);
+
         #endregion
     }
 }

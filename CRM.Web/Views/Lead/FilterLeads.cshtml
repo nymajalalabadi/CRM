@@ -143,46 +143,12 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <button type="button" data-toggle="modal" data-target="#setToMarketer-@lead.LeadId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-user text-white"></i></button>
+                                            <a onclick="SelectedMarketerForLead('@lead.LeadId')" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-search text-white"></i></a>
                                             <a asp-controller="Lead" asp-action="EditLead" asp-route-leadId="@lead.LeadId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
                                             <a asp-controller="Lead" asp-action="DeleteLead" asp-route-leadId="@lead.LeadId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="setToMarketer-@lead.LeadId">
-                                    <div class="modal-dialog" role="document">
-                                        <form asp-action="SetLeadToMarketer" method="post" id="SelectedMarketerForm">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">انتخاب بازاریاب</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">
-                                                        <span>&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body" id="content">
-                                                    <input type="hidden" name="LeadId" value="@lead.LeadId" />
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-12">
-                                                            <label>انتخاب بازاریاب</label>
-
-                                                            <input type="hidden" name="MarketerId" id="MarketerId2" />
-
-                                                            <select class="form-control" onchange="onclickSelect(this)">
-                                                                @foreach (var marketer in marketerList!)
-                                                                {
-                                                                    <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success light">ثبت</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             }
                         }
                     </tbody>

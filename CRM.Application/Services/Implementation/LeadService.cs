@@ -176,6 +176,29 @@ namespace CRM.Application.Services.Implementation
             return true;
         }
 
+        public async Task<AddleadSelectMarketerResult> SetLeadToMarketer(LeadSelectMarketerViewModel leadSelectMarketer)
+        {
+            var lead = await _leadRepository.GetLeadById(leadSelectMarketer.LeadId);
+            var marketer = await _userRepository.GetMarketerById(leadSelectMarketer.MarketerId);
+
+            if (lead == null || marketer == null)
+            {
+                return AddleadSelectMarketerResult.Fail;
+            }
+
+            if (lead.OwnerId == marketer.UserId)
+            {
+                return AddleadSelectMarketerResult.SelectedMarketerExist;
+            }
+
+            lead.OwnerId = marketer.UserId;
+
+            _leadRepository.UpdateLead(lead);
+            await _leadRepository.SaveChanges();
+
+            return AddleadSelectMarketerResult.Success;
+        }
+
         #endregion
     }
 }

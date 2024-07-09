@@ -164,3 +164,71 @@ function SelectCustomerCompanyDone(response) {
     }
 }
 
+//////////////////
+
+function SelectedMarketerForLead(leadId) {
+    $.ajax({
+        url: "/lead/SetLeadToMarketer",
+        type: "Get",
+        data: {
+            leadId: leadId
+        },
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            $("#content").html(response);
+            $("#basicModal").modal("show");
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function SubmitForm() {
+    var sendData = $('#SelectedLeadToMarketerModal').serializeArray().reduce(function (obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    },
+        {});
+
+
+    var form_data = new FormData();
+
+    for (var key in sendData) {
+        form_data.append(key, sendData[key]);
+    }
+
+    $.ajax({
+        url: "/lead/SetLeadToMarketer",
+        type: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+
+        },
+        success: function (response) {
+            SelectleadMarketerDone(response);
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function SelectleadMarketerDone(response) {
+    if (response.status === "Success") {
+        ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
+        $("#basicModal").modal("hide");
+    }
+    else if (response.status === "Exist") {
+        ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
+        $("#basicModal").modal("hide");
+    } else {
+        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
+    }
+}
+
+//////////////////
