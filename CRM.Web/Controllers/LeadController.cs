@@ -1,6 +1,8 @@
 ﻿using CRM.Application.Extensions;
 using CRM.Application.Services.Interface;
+using CRM.Domain.Entities.Orders;
 using CRM.Domain.ViewModels.Leads;
+using CRM.Domain.ViewModels.Orders;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
@@ -117,14 +119,14 @@ namespace CRM.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> SetLeadToMarketer(long LeadId)
         {
-            ViewBag.Marketers = await _userService.GetMarketerList();
-
-            var model = new LeadSelectMarketerViewModel() 
-            { 
-                LeadId = LeadId 
+            var model = new LeadSelectMarketerViewModel()
+            {
+                LeadId = LeadId
             };
 
-            return PartialView("_SetLeadToMarketer",  model);
+            ViewBag.Marketers = await _userService.GetMarketerList();
+
+            return PartialView("_SetLeadToMarketer", model);
         }
 
         [HttpPost]
@@ -151,6 +153,7 @@ namespace CRM.Web.Controllers
 
             return new JsonResult(new { status = "Error" });
         }
+
 
         #endregion
 

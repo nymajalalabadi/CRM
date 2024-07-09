@@ -7,62 +7,6 @@
 
 @{
     ViewData["Title"] = "لیست سرنخ ها";
-    var marketerList = ViewData["marketerList"] as List<Marketer>;
-}
-
-@section Scripts
-{
-    <script>
-        function SubmitForm() {
-            var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
-                obj[item.name] = item.value;
-                return obj;
-            },
-                {});
-
-
-            var form_data = new FormData();
-
-            for (var key in sendData) {
-                form_data.append(key, sendData[key]);
-            }
-
-            $.ajax({
-                url: "/Order/SelectMarketerModal",
-                type: "POST",
-                data: form_data,
-                processData: false,
-                contentType: false,
-                beforeSend: function () {
-
-                },
-                success: function (response) {
-                    SelectOrderMarketerDone(response);
-                },
-                error: function () {
-
-                }
-            });
-        }
-
-        function onclickSelect(e) {
-            $("#MarketerId2").val(e.value);
-        }
-
-        function SelectOrderMarketerDone(response) {
-            if (response.status === "Success") {
-                ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
-                $("#basicModal").modal("hide");
-            }
-            else if (response.status === "Exist") {
-                ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
-                $("#basicModal").modal("hide");
-            } else {
-                ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
-            }
-        }
-
-    </script>
 }
 
 <div class="row">

@@ -166,6 +166,7 @@ function SelectCustomerCompanyDone(response) {
 
 //////////////////
 
+
 function SelectedMarketerForLead(leadId) {
     $.ajax({
         url: "/lead/SetLeadToMarketer",
@@ -187,7 +188,7 @@ function SelectedMarketerForLead(leadId) {
 }
 
 function SubmitForm() {
-    var sendData = $('#SelectedLeadToMarketerModal').serializeArray().reduce(function (obj, item) {
+    var sendData = $('#SelectedLeadForm').serializeArray().reduce(function (obj, item) {
         obj[item.name] = item.value;
         return obj;
     },
@@ -210,7 +211,7 @@ function SubmitForm() {
 
         },
         success: function (response) {
-            SelectleadMarketerDone(response);
+            SelectMarketerLeadDone(response);
         },
         error: function () {
 
@@ -218,7 +219,7 @@ function SubmitForm() {
     });
 }
 
-function SelectleadMarketerDone(response) {
+function SelectMarketerLeadDone(response) {
     if (response.status === "Success") {
         ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
         $("#basicModal").modal("hide");
@@ -230,5 +231,6 @@ function SelectleadMarketerDone(response) {
         ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
     }
 }
+
 
 //////////////////

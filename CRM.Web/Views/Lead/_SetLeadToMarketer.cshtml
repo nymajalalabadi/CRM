@@ -13,18 +13,17 @@
         <h4>انتخاب بازار یاب</h4>
     </div>
     <div class="col-lg-12">
-        <form method="post" id="SelectedLeadToMarketerModal">
-            <input type="hidden" asp-for="LeadId" />
+        <form method="post" id="SelectedLeadForm">
+            <input type="hidden" asp-for="LeadId" value="@Model.LeadId" />
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label>انتخاب بازاریاب</label>
+                    <label>انتخاب شرکت</label>
                     <select class="form-control" asp-for="MarketerId">
                         @foreach (var marketer in marketerList!)
                         {
                             <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
                         }
                     </select>
-                    <span asp-validation-for="MarketerId" class="text-danger"></span>
                 </div>
             </div>
         </form>
