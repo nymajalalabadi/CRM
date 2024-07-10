@@ -101,6 +101,7 @@ namespace CRM.Application.Services.Implementation
                 Topic = createLead.Topic,
                 Mobile = createLead.Mobile!,
                 FirstName = createLead.FirstName,
+                Email = createLead.Email,
                 LeadStatus = LeadStatus.New,
             };
 
@@ -219,7 +220,7 @@ namespace CRM.Application.Services.Implementation
                 FirstName = lead.FirstName,
                 Password = PasswordHelper.EncodePasswordMd5(lead.Mobile!),
                 LastName = lead.LastName,
-                UserName = lead.FirstName,
+                UserName = lead.Email!.ToLower().Trim(),
                 Email = lead.Email,
                 MobilePhone = lead.Mobile!,
                 IntroduceName = string.Empty,

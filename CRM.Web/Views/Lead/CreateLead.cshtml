@@ -14,10 +14,15 @@
                 <div class="basic-form">
                     <form asp-action="CreateLead" asp-controller="Lead" method="post" id="filter-search">
                         <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label asp-for="Topic"></label>
                                 <input asp-for="Topic" class="form-control">
                                 <span asp-validation-for="Topic" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label asp-for="FirstName"></label>

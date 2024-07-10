@@ -24,6 +24,11 @@ namespace CRM.Domain.ViewModels.Leads
         [Required(ErrorMessage = "این فیلد اجباری است")]
         public string Company { get; set; }
 
+        [Display(Name = "ایمیل")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
+        [Required(ErrorMessage = "این فیلد اجباری است")]
+        public string Email { get; set; }
+
         [Display(Name = "تلفن")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? Mobile { get; set; }
