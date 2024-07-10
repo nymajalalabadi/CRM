@@ -20,6 +20,8 @@ namespace CRM.Domain.ViewModels.Common
 
         public int IsOrderFinishCount { get; set; }
 
+        public int UserOpenLeadCount { get; set; }
+
         public Entities.Account.User SelfUser { get; set; }
     }
 

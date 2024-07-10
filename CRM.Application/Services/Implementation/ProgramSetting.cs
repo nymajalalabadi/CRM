@@ -1,12 +1,6 @@
 ﻿using CRM.Application.Services.Interface;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Common;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRM.Application.Services.Implementation
 {
@@ -17,12 +11,14 @@ namespace CRM.Application.Services.Implementation
         private readonly IUserRepository _userRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly ILeadRepository _leadRepository;
 
-        public ProgramSetting(IUserRepository userRepository, ICompanyRepository companyRepository, IOrderRepository orderRepository)
+        public ProgramSetting(IUserRepository userRepository, ICompanyRepository companyRepository, IOrderRepository orderRepository, ILeadRepository leadRepository)
         {
             _userRepository = userRepository;
             _companyRepository = companyRepository;
             _orderRepository = orderRepository;
+            _leadRepository = leadRepository;
         }
 
         #endregion
@@ -33,17 +29,20 @@ namespace CRM.Application.Services.Implementation
         {
             var allUsers = await _userRepository.GetAllUsers();
             var allCompany = await _companyRepository.GetCompanies();
-            var allorders = await _orderRepository.GetOrders();
+            var allOrders = await _orderRepository.GetOrders();
+            var allLeads = await _leadRepository.GetLeads();
 
             var result = new DashboardViewModel()
             {
-                OrderCount = allorders.Count(o => !o.IsDelete),
-                IsOrderFinishCount = allorders.Count(o => !o.IsDelete && o.IsFinish == true),
+                OrderCount = allOrders.Count(o => !o.IsDelete),
+                IsOrderFinishCount = allOrders.Count(o => !o.IsDelete && o.IsFinish == true),
                 CompanyCount = allCompany.Count(c => !c.IsDelete),
                 MarketerCount = allUsers.Count(m => !m.Marketer.IsDelete && m.Marketer != null),
                 CustomerCount = allUsers.Count(c => !c.Customer.IsDelete && c.Customer != null),
                 TodayCustomerCount = allUsers.Count(c => !c.Customer.IsDelete && c.Customer != null && 
                 c.CreateDate.Day == DateTime.Now.Day ),
+                UserOpenLeadCount = allLeads.Count(l => !l.IsDelete && l.CreatedById == userId && 
+                l.LeadStatus == Domain.Entities.Leads.LeadStatus.Active),
                 SelfUser = allUsers.FirstOrDefault(u => u.UserId == userId)!
             };
 
