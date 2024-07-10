@@ -1,4 +1,6 @@
-﻿using CRM.Application.Services.Interface;
+﻿using CRM.Application.Security;
+using CRM.Application.Services.Interface;
+using CRM.Domain.Entities.Account;
 using CRM.Domain.Entities.Leads;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Enums;
@@ -127,7 +129,6 @@ namespace CRM.Application.Services.Implementation
                 Topic = lead.Topic,
                 Mobile = lead.Mobile,
                 FirstName = lead.FirstName,
-                IsWin= lead.IsWin,
                 LeadStatus = lead.LeadStatus
             };
 
@@ -150,7 +151,6 @@ namespace CRM.Application.Services.Implementation
             lead.Topic = editLead.Topic;
             lead.Mobile = editLead.Mobile!;
             lead.FirstName = editLead.FirstName;
-            lead.IsWin = editLead.IsWin;
             lead.LeadStatus = editLead.LeadStatus;  
 
             _leadRepository.UpdateLead(lead);
@@ -199,6 +199,47 @@ namespace CRM.Application.Services.Implementation
             return AddleadSelectMarketerResult.Success;
         }
 
+        public async Task<bool> CloseAndWinLead(long leadId)
+        {
+            var lead = await _leadRepository.GetLeadById(leadId);
+
+            if (lead == null)
+            {
+                return false;
+            }
+
+            lead.LeadStatus = LeadStatus.Close;
+            lead.IsWin = true;
+
+            _leadRepository.UpdateLead(lead);
+            await _leadRepository.SaveChanges();
+
+            var user = new User()
+            {
+                FirstName = lead.FirstName,
+                Password = PasswordHelper.EncodePasswordMd5(lead.Mobile!),
+                LastName = lead.LastName,
+                UserName = lead.FirstName,
+                Email = lead.Email,
+                MobilePhone = lead.Mobile!,
+                IntroduceName = string.Empty,
+            };
+
+            await _userRepository.AddUser(user);
+            await _userRepository.SaveChangeAsync();
+
+            var customer = new Customer()
+            {
+                CompanyName = lead.Company,
+                Job = lead.Topic,
+                UserId = user.UserId
+            };
+
+            await _userRepository.AddCustomer(customer);
+            await _userRepository.SaveChangeAsync();
+
+            return true;
+        }
 
         #endregion
     }

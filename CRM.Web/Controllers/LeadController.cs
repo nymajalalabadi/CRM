@@ -158,6 +158,26 @@ namespace CRM.Web.Controllers
         #endregion
 
 
+        #region Close and win
+
+        public async Task<IActionResult> CloseAndWinLead(long leadId)
+        {
+            var result = await _leadService.CloseAndWinLead(leadId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+            }
+
+            return RedirectToAction("FilterLeads");
+        }
+
+        #endregion
+
 
         #endregion
     }

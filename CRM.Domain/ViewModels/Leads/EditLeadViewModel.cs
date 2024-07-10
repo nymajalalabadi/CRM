@@ -39,8 +39,6 @@ namespace CRM.Domain.ViewModels.Leads
         public string? Description { get; set; }
 
         public LeadStatus LeadStatus { get; set; }
-
-        public bool IsWin { get; set; }
     }
 
     public enum EditLeadResult
