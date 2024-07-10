@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CRM.Domain.Entities.Orders;
+using CRM.Domain.Entities.Leads;
 
 namespace CRM.Domain.Entities.Account
 {
@@ -35,6 +36,8 @@ namespace CRM.Domain.Entities.Account
         public User User { get; set; }
 
         public ICollection<OrderSelectedMarketer> OrderSelectedMarketers { get; set; }
+
+        public ICollection<Lead> CollectionLeadOwner { get; set; }
 
         #endregion
     }

@@ -66,8 +66,6 @@ namespace CRM.Domain.Entities.Account
 
         public ICollection<Event> Events { get; set; }
 
-        public ICollection<Lead> CollectionLeadOwner { get; set; }
-
         public ICollection<Lead> CollectionLeadCreatedBy { get; set; }
 
         #endregion

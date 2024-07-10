@@ -29,6 +29,7 @@ namespace CRM.DataLayer.Repository
         {
             return _context.Leads.Where(l => !l.IsDelete)
                 .Include(c => c.Owner)
+                .ThenInclude(m => m.User)
                 .AsQueryable();
         }
 

@@ -66,7 +66,7 @@ namespace CRM.Domain.Entities.Leads
 
         public User CreatedBy { get; set; }
 
-        public User Owner { get; set; }
+        public Marketer Owner { get; set; }
 
         #endregion
 

@@ -23,8 +23,6 @@ namespace CRM.Application.Services.Interface
 
         Task<AddleadSelectMarketerResult> SetLeadToMarketer(LeadSelectMarketerViewModel leadSelectMarketer);
 
-        Task<bool> SetLeadToMarketer(long leadId, long marketerId);
-
         #endregion
     }
 }

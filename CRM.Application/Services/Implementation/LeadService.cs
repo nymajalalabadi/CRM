@@ -199,24 +199,6 @@ namespace CRM.Application.Services.Implementation
             return AddleadSelectMarketerResult.Success;
         }
 
-        public async Task<bool> SetLeadToMarketer(long leadId, long marketerId)
-        {
-            var lead = await _leadRepository.GetLeadById(leadId);
-            var marketer = await _userRepository.GetMarketerById(marketerId);
-
-            if (lead == null || marketer == null)
-            {
-                return false;
-            }
-
-            lead.OwnerId = marketerId;
-
-            _leadRepository.UpdateLead(lead);
-            await _leadRepository.SaveChanges();
-
-            return true;
-        }
-
 
         #endregion
     }
