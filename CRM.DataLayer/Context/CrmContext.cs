@@ -1,8 +1,10 @@
 ﻿using CRM.Domain.Entities.Account;
+using CRM.Domain.Entities.Actions;
 using CRM.Domain.Entities.Companies;
 using CRM.Domain.Entities.Events;
 using CRM.Domain.Entities.Leads;
 using CRM.Domain.Entities.Orders;
+using CRM.Domain.Entities.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,10 @@ namespace CRM.DataLayer.Context
         public DbSet<Event> Events { get; set; }
 
         public DbSet<Lead> Leads { get; set; }
+
+        public DbSet<CrmTask> CrmTasks { get; set; }
+
+        public DbSet<MarketingAction> MarketingActions { get; set; }
 
         #endregion
 

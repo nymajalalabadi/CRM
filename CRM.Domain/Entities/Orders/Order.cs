@@ -1,4 +1,5 @@
 ﻿using CRM.Domain.Entities.Account;
+using CRM.Domain.Entities.Tasks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,6 +49,8 @@ namespace CRM.Domain.Entities.Orders
         public Customer Customer { get; set; }
 
         public OrderSelectedMarketer OrderSelectedMarketer { get; set; }
+
+        public ICollection<CrmTask> CrmTasks { get; set; }
 
         #endregion
     }
