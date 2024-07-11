@@ -30,6 +30,8 @@ namespace CRM.Domain.Entities.Tasks
 
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
+        public CrmTaskStatus CrmTaskStatus { get; set; }
+
         public bool IsDelete { get; set; } = false;
 
         #region Relations
@@ -43,7 +45,7 @@ namespace CRM.Domain.Entities.Tasks
         #endregion
     }
 
-    public enum TaskStatus
+    public enum CrmTaskStatus
     {
         [Display(Name = "درحال پیگیری")]
         Active,
@@ -52,5 +54,4 @@ namespace CRM.Domain.Entities.Tasks
         [Display(Name = "درحال انتظار")]
         Waiting
     }
-
 }

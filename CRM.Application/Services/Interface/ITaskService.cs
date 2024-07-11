@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRM.Domain.ViewModels.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,15 @@ namespace CRM.Application.Services.Interface
     {
         #region Methods
 
+        Task<FilterTaskViewModel> FilterTasks(FilterTaskViewModel filter);
 
+        Task<CreateTaskResult> CreateTask(CreateTaskViewModel createTask);
+
+        Task<EditTaskViewModel> GetTaskForEdit(long taskId);
+
+        Task<EditTaskResult> EditTask(EditTaskViewModel editTask);
+
+        Task<bool> DeleteTask(long taskId);
 
         #endregion
     }
