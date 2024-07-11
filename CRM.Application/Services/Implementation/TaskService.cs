@@ -114,6 +114,7 @@ namespace CRM.Application.Services.Implementation
             task.Description = editTask.Description;
             task.Priority = editTask.Priority;  
             task.CrmTaskStatus = editTask.CrmTaskStatus;
+            task.UntilDate = editTask.UntilDate.ToMiladiDate();
 
             _taskRepository.UpdateTask(task);
             await _taskRepository.SaveChanges();
