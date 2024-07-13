@@ -63,6 +63,7 @@ namespace CRM.Web.Controllers
                 case CreateTaskResult.Success:
                     TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
                     return RedirectToAction("FilterTask");
+
                 case CreateTaskResult.Fail:
                     TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
                     break;
@@ -70,7 +71,46 @@ namespace CRM.Web.Controllers
 
             return View(createTask);
         }
+
         #endregion
+
+        #region Edit
+
+        [HttpGet]
+        public async Task<IActionResult> EditTask(long taskId)
+        {
+            var model = await _taskService.GetTaskForEdit(taskId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTask(EditTaskViewModel editTask)
+        {
+            if (!TryValidateModel(editTask))
+            {
+                TempData[WarningMessage] = "اطلاعات وارد شده معتبر نمی باشد";
+                return View(editTask);
+            }
+
+            var result = await _taskService.EditTask(editTask);
+
+            switch (result)
+            {
+                case EditTaskResult.Success:
+                    TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+                    return RedirectToAction("FilterTask");
+
+                case EditTaskResult.Fail:
+                    TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+                    break;
+            }
+
+            return View(editTask);
+        }
+
+        #endregion
+
 
         #endregion
     }
