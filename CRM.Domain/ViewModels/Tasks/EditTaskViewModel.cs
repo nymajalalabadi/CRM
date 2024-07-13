@@ -7,10 +7,6 @@ namespace CRM.Domain.ViewModels.Tasks
     {
         public long TaskId { get; set; }
 
-        public long MarketerId { get; set; }
-
-        public long? OrderId { get; set; }
-
         [Display(Name = "اولویت")]
         public int Priority { get; set; }
 
@@ -20,6 +16,7 @@ namespace CRM.Domain.ViewModels.Tasks
         [Display(Name = "تاریخ انجام تسک")]
         public string UntilDate { get; set; }
 
+        [Display(Name = "وضعیت تکس")]
         public CrmTaskStatus CrmTaskStatus { get; set; }
     }
 

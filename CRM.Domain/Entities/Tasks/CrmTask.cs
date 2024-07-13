@@ -30,6 +30,7 @@ namespace CRM.Domain.Entities.Tasks
 
         public DateTime CreateDate { get; set; } = DateTime.Now;
 
+        [Display(Name = "وضعیت تکس")]
         public CrmTaskStatus CrmTaskStatus { get; set; }
 
         public bool IsDelete { get; set; } = false;

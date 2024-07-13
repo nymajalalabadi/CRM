@@ -1,4 +1,5 @@
 ﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
 @model CRM.Domain.ViewModels.Tasks.FilterTaskViewModel
 
 @{
@@ -53,6 +54,7 @@
                             <th>تاریخ تسک</th>
                             <th>تاریخ ثبت</th>
                             <th>وضعیت</th>
+                            <th>وضعیت تکس</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -88,6 +90,9 @@
                                             <span class="badge light badge-warning"> شخصی</span>
                                         }
 
+                                    </td>
+                                    <td>
+                                        <span class="badge light badge-info"> @task.CrmTaskStatus.GetEnumDisplayName()</span>
                                     </td>
                                     <td>
                                         <div class="d-flex">

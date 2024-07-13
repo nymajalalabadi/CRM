@@ -91,8 +91,6 @@ namespace CRM.Application.Services.Implementation
             var result =  new EditTaskViewModel()
             {
                 TaskId = task.TaskId,
-                MarketerId= task.MarketerId,
-                OrderId= task.OrderId,
                 Description = task.Description,
                 Priority = task.Priority,
                 UntilDate = task.UntilDate.ToShamsiDate(),

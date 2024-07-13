@@ -16,12 +16,12 @@
                     <form method="post" id="filter-search">
                         <input type="hidden" asp-for="OrderId" />
                         <div class="form-row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label>اولویت </label>
                                 <input asp-for="Priority" type="number" class="form-control">
                                 <span asp-validation-for="Priority" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label>تا تاریخ </label>
                                 <input asp-for="UntilDate" class="form-control datePicker-custom" autocomplete="off">
                                 <span asp-validation-for="UntilDate" class="text-danger"></span>
@@ -32,7 +32,6 @@
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary">افزودن</button>
                     </form>
                 </div>
