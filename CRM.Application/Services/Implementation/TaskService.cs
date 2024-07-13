@@ -45,7 +45,7 @@ namespace CRM.Application.Services.Implementation
 
             #endregion
 
-            query = query.OrderByDescending(t => t.CreateDate);
+            query = query.OrderBy(t => t.Priority);
 
             #region paging
 
@@ -71,6 +71,7 @@ namespace CRM.Application.Services.Implementation
                 Priority = createTask.Priority,
                 UntilDate = createTask.UntilDate.ToMiladiDate(),
                 MarketerId = createTask.MarketerId,
+                CrmTaskStatus = CrmTaskStatus.Waiting,
             };
 
             await _taskRepository.AddTask(task);
