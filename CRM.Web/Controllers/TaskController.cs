@@ -1,4 +1,5 @@
 ﻿using CRM.Application.Services.Interface;
+using CRM.Domain.ViewModels.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Web.Controllers
@@ -16,12 +17,18 @@ namespace CRM.Web.Controllers
 
         #endregion
 
-        #region filter
+        #region Actions
 
-        public IActionResult Index()
+        #region Filter
+
+        public async Task<IActionResult> FilterTask(FilterTaskViewModel filter)
         {
-            return View();
+            var model = await _taskService.FilterTasks(filter);
+
+            return View(model);
         }
+
+        #endregion
 
         #endregion
     }
