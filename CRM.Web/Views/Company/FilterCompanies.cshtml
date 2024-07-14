@@ -91,7 +91,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a asp-controller="Company" asp-action="EditCompany" asp-route-companyId="@company.CompanyId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
-                                            <a asp-controller="Company" asp-action="DeleteCompany" asp-route-companyId="@company.CompanyId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
+                                            <a asp-controller="Company" asp-action="DeleteCompany" asp-route-companyId="@company.CompanyId" onclick="ConfirmBtn(event)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash text-white"></i></a>
                                         </div>
                                     </td>
                                 </tr>

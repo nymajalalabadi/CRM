@@ -95,7 +95,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a asp-controller="Event" asp-action="EditEvent" asp-route-eventId="@myEvent.EventId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
-                                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-eventId="@myEvent.EventId" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-eventId="@myEvent.EventId" onclick="ConfirmBtn(event)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>

@@ -233,4 +233,29 @@ function SelectMarketerLeadDone(response) {
 }
 
 
-//////////////////
+/////////////////
+
+
+/////sweet alert
+
+
+function ConfirmBtn(ev) {
+    ev.preventDefault();
+    var urlRedirect = ev.currentTarget.getAttribute('href');
+    Swal.fire({
+        title: 'اعلان',
+        text: "آیا از انجام این عملیات اطمینان دارید؟",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'بله',
+        cancelButtonText: 'خیر'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlRedirect;
+        }
+    });
+}
+
+/////sweet alert
