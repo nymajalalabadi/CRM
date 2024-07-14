@@ -131,6 +131,23 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Detail
+
+        public async Task<IActionResult> TaskDetail(long taskId)
+        {
+            var model = await _taskService.FillTaskDetailViewModel(taskId);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        #endregion
+
+
         #endregion
     }
 }

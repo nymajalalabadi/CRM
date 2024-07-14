@@ -138,6 +138,26 @@ namespace CRM.Application.Services.Implementation
             return true;
         }
 
+        public async Task<TaskDetailViewModel> FillTaskDetailViewModel(long taskId)
+        {
+            var task = await _taskRepository.GetTask(taskId);
+
+            if (task == null)
+            {
+                return null;
+            }
+
+            return new TaskDetailViewModel()
+            {
+                Description = task.Description,
+                CrmTaskStatus = task.CrmTaskStatus,
+                UntilDate = task.UntilDate.ToShamsiDate(),
+                Priority = task.Priority,
+                CreateDate = task.CreateDate.ToShamsiDate(),
+                User = task.Marketer.User,
+            };
+        }
+
         #endregion
     }
 }

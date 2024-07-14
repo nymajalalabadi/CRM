@@ -50,6 +50,13 @@ namespace CRM.DataLayer.Repository
             return await _context.CrmTasks.FirstOrDefaultAsync(t => t.TaskId.Equals(taskId));
         }
 
+        public async Task<CrmTask?> GetTask(long taskId)
+        {
+            return await _context.CrmTasks
+                .Include(t => t.Marketer).ThenInclude(m => m.User)
+                .FirstOrDefaultAsync(t => t.TaskId.Equals(taskId));
+        }
+
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();

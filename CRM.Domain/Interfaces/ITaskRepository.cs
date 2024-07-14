@@ -19,6 +19,8 @@ namespace CRM.Domain.Interfaces
 
         Task<CrmTask?> GetTaskById(long taskId);
 
+        Task<CrmTask?> GetTask(long taskId);
+
         Task SaveChanges();
 
         #endregion

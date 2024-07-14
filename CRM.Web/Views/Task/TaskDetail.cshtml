@@ -1,0 +1,23 @@
+﻿@using CRM.Application.Extensions
+@model CRM.Domain.ViewModels.Tasks.TaskDetailViewModel
+@{
+    ViewData["Title"] = "جزئیات تسک";
+}
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card text-white bg-success">
+            <div class="card-header">
+                <h5 class="card-title text-white">اطلاعات مشتری</h5>
+            </div>
+            <div class="card-body mb-0">
+                <p class="card-text">توضیحات : @Model.Description</p>
+                <p class="card-text">اولویت : @Model.Priority</p>
+                <p class="card-text">اولویت : @Model.CrmTaskStatus</p>
+                <p class="card-text">تاریخ ثبت : @Model.CreateDate</p>
+                <p class="card-text">تاریخ انجام : @Model.UntilDate</p>
+                <p class="card-text">کاربر : @Model.User.GetUserShowName()</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,6 +21,8 @@ namespace CRM.Application.Services.Interface
 
         Task<bool> DeleteTask(long taskId);
 
+        Task<TaskDetailViewModel> FillTaskDetailViewModel(long taskId);
+
         #endregion
     }
 }

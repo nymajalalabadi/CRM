@@ -96,6 +96,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
+                                            <a asp-controller="Task" asp-action="TaskDetail" asp-route-taskId="@task.TaskId" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-eye text-white"></i></a>
                                             <a asp-controller="Task" asp-action="EditTask" asp-route-taskId="@task.TaskId" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-edit text-white"></i></a>
                                             <a asp-controller="Task" asp-action="DeleteTask" asp-route-taskId="@task.TaskId" onclick="ConfirmBtn(event)" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                         </div>
