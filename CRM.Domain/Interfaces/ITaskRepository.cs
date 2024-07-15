@@ -36,7 +36,7 @@ namespace CRM.Domain.Interfaces
 
         Task<MarketingAction?> GetActionById(long actionId);
 
-        Task<IQueryable<MarketingAction>> GetMarketingActions();
+        Task<IQueryable<MarketingAction>> GetMarketingActions(long taskId);
 
         #endregion
 

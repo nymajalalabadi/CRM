@@ -86,9 +86,9 @@ namespace CRM.DataLayer.Repository
                 .FirstOrDefaultAsync(a => a.ActionId.Equals(actionId));
         }
 
-        public async Task<IQueryable<MarketingAction>> GetMarketingActions()
+        public async Task<IQueryable<MarketingAction>> GetMarketingActions(long taskId)
         {
-            return  _context.MarketingActions.Where(a => !a.IsDelete).AsQueryable();
+            return  _context.MarketingActions.Where(a => !a.IsDelete && a.CrmTaskId.Equals(taskId)).AsQueryable();
         }
 
         #endregion

@@ -166,6 +166,21 @@ namespace CRM.Application.Services.Implementation
 
         #region Marketing Action
 
+        public async Task<FilterMarketingActionViewModel> FilterActions(FilterMarketingActionViewModel filter)
+        {
+            var query = await _taskRepository.GetMarketingActions(filter.TaskId);
+
+            query = query.OrderByDescending(a => a.CreateDate);
+
+            #region Paging
+
+            await filter.SetPaging(query);
+
+            #endregion
+
+            return filter;
+        }
+
         public async Task<CreateMarketingActionResult> CreateMarketingAction(CreateMarketingActionViewModel action)
         {
             var task = await _taskRepository.GetTaskById(action.CrmTaskId);
