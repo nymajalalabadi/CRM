@@ -1,4 +1,5 @@
-﻿using CRM.Domain.ViewModels.MarketingActions;
+﻿using CRM.Domain.Entities.Tasks;
+using CRM.Domain.ViewModels.MarketingActions;
 using CRM.Domain.ViewModels.Tasks;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace CRM.Application.Services.Interface
         Task<bool> DeleteTask(long taskId);
 
         Task<TaskDetailViewModel> FillTaskDetailViewModel(long taskId);
+
+        Task<bool> ChangeTaskState(long taskId, CrmTaskStatus crmTaskStatus);
 
         #endregion
 

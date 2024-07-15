@@ -5,6 +5,8 @@ namespace CRM.Domain.ViewModels.Tasks
 {
     public class TaskDetailViewModel
     {
+        public long TaskId { get; set; }
+
         [Display(Name = "اولویت")]
         public int Priority { get; set; }
 

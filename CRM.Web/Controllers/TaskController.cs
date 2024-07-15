@@ -1,5 +1,6 @@
 ﻿using CRM.Application.Extensions;
 using CRM.Application.Services.Interface;
+using CRM.Domain.Entities.Tasks;
 using CRM.Domain.ViewModels.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -143,6 +144,26 @@ namespace CRM.Web.Controllers
             }
 
             return View(model);
+        }
+
+        #endregion
+
+        #region Change Task State
+
+        public async Task<IActionResult> ChangeTaskStateToClose(long taskId)
+        {
+            var result = await _taskService.ChangeTaskState(taskId, CrmTaskStatus.Close);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+            }
+
+            return RedirectToAction("FilterTask");
         }
 
         #endregion

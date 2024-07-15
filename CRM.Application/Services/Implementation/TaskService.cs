@@ -98,8 +98,8 @@ namespace CRM.Application.Services.Implementation
                 TaskId = task.TaskId,
                 Description = task.Description,
                 Priority = task.Priority,
-                UntilDate = task.UntilDate.ToShamsiDate(),
-                CrmTaskStatus = task.CrmTaskStatus
+                CrmTaskStatus = task.CrmTaskStatus,
+                UntilDate = task.UntilDate.ToShamsiDate()
             };
 
             return result;
@@ -153,6 +153,7 @@ namespace CRM.Application.Services.Implementation
 
             return new TaskDetailViewModel()
             {
+                TaskId = task.TaskId,
                 Description = task.Description,
                 CrmTaskStatus = task.CrmTaskStatus,
                 UntilDate = task.UntilDate.ToShamsiDate(),
@@ -160,6 +161,23 @@ namespace CRM.Application.Services.Implementation
                 CreateDate = task.CreateDate.ToShamsiDate(),
                 User = task.Marketer.User,
             };
+        }
+
+        public async Task<bool> ChangeTaskState(long taskId, CrmTaskStatus crmTaskStatus)
+        {
+            var task = await _taskRepository.GetTaskById(taskId);
+
+            if (task == null)
+            {
+                return false;
+            }
+
+            task.CrmTaskStatus = crmTaskStatus;
+
+            _taskRepository.UpdateTask(task);
+            await _taskRepository.SaveChanges();
+
+            return true;
         }
 
         #endregion
