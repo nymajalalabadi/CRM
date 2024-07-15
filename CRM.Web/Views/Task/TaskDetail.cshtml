@@ -1,4 +1,5 @@
-﻿@using CRM.Application.Extensions
+﻿@using CRM.Application.Convertors
+@using CRM.Application.Extensions
 @using CRM.Domain.Entities.Tasks
 @model CRM.Domain.ViewModels.Tasks.TaskDetailViewModel
 
@@ -8,9 +9,9 @@
 
 <div class="row">
     <div class="col-xl-4">
-        <div class="card text-white bg-danger">
+        <div class="card text-white bg-primary">
             <div class="card-header">
-                <h5 class="card-title text-black">اطلاعات مشتری</h5>
+                <h5 class="card-title text-white">اطلاعات تسک</h5>
             </div>
             <div class="card-body mb-0">
                 <p class="card-text">بازاریاب : @Model.User.GetUserShowName()</p>
@@ -18,7 +19,7 @@
                 <p class="card-text">اولویت : @Model.Priority</p>
                 <p class="card-text">تاریخ انجام : @Model.UntilDate</p>
                 <p class="card-text">تاریخ ثبت : @Model.CreateDate</p>
-                <p class="card-text">وضعیت تسک : <span class="badge light badge-primary">@Model.CrmTaskStatus.GetEnumDisplayName() </span></p>
+                <p class="card-text">وضعیت تسک : <span class="badge light badge-danger">@Model.CrmTaskStatus.GetEnumDisplayName() </span></p>
                 @if (Model.CrmTaskStatus != CrmTaskStatus.Close)
                 {
                     <a asp-controller="Task" asp-action="ChangeTaskStateToClose" asp-route-taskId="@Model.TaskId" class="btn btn-success" onclick="ConfirmBtn(event)">بستن تسک</a>
@@ -27,5 +28,55 @@
             </div>
         </div>
     </div>
-</div>
 
+    <div class="col-xl-4">
+        <div class="widget-stat card bg-warning">
+            <div class="card-body p-4">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="la la-user"></i>
+                    </span>
+                    <div class="media-body text-white">
+                        <p class="mb-1">کل عملیات های انجام شده</p>
+                        <h3 class="text-white">@Model.ActionCount</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-header border-0 pb-0">
+                <h4 class="card-title">تایم لاین عملیات های انجام شده</h4>
+            </div>
+            <div class="card-body">
+                <div id="DZ_W_TimeLine1" class="widget-timeline dz-scroll style-1 ps ps--active-y" style="height:370px;">
+                    <ul class="timeline">
+                        @if (Model.MarketingActions.Any() && Model.MarketingActions != null)
+                        {
+                            @foreach (var action in Model.MarketingActions)
+                            {
+                                <li>
+                                    <div class="timeline-badge primary"></div>
+                                    <a class="timeline-panel text-muted" href="#">
+                                        <span>@action.CreateDate.ToShamsiDate()</span>
+                                        @Html.Raw(action.Description)
+                                    </a>
+                                    <a asp-action="EditAction" asp-controller="MarketingAction" asp-route-ActionId="@action.ActionId" class="btn btn-info">ویرایش اکشن</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>
+                                <p>تایم لاین عملیات های انجام شده خالی میباشد</p>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

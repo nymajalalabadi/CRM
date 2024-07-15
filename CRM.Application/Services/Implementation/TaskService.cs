@@ -160,6 +160,8 @@ namespace CRM.Application.Services.Implementation
                 Priority = task.Priority,
                 CreateDate = task.CreateDate.ToShamsiDate(),
                 User = task.Marketer.User,
+                ActionCount = task.MarketingActions.Count(),
+                MarketingActions = task.MarketingActions.Where(a => a.CrmTaskId.Equals(taskId)).ToList(),
             };
         }
 

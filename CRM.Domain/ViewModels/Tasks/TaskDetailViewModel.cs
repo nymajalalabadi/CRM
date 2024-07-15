@@ -1,4 +1,6 @@
-﻿using CRM.Domain.Entities.Tasks;
+﻿using CRM.Domain.Entities.Actions;
+using CRM.Domain.Entities.Tasks;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CRM.Domain.ViewModels.Tasks
@@ -22,5 +24,9 @@ namespace CRM.Domain.ViewModels.Tasks
         public CrmTaskStatus CrmTaskStatus { get; set; }
 
         public Entities.Account.User User { get; set; }
+
+        public int ActionCount { get; set; }
+
+        public ICollection<MarketingAction> MarketingActions { get; set; }
     }
 }

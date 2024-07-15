@@ -57,6 +57,7 @@ namespace CRM.DataLayer.Repository
         {
             return await _context.CrmTasks
                 .Include(t => t.Marketer).ThenInclude(m => m.User)
+                .Include(t => t.MarketingActions)
                 .FirstOrDefaultAsync(t => t.TaskId.Equals(taskId));
         }
 
