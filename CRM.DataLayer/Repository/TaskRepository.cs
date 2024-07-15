@@ -1,4 +1,5 @@
 ﻿using CRM.DataLayer.Context;
+using CRM.Domain.Entities.Actions;
 using CRM.Domain.Entities.Tasks;
 using CRM.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace CRM.DataLayer.Repository
         #endregion
 
         #region Methods
+
+        #region Task
 
         public async Task<IQueryable<CrmTask>> GetTasks()
         {
@@ -61,6 +64,34 @@ namespace CRM.DataLayer.Repository
         {
             await _context.SaveChangesAsync();
         }
+
+        #endregion
+
+        #region Marketing Action
+
+        public async Task AddAction(MarketingAction action)
+        {
+            await _context.MarketingActions.AddAsync(action);
+        }
+
+        public void UpdateAction(MarketingAction action)
+        {
+            _context.MarketingActions.Update(action);
+        }
+
+        public async Task<MarketingAction?> GetActionById(long actionId)
+        {
+            return await _context.MarketingActions
+                .Include(a => a.CrmTask)
+                .FirstOrDefaultAsync(a => a.ActionId.Equals(actionId));
+        }
+
+        public async Task<IQueryable<MarketingAction>> GetMarketingActions()
+        {
+            return  _context.MarketingActions.Where(a => !a.IsDelete).AsQueryable();
+        }
+
+        #endregion
 
         #endregion
     }

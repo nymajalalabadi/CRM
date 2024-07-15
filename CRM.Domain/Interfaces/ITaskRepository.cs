@@ -1,4 +1,5 @@
-﻿using CRM.Domain.Entities.Tasks;
+﻿using CRM.Domain.Entities.Actions;
+using CRM.Domain.Entities.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace CRM.Domain.Interfaces
     {
         #region Methods
 
+        #region Task
+
         Task<IQueryable<CrmTask>> GetTasks();
 
         Task AddTask(CrmTask task);
@@ -22,6 +25,21 @@ namespace CRM.Domain.Interfaces
         Task<CrmTask?> GetTask(long taskId);
 
         Task SaveChanges();
+
+        #endregion
+
+        #region Marketing Action
+
+        Task AddAction(MarketingAction action);
+
+        void UpdateAction(MarketingAction action);
+
+        Task<MarketingAction?> GetActionById(long actionId);
+
+        Task<IQueryable<MarketingAction>> GetMarketingActions();
+
+        #endregion
+
 
         #endregion
     }

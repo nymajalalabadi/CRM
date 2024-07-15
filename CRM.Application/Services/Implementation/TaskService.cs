@@ -1,7 +1,9 @@
 ﻿using CRM.Application.Convertors;
 using CRM.Application.Services.Interface;
+using CRM.Domain.Entities.Actions;
 using CRM.Domain.Entities.Tasks;
 using CRM.Domain.Interfaces;
+using CRM.Domain.ViewModels.MarketingActions;
 using CRM.Domain.ViewModels.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,6 +28,8 @@ namespace CRM.Application.Services.Implementation
         #endregion
 
         #region Methods
+
+        #region Task
 
         public async Task<FilterTaskViewModel> FilterTasks(FilterTaskViewModel filter)
         {
@@ -89,7 +93,7 @@ namespace CRM.Application.Services.Implementation
                 return null;
             }
 
-            var result =  new EditTaskViewModel()
+            var result = new EditTaskViewModel()
             {
                 TaskId = task.TaskId,
                 Description = task.Description,
@@ -111,7 +115,7 @@ namespace CRM.Application.Services.Implementation
             }
 
             task.Description = editTask.Description;
-            task.Priority = editTask.Priority;  
+            task.Priority = editTask.Priority;
             task.CrmTaskStatus = editTask.CrmTaskStatus;
             task.UntilDate = editTask.UntilDate.ToMiladiDate();
 
@@ -157,6 +161,84 @@ namespace CRM.Application.Services.Implementation
                 User = task.Marketer.User,
             };
         }
+
+        #endregion
+
+        #region Marketing Action
+
+        public async Task<CreateMarketingActionResult> CreateMarketingAction(CreateMarketingActionViewModel action)
+        {
+            var task = await _taskRepository.GetTaskById(action.CrmTaskId);
+
+            if (task == null)
+            {
+                return CreateMarketingActionResult.Fail;
+            }
+
+            var newAction = new MarketingAction()
+            {
+                CrmTaskId = action.CrmTaskId,
+                Description = action.Description,
+            };
+
+            await _taskRepository.AddAction(newAction);
+            await _taskRepository.SaveChanges();
+
+            return CreateMarketingActionResult.Success;
+        }
+
+        public async Task<EditMarketingActionViewModel> GetMarketingActionForEdit(long actionId)
+        {
+            var action = await _taskRepository.GetActionById(actionId);
+
+            if (action == null)
+            {
+                return null;
+            }
+
+            return new EditMarketingActionViewModel()
+            {
+                ActionId = action.ActionId,
+                CrmTaskId = action.CrmTaskId,
+                Description = action.Description!
+            };
+        }
+
+        public async Task<EditMarketingActionResult> EditMarketingAction(EditMarketingActionViewModel action)
+        {
+            var currentAction = await _taskRepository.GetActionById(action.ActionId);
+
+            if (currentAction == null)
+            {
+                return EditMarketingActionResult.Fail;
+            }
+
+            currentAction.Description = action.Description;
+
+            _taskRepository.UpdateAction(currentAction);
+            await _taskRepository.SaveChanges();
+
+            return EditMarketingActionResult.Success;
+        }
+
+        public async Task<bool> DeleteAction(long actionId)
+        {
+            var action = await _taskRepository.GetActionById(actionId);
+
+            if (action == null)
+            {
+                return false;
+            }
+
+            action.IsDelete = true;
+
+            _taskRepository.UpdateAction(action);
+            await _taskRepository.SaveChanges();
+
+            return true;
+        }
+
+        #endregion
 
         #endregion
     }
