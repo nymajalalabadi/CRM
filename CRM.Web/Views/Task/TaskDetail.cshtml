@@ -60,11 +60,11 @@
                             {
                                 <li>
                                     <div class="timeline-badge primary"></div>
-                                    <a class="timeline-panel text-muted" href="#">
+                                    <a class="timeline-panel text-muted" asp-action="EditAction" asp-controller="MarketingAction" asp-route-ActionId="@action.ActionId">
                                         <span>@action.CreateDate.ToShamsiDate()</span>
                                         @Html.Raw(action.Description)
                                     </a>
-                                    <a asp-action="EditAction" asp-controller="MarketingAction" asp-route-ActionId="@action.ActionId" class="btn btn-info">ویرایش اکشن</a>
+                                    <a asp-action="DeleteAction" asp-controller="MarketingAction" asp-route-ActionId="@action.ActionId" onclick="ConfirmBtn(event)" class="btn btn-xs btn-danger">حذف</a>
                                 </li>
                             }
                         }
@@ -80,3 +80,5 @@
         </div>
     </div>
 </div>
+
+@* <a asp-action="EditAction" asp-controller="MarketingAction" asp-route-ActionId="@action.ActionId" class="btn btn-xl btn-danger">حذف</a> *@

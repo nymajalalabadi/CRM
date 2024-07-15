@@ -33,8 +33,6 @@ namespace CRM.Application.Services.Interface
 
         #region Marketing Action
 
-        Task<FilterMarketingActionViewModel> FilterActions(FilterMarketingActionViewModel filter);
-
         Task<CreateMarketingActionResult> CreateMarketingAction(CreateMarketingActionViewModel action);
 
         Task<EditMarketingActionViewModel> GetMarketingActionForEdit(long actionId);

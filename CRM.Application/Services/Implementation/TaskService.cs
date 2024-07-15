@@ -160,8 +160,8 @@ namespace CRM.Application.Services.Implementation
                 Priority = task.Priority,
                 CreateDate = task.CreateDate.ToShamsiDate(),
                 User = task.Marketer.User,
-                ActionCount = task.MarketingActions.Count(),
-                MarketingActions = task.MarketingActions.Where(a => a.CrmTaskId.Equals(taskId)).ToList(),
+                ActionCount = task.MarketingActions.Count(a => !a.IsDelete),
+                MarketingActions = task.MarketingActions.Where(a => a.CrmTaskId.Equals(taskId) && !a.IsDelete).ToList(),
             };
         }
 
@@ -186,21 +186,7 @@ namespace CRM.Application.Services.Implementation
 
         #region Marketing Action
 
-        public async Task<FilterMarketingActionViewModel> FilterActions(FilterMarketingActionViewModel filter)
-        {
-            var query = await _taskRepository.GetMarketingActions(filter.TaskId);
-
-            query = query.OrderByDescending(a => a.CreateDate);
-
-            #region Paging
-
-            await filter.SetPaging(query);
-
-            #endregion
-
-            return filter;
-        }
-
+        
         public async Task<CreateMarketingActionResult> CreateMarketingAction(CreateMarketingActionViewModel action)
         {
             var task = await _taskRepository.GetTaskById(action.CrmTaskId);
