@@ -159,6 +159,7 @@ namespace CRM.Application.Services.Implementation
             return new TaskDetailViewModel()
             {
                 TaskId = task.TaskId,
+                orderId = task.OrderId,
                 Description = task.Description,
                 CrmTaskStatus = task.CrmTaskStatus,
                 UntilDate = task.UntilDate.ToShamsiDate(),

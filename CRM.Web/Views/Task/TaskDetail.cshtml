@@ -24,6 +24,10 @@
                 {
                     <a asp-controller="Task" asp-action="ChangeTaskStateToClose" asp-route-taskId="@Model.TaskId" class="btn btn-success" onclick="ConfirmBtn(event)">بستن تسک</a>
                 }
+                @if (Model.orderId != null && Model.CrmTaskStatus == CrmTaskStatus.Active)
+                {
+                    <a asp-controller="Task" asp-action="FinishOrderMarketing" asp-route-taskId="@Model.TaskId" asp-route-orderId="@Model.orderId" onclick="ConfirmBtn(event)" class="btn btn-danger">اتمام بازاریابی</a>
+                }
                 <a asp-controller="MarketingAction" asp-action="CreateAction" asp-route-taskId="@Model.TaskId" class="btn btn-info">افزودن عملیات جدید</a>
             </div>
         </div>

@@ -9,6 +9,8 @@ namespace CRM.Domain.ViewModels.Tasks
     {
         public long TaskId { get; set; }
 
+        public long? orderId { get; set; }
+
         [Display(Name = "اولویت")]
         public int Priority { get; set; }
 

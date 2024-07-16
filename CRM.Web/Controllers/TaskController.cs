@@ -1,4 +1,5 @@
 ﻿using CRM.Application.Extensions;
+using CRM.Application.Services.Implementation;
 using CRM.Application.Services.Interface;
 using CRM.Domain.Entities.Tasks;
 using CRM.Domain.ViewModels.Tasks;
@@ -12,9 +13,12 @@ namespace CRM.Web.Controllers
 
         private readonly ITaskService _taskService;
 
-        public TaskController(ITaskService taskService)
+        private readonly IOrderService _orderService;
+
+        public TaskController(ITaskService taskService, IOrderService orderService)
         {
             _taskService = taskService;
+            _orderService = orderService;
         }
 
         #endregion
@@ -168,6 +172,25 @@ namespace CRM.Web.Controllers
 
         #endregion
 
+        #region Finish Order Marketing
+
+        public async Task<IActionResult> FinishOrderMarketing(long orderId, long taskId)
+        {
+            var result = await _orderService.ChangeOrderToFinish(orderId, taskId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "عملیات با موفقیت انجام شد";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "عملیات با شکست مواجه شد";
+            }
+
+            return RedirectToAction("FilterTask");
+        }
+
+        #endregion
 
         #endregion
     }
