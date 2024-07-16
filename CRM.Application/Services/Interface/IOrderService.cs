@@ -28,6 +28,8 @@ namespace CRM.Application.Services.Interface
 
         Task<bool> DeleteOrderSelectedMarketer(long orderId);
 
+        Task<bool> ChangeOrderToFinish(long orderId, long taskId);
+
         #endregion
     }
 }

@@ -3,6 +3,7 @@ using CRM.Application.Security;
 using CRM.Application.Services.Interface;
 using CRM.Application.StaticTools;
 using CRM.Domain.Entities.Orders;
+using CRM.Domain.Entities.Tasks;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Orders;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,12 @@ namespace CRM.Application.Services.Implementation
 
         private readonly IOrderRepository _orderRepository;
 
-        public OrderService(IOrderRepository orderRepository) 
+        private readonly ITaskService _taskService;
+
+        public OrderService(IOrderRepository orderRepository, ITaskService taskService) 
         { 
             _orderRepository = orderRepository;
+            _taskService = taskService;
         }
 
         #endregion
@@ -259,6 +263,38 @@ namespace CRM.Application.Services.Implementation
             orderSelectedMarketer.IsDelete = true;
 
             _orderRepository.DeleteOrderSelectedMarketer(orderSelectedMarketer);
+            await _orderRepository.SaveChange();
+
+            return true;
+        }
+
+        public async Task<bool> ChangeOrderToFinish(long orderId, long taskId)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+
+            if (order == null)
+            {
+                return false;
+            }
+
+            var task = await _taskService.GetTaskbyId(taskId);
+
+            if (task == null)
+            {
+                return false;
+            }
+
+            var changeStateResult = await _taskService.ChangeTaskState(task.TaskId, CrmTaskStatus.Close);
+
+            if (!changeStateResult)
+            {
+                return false;
+            }
+
+            order.EndDate = DateTime.Now;
+            order.IsFinish = true;
+
+            _orderRepository.UpdateOrder(order);
             await _orderRepository.SaveChange();
 
             return true;

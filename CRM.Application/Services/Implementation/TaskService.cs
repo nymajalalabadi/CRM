@@ -105,6 +105,11 @@ namespace CRM.Application.Services.Implementation
             return result;
         }
 
+        public async Task<CrmTask?> GetTaskbyId(long taskId)
+        {
+            return await _taskRepository.GetTaskById(taskId);
+        }
+
         public async Task<EditTaskResult> EditTask(EditTaskViewModel editTask)
         {
             var task = await _taskRepository.GetTaskById(editTask.TaskId);

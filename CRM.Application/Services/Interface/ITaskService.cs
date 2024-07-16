@@ -21,6 +21,8 @@ namespace CRM.Application.Services.Interface
 
         Task<EditTaskViewModel> GetTaskForEdit(long taskId);
 
+        Task<CrmTask?> GetTaskbyId(long taskId);
+
         Task<EditTaskResult> EditTask(EditTaskViewModel editTask);
 
         Task<bool> DeleteTask(long taskId);

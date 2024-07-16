@@ -70,7 +70,18 @@
                                         @order.Title
                                     </td>
                                     <td>
-                                        @order.PredictDay
+                                        @if (order.PredictDay.HasValue)
+                                        {
+                                            <span class="badge light badge-info">
+                                                <h5>@order.PredictDay</h5>
+                                                </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge light badge-danger">
+                                                <h5>0</h5>
+                                                </span>
+                                        }
                                     </td>
                                     <td>
                                         <p>@order.CreateDate.ToShamsiDate()</p>
