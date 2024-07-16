@@ -69,6 +69,7 @@ namespace CRM.Application.Services.Implementation
                     Description = createOrder.Description,
                     OrderType = createOrder.OrderType,
                     Title = createOrder.Title,
+                    PredictDay = createOrder.PredictDay,
                     ImageName = orderImage
                 };
 
@@ -84,6 +85,7 @@ namespace CRM.Application.Services.Implementation
                 CustomerId = createOrder.CustomerId,
                 Description = createOrder.Description,
                 OrderType = createOrder.OrderType,
+                PredictDay = createOrder.PredictDay,
                 Title = createOrder.Title,
             };
 
@@ -109,6 +111,7 @@ namespace CRM.Application.Services.Implementation
                 CustomerId = order.CustomerId,
                 Description = order.Description,
                 Title = order.Title,
+                PredictDay= order.PredictDay,
                 ImageName= order.ImageName,
                 OrderType= order.OrderType
             };
@@ -131,6 +134,7 @@ namespace CRM.Application.Services.Implementation
                 orderAvatar.Title = editOrder.Title;
                 orderAvatar.Description = editOrder.Description;
                 orderAvatar.OrderType = editOrder.OrderType;
+                orderAvatar.PredictDay = editOrder.PredictDay;
                 orderAvatar.ImageName = orderImage;
 
                 _orderRepository.UpdateOrder(orderAvatar);
@@ -149,6 +153,7 @@ namespace CRM.Application.Services.Implementation
 
             order.Title = editOrder.Title;
             order.Description = editOrder.Description;
+            order.PredictDay = editOrder.PredictDay;
             order.OrderType = editOrder.OrderType;
 
             _orderRepository.UpdateOrder(order);

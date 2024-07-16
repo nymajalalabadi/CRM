@@ -30,6 +30,9 @@ namespace CRM.Domain.ViewModels.Orders
         [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از بلاک {1} باشد")]
         public string? ImageName { get; set; }
 
+        [Display(Name = "تعداد روز پیشنهادی")]
+        public int? PredictDay { get; set; }
+
         [Display(Name = "نوع سفارش")]
         public OrderType OrderType { get; set; }
 
@@ -37,7 +40,7 @@ namespace CRM.Domain.ViewModels.Orders
 
         #endregion
     }
-
+    
     public enum EditOrderResult
     {
         Success,

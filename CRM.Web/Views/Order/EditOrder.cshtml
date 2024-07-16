@@ -50,6 +50,11 @@
                                 <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
+                                <label> تعداد روز پیشنهادی</label>
+                                <input type="number" asp-for="PredictDay" class="form-control">
+                                <span asp-validation-for="PredictDay" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
                                 <label asp-for="OrderType"></label>
                                 <select asp-for="OrderType" class="form-control" asp-items="@Html.GetEnumSelectList<OrderType>()"></select>
                                 <span class="text-danger" asp-validation-for="OrderType"></span>

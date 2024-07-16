@@ -50,6 +50,7 @@
                         <tr role="row">
                             <th>نام مشتری</th>
                             <th>عنوان</th>
+                            <th>تعداد روز</th>
                             <th>تاریخ</th>
                             <th>وضعیت پروژه</th>
                             <th>وضعیت فروش</th>
@@ -67,6 +68,9 @@
                                     </td>
                                     <td>
                                         @order.Title
+                                    </td>
+                                    <td>
+                                        @order.PredictDay
                                     </td>
                                     <td>
                                         <p>@order.CreateDate.ToShamsiDate()</p>
