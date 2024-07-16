@@ -31,6 +31,19 @@ $("#ImageFile").change(function () {
     readURL(this);
 });
 
+function StartLoading(selector = 'body') {
+    $(selector).waitMe({
+        effect: 'bounce',
+        text: 'لطفا صبر کنید ...',
+        bg: 'rgba(255, 255, 255, 0.7)',
+        color: '#000'
+    });
+}
+
+function EndLoading(selector = 'body') {
+    $(selector).waitMe('hide');
+}
+
 ///show modals selected marketer
 
 function OpenSelectMarketerModal(orderId) {
@@ -53,48 +66,46 @@ function OpenSelectMarketerModal(orderId) {
     });
 }
 
-function SubmitForm() {
-    var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
-        obj[item.name] = item.value;
-        return obj;
-    },
-        {});
+//function SubmitFormForMaketer() {
+//    var sendData = $('#SelectedMarketerForm').serializeArray().reduce(function (obj, item) {
+//        obj[item.name] = item.value;
+//        return obj;
+//    },
+//        {});
 
 
-    var form_data = new FormData();
+//    var form_data = new FormData();
 
-    for (var key in sendData) {
-        form_data.append(key, sendData[key]);
-    }
+//    for (var key in sendData) {
+//        form_data.append(key, sendData[key]);
+//    }
 
-    $.ajax({
-        url: "/Order/SelectMarketerModal",
-        type: "POST",
-        data: form_data,
-        processData: false,
-        contentType: false,
-        beforeSend: function () {
+//    $.ajax({
+//        url: "/Order/SelectMarketerModal",
+//        type: "POST",
+//        data: form_data,
+//        processData: false,
+//        contentType: false,
+//        beforeSend: function () {
 
-        },
-        success: function (response) {
-            SelectOrderMarketerDone(response);
-        },
-        error: function () {
+//        },
+//        success: function (response) {
+//            SelectOrderMarketerDone(response);
+//        },
+//        error: function () {
 
-        }
-    });
-}
+//        }
+//    });
+//}
 
-function SelectOrderMarketerDone(response) {
-    if (response.status === "Success") {
-        ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
-        $("#basicModal").modal("hide");
-    }
-    else if (response.status === "Exist") {
-        ShowMessage("اعلان", "قبلا بازاریاب داشته است", "warning");
-        $("#basicModal").modal("hide");
-    } else {
-        ShowMessage("اعلان", "عملیات با شکست مواجه شد", "error");
+
+function SelectOrderMarketerDone(res) {
+    if (res.status === 'Success') {
+        ShowMessage('عملیات با موفقیت انجام شد.', 'پیغام موفقیت', 'success')
+        $('#basicModal').modal('hide');
+    } 
+    else {
+        showMessage('عملیات با شکست مواجه شد', 'پیغام خطا', 'error')
     }
 }
 
@@ -120,37 +131,37 @@ function SelectCompanyModal(userId) {
     });
 }
 
-function SubmitForm() {
-    var sendData = $('#SelectedCompanyForm').serializeArray().reduce(function (obj, item) {
-        obj[item.name] = item.value;
-        return obj;
-    },
-        {});
+//function SubmitFormForCompany() {
+//    var sendData = $('#SelectedCustomerForm').serializeArray().reduce(function (obj, item) {
+//        obj[item.name] = item.value;
+//        return obj;
+//    },
+//        {});
 
 
-    var form_data = new FormData();
+//    var form_data = new FormData();
 
-    for (var key in sendData) {
-        form_data.append(key, sendData[key]);
-    }
+//    for (var key in sendData) {
+//        form_data.append(key, sendData[key]);
+//    }
 
-    $.ajax({
-        url: "/user/SelectComponyModal",
-        type: "POST",
-        data: form_data,
-        processData: false,
-        contentType: false,
-        beforeSend: function () {
+//    $.ajax({
+//        url: "/user/SelectComponyModal",
+//        type: "POST",
+//        data: form_data,
+//        processData: false,
+//        contentType: false,
+//        beforeSend: function () {
 
-        },
-        success: function (response) {
-            SelectCustomerCompanyDone(response);
-        },
-        error: function () {
+//        },
+//        success: function (response) {
+//            SelectCustomerCompanyDone(response);
+//        },
+//        error: function () {
 
-        }
-    });
-}
+//        }
+//    });
+//}
 function SelectCustomerCompanyDone(response) {
     if (response.status === "Success") {
         ShowMessage("اعلان", "عملیات با موفقیت انجام شد", "success");
@@ -187,7 +198,7 @@ function SelectedMarketerForLead(leadId) {
     });
 }
 
-function SubmitForm() {
+function SubmitFormForLead() {
     var sendData = $('#SelectedLeadForm').serializeArray().reduce(function (obj, item) {
         obj[item.name] = item.value;
         return obj;

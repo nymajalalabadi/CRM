@@ -167,7 +167,7 @@ namespace CRM.Application.Services.Implementation
                 return AddCustomerSelectCompanyResult.SelectedCustomerExist;
             }
 
-            customer.CompanyId = customerSelectCompany.CompanyId;
+            customer.CompanyId = company.CompanyId;
 
             _userRepository.UpdateCustomer(customer);
 

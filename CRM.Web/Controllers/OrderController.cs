@@ -138,6 +138,7 @@ namespace CRM.Web.Controllers
 
         #region Select Marketer For Order
 
+        [HttpGet]
         public async Task<IActionResult> SelectMarketerModal(long orderId)
         {
             var model = new OrderSelectMarketerViewModel()
@@ -164,8 +165,10 @@ namespace CRM.Web.Controllers
             {
                 case AddOrderSelectMarketerResult.Success:
                     return new JsonResult(new { status = "Success" });
+
                 case AddOrderSelectMarketerResult.Fail:
                     return new JsonResult(new { status = "Error" });
+
                 case AddOrderSelectMarketerResult.SelectedMarketerExist:
                     return new JsonResult(new { status = "Exist" });
             }
