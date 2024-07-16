@@ -39,6 +39,10 @@ namespace CRM.Domain.Entities.Orders
 
         public bool IsFinish { get; set; } = false;
 
+        public DateTime? EndDate { get; set; }
+
+        public int? PredictDay { get; set; }
+
         [Display(Name = "نوع سفارش")]
         public OrderType OrderType { get; set; }
 

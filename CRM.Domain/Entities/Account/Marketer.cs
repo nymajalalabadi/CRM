@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CRM.Domain.Entities.Orders;
 using CRM.Domain.Entities.Leads;
 using CRM.Domain.Entities.Tasks;
+using CRM.Domain.Entities.Predict;
 
 namespace CRM.Domain.Entities.Account
 {
@@ -41,6 +42,8 @@ namespace CRM.Domain.Entities.Account
         public ICollection<Lead> CollectionLeadOwner { get; set; }
 
         public ICollection<CrmTask> CrmTasks { get; set; }
+
+        public ICollection<PredictMarketer> PredictMarketers { get; set; }
 
         #endregion
     }

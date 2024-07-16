@@ -4,6 +4,7 @@ using CRM.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.DataLayer.Migrations
 {
     [DbContext(typeof(CrmContext))]
-    partial class CrmContextModelSnapshot : ModelSnapshot
+    [Migration("20240716132839_AddPredictToOrder")]
+    partial class AddPredictToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,24 +404,6 @@ namespace CRM.DataLayer.Migrations
                     b.ToTable("orderSelectedMarketers");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Predict.PredictMarketer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("MarketerId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarketerId");
-
-                    b.ToTable("PredictMarketer");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Tasks.CrmTask", b =>
                 {
                     b.Property<long>("TaskId")
@@ -568,17 +553,6 @@ namespace CRM.DataLayer.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("CRM.Domain.Entities.Predict.PredictMarketer", b =>
-                {
-                    b.HasOne("CRM.Domain.Entities.Account.Marketer", "Marketer")
-                        .WithMany("PredictMarketers")
-                        .HasForeignKey("MarketerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Marketer");
-                });
-
             modelBuilder.Entity("CRM.Domain.Entities.Tasks.CrmTask", b =>
                 {
                     b.HasOne("CRM.Domain.Entities.Account.Marketer", "Marketer")
@@ -608,8 +582,6 @@ namespace CRM.DataLayer.Migrations
                     b.Navigation("CrmTasks");
 
                     b.Navigation("OrderSelectedMarketers");
-
-                    b.Navigation("PredictMarketers");
                 });
 
             modelBuilder.Entity("CRM.Domain.Entities.Account.User", b =>
