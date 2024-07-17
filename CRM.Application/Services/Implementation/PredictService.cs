@@ -1,5 +1,6 @@
 ﻿using CRM.Application.Services.Interface;
 using CRM.DataLayer.Repository;
+using CRM.Domain.Entities.Account;
 using CRM.Domain.Entities.Predict;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Predict;
@@ -102,6 +103,25 @@ namespace CRM.Application.Services.Implementation
             }
 
             await _predictRepository.SaveChanges();
+        }
+
+        public async Task<Marketer> GetMarketerPredict()
+        {
+            var marketerPredict = await _predictRepository.GetPredictMarketers().Result.FirstOrDefaultAsync();
+
+            if (marketerPredict == null)
+            {
+                return null;
+            }
+
+            var marketer = await _userRepository.GetMarketerById(marketerPredict.MarketerId);
+
+            if (marketer == null)
+            {
+                return null;
+            }
+
+            return marketer;
         }
 
         #endregion

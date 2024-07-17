@@ -5,6 +5,7 @@
 
 @{
     var marketerList = ViewBag.Marketers as List<Marketer>;
+    var MarketerPredict = ViewBag.MarketerPredict as Marketer;
 }
 
 <div class="row">
@@ -18,6 +19,7 @@
               data-ajax-success="SelectOrderMarketerDone">
             <input type="hidden" asp-for="OrderId" />
             <div class="form-row">
+                
                 <div class="form-group col-md-12">
                     <label>انتخاب بازاریاب</label>
                     <select class="form-control" asp-for="MarketerId">
@@ -26,6 +28,10 @@
                             <option value="@marketer.UserId">@marketer.User.GetUserShowName()</option>
                         }
                     </select>
+                    @if (MarketerPredict != null)
+                    {
+                        <span class="badge light badge-success">@MarketerPredict.User.GetUserShowName()</span>
+                    }
                 </div>
                 <div class="form-group col-md-12">
                     <label asp-for="Description"> </label>

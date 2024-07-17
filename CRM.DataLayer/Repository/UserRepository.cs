@@ -70,7 +70,8 @@ namespace CRM.DataLayer.Repository
 
         public async Task<Marketer?> GetMarketerById(long marketerId)
         {
-            return await _context.Marketers.Where(u => !u.IsDelete).FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
+            return await _context.Marketers.Where(u => !u.IsDelete).Include(m => m.User)
+                .FirstOrDefaultAsync(m => m.UserId.Equals(marketerId));
         }
 
         public async Task AddMarketer(Marketer marketer)
