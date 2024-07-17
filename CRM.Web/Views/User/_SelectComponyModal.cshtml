@@ -11,8 +11,10 @@
     </div>
     <div class="col-lg-12">
         <form asp-action="SelectComponyModal" asp-controller="user" method="post" data-ajax="true" data-ajax-method="Post"
-              data-ajax-begin="con()"
+              data-ajax-begin="StartLoading()"
+              data-ajax-complete="EndLoading()"
               data-ajax-success="SelectCustomerCompanyDone">
+
             <input type="hidden" asp-for="CustomerId" />
             <div class="form-row">
                 <div class="form-group col-md-12">

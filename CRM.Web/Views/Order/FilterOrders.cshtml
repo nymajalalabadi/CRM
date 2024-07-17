@@ -70,7 +70,7 @@
                                         @order.Title
                                     </td>
                                     <td>
-                                        @if (order.PredictDay.HasValue)
+                                        @if (order.PredictDay != null)
                                         {
                                             <span class="badge light badge-info">
                                                 <h5>@order.PredictDay</h5>

@@ -24,7 +24,7 @@ namespace CRM.Domain.ViewModels.Orders
         public string Description { get; set; }
 
         [Display(Name = "تعداد روز پیشنهادی")]
-        public int? PredictDay { get; set; }
+        public int PredictDay { get; set; }
 
         [Display(Name = "نوع سفارش")]
         public OrderType OrderType { get; set; }

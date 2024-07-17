@@ -39,9 +39,12 @@ namespace CRM.Domain.Entities.Orders
 
         public bool IsFinish { get; set; } = false;
 
+        [Display(Name = "تاریخ اتمام پروژه")]
         public DateTime? EndDate { get; set; }
 
-        public int? PredictDay { get; set; }
+        [Display(Name = "تعداد روز پیشنهادی")]
+        [Required(ErrorMessage = "{0} اجباری است")]
+        public int PredictDay { get; set; }
 
         [Display(Name = "نوع سفارش")]
         public OrderType OrderType { get; set; }

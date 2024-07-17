@@ -15,6 +15,7 @@
     <div class="col-lg-12">
         <form asp-action="SetLeadToMarketer" asp-controller="Lead" method="post" data-ajax="true"
               data-ajax-method="Post" data-ajax-begin="StartLoading()"
+              data-ajax-complete="EndLoading()"
               data-ajax-success="SelectMarketerLeadDone">
             <input type="hidden" asp-for="LeadId" value="@Model.LeadId" />
             <div class="form-row">
