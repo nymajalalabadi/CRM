@@ -1,6 +1,7 @@
 ﻿@using CRM.Application.Extensions
 @using CRM.Application.StaticTools
 @model CRM.Domain.ViewModels.Common.DashboardViewModel
+
 @{
     ViewData["Title"] = "داشبورد";
 }
@@ -109,4 +110,50 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-4 col-lg-4 col-sm-8 card">
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
 </div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var customerCount = @((Model.CustomerCount != null) ? Model.CustomerCount : 0);
+        var companyCount = @((Model.CompanyCount != null) ? Model.CompanyCount : 0);
+        var marketerCount = @((Model.MarketerCount != null) ? Model.MarketerCount : 0);
+
+        const data = {
+            labels: [
+                'مشتریان',
+                'بازاریابان',
+                'شرکت ها'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [customerCount, marketerCount, companyCount],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+        };
+
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+
+}
