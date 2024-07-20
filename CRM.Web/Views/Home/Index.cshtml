@@ -110,6 +110,11 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-8 col-lg-8 col-sm-8 card">
+        <div>
+            <canvas id="newChart"></canvas>
+        </div>
+    </div>
     <div class="col-xl-4 col-lg-4 col-sm-8 card">
         <div>
             <canvas id="myChart"></canvas>
@@ -123,6 +128,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+
         var customerCount = @((Model.CustomerCount != null) ? Model.CustomerCount : 0);
         var companyCount = @((Model.CompanyCount != null) ? Model.CompanyCount : 0);
         var marketerCount = @((Model.MarketerCount != null) ? Model.MarketerCount : 0);
@@ -154,6 +160,57 @@
             document.getElementById('myChart'),
             config
         );
+
+        ///////////////
+
+        var myList = [];
+
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/home/GetStringPastsMonth",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: {
+                    count: 5
+                }
+            })
+                .done(function (data) {
+                    $('.roleDD').empty();
+                    for (i = 0; i < data.length; i++) {
+                        myList.push(data[i]);
+                    }
+                })
+                .fail(function () {
+                    console.log("Failed 4");
+                });
+        });
+
+        $(document).ajaxComplete(function () {
+            const my_data = {
+                labels: myList,
+                datasets: [
+                    {
+                        label: 'سفارشات',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [@Model.OrderCountPerMonth[0], @Model.OrderCountPerMonth[1], @Model.OrderCountPerMonth[2], @Model.OrderCountPerMonth[3], @Model.OrderCountPerMonth[4]],
+                    }
+                ]
+            };
+
+            const new_config = {
+                type: 'line',
+                data: my_data,
+                options: {}
+            };
+
+            const newChart = new Chart(
+                document.getElementById('newChart'),
+                new_config
+            );
+        });
+
     </script>
 
 }

@@ -23,6 +23,8 @@ namespace CRM.Domain.ViewModels.Common
         public int UserOpenLeadCount { get; set; }
 
         public Entities.Account.User SelfUser { get; set; }
+
+        public List<int> OrderCountPerMonth { get; set; }
     }
 
 }

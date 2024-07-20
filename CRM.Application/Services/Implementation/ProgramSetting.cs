@@ -43,7 +43,8 @@ namespace CRM.Application.Services.Implementation
                 c.CreateDate.Day == DateTime.Now.Day ),
                 UserOpenLeadCount = allLeads.Count(l => !l.IsDelete && l.CreatedById == userId && 
                 l.LeadStatus == Domain.Entities.Leads.LeadStatus.Active),
-                SelfUser = allUsers.FirstOrDefault(u => u.UserId == userId)!
+                SelfUser = allUsers.FirstOrDefault(u => u.UserId == userId)!,
+                OrderCountPerMonth = allOrders.Where(o => !o.IsDelete).Count(),
             };
 
             return result;
