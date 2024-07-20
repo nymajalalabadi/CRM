@@ -32,6 +32,18 @@ namespace CRM.Application.Convertors
             return thisDate;
         }
 
+        public static List<string> GetContPastMonths(this DateTime time, int count)
+        {
+            var result = new List<string>();
+
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(time.AddMonths(-i).GetShamsiMonthName());
+            }
+
+            return result;
+        }
+
         public static string GetShamsiMonthName(this DateTime date)
         {
             var persianCalendar = new PersianCalendar();
