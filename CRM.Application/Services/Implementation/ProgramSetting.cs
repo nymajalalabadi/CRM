@@ -1,6 +1,7 @@
 ﻿using CRM.Application.Services.Interface;
 using CRM.Domain.Interfaces;
 using CRM.Domain.ViewModels.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRM.Application.Services.Implementation
 {
@@ -32,6 +33,17 @@ namespace CRM.Application.Services.Implementation
             var allOrders = await _orderRepository.GetOrders();
             var allLeads = await _leadRepository.GetLeads();
 
+            var orderPerMonth = new List<int>();
+
+            var orderQueryable = await _orderRepository.GetOrders();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var ordersCount = orderQueryable.Count(a => a.CreateDate.Month == DateTime.Now.AddMonths(-i).Month);
+                orderPerMonth.Add(ordersCount);
+            }
+
+
             var result = new DashboardViewModel()
             {
                 OrderCount = allOrders.Count(o => !o.IsDelete),
@@ -44,7 +56,7 @@ namespace CRM.Application.Services.Implementation
                 UserOpenLeadCount = allLeads.Count(l => !l.IsDelete && l.CreatedById == userId && 
                 l.LeadStatus == Domain.Entities.Leads.LeadStatus.Active),
                 SelfUser = allUsers.FirstOrDefault(u => u.UserId == userId)!,
-                OrderCountPerMonth = allOrders.Where(o => !o.IsDelete).Count(),
+                OrderCountPerMonth = orderPerMonth,
             };
 
             return result;
