@@ -1,4 +1,5 @@
 ﻿using CRM.Application.Extensions;
+using CRM.Application.Convertors;
 using CRM.Application.Services.Implementation;
 using CRM.Application.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,11 @@ namespace CRM.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> GetStringPastsMonth(int count)
+        {
+            return Json(Enumerable.Reverse(DateTime.Now.GetContPastMonths(count)));
         }
 
     }
