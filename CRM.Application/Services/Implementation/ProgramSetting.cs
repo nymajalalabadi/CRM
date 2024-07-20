@@ -56,7 +56,7 @@ namespace CRM.Application.Services.Implementation
                 UserOpenLeadCount = allLeads.Count(l => !l.IsDelete && l.CreatedById == userId && 
                 l.LeadStatus == Domain.Entities.Leads.LeadStatus.Active),
                 SelfUser = allUsers.FirstOrDefault(u => u.UserId == userId)!,
-                OrderCountPerMonth = orderPerMonth,
+                OrderCountPerMonth = Enumerable.Reverse(orderPerMonth).ToList(),
             };
 
             return result;
